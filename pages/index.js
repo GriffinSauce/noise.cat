@@ -1,88 +1,143 @@
-import React from 'react'
-import Head from 'next/head'
-import Nav from '../components/nav'
+import React from 'react';
+import Head from 'next/head';
+import Nav from '../components/Nav';
 
 const Home = () => (
   <div>
     <Head>
-      <title>Home</title>
+      <title>noise.cat</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
     <Nav />
 
-    <div className="hero">
-      <h1 className="title">Welcome to Next.js!</h1>
-      <p className="description">
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
-
-      <div className="row">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Learn more about Next.js in the documentation.</p>
-        </a>
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Next.js Learn &rarr;</h3>
-          <p>Learn about Next.js by following an interactive tutorial!</p>
-        </a>
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
-        </a>
+    <section className="shows">
+      <h1>Shows</h1>
+      <div className="filter">
+        <button>upcoming</button> / <button>past</button> / <button>all</button>
       </div>
-    </div>
+      <ul>
+        <li>
+          <header>
+            <div className="date">22-11</div>
+            <div className="title">
+              Feest Arjan @ De Schuit w/ Snowburner, Ken & Mary en Captain Slow
+            </div>
+          </header>
+          <div className="location">De Schuit, Katwijk</div>
+          <div className="note">Remy weet niet of hij kan.</div>
+          <div className="contact">Arjan Zuijderduin</div>
+          <div className="pay">?</div>
+          <div className="status">Gevraagd</div>
+        </li>
+        <li>
+          <header>
+            <div className="date">30-11</div>
+            <div className="title">
+              Punkrock Academy, w/ I Against I & Camp High Gain
+            </div>
+          </header>
+          <div className="location">Popcentrale, Dordrecht</div>
+          <div className="note">Set: 21.00-21.30 Backline?</div>
+          <div className="contact">Bob, I Against I</div>
+          <div className="pay">€150</div>
+          <div className="status">Bevestigd</div>
+        </li>
+        <li>
+          <header>
+            <div className="date">30-11</div>
+            <div className="title">Verjaardag Ome Took (40)</div>
+          </header>
+          <div className="location">V11, Rotterdam</div>
+          <div className="note">0.00 uur slot</div>
+          <div className="contact">Steven Parmessar</div>
+          <div className="pay">?</div>
+          <div className="status">Bevestigd</div>
+        </li>
+        <li>
+          <header>
+            <div className="date">4-1</div>
+            <div className="title">Verjaardag Joëlle (30) en Carlien</div>
+          </header>
+          <div className="location">Antwerp Music City, Antwerpen</div>
+          <div className="contact">Joëlle Laes</div>
+          <div className="pay">Onderhandeling</div>
+          <div className="status">Bevestigd</div>
+        </li>
+        <li>
+          <header>
+            <div className="date">29 april - 3 mei</div>
+            <div className="title">Japan</div>
+          </header>
+          <div className="location">Japan</div>
+          <div className="note">
+            RNR tours werkt aan deze data Vertrek 26/4?
+          </div>
+          <div className="contact">Waki (Ryouhei Wakita)</div>
+          <div className="pay">?</div>
+          <div className="status">Onder constructie: bijna rond</div>
+        </li>
+      </ul>
+    </section>
 
     <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
+      section {
+        padding: 0 30px;
       }
-      .title {
+
+      h1 {
         margin: 0;
         width: 100%;
         padding-top: 80px;
         line-height: 1.15;
         font-size: 48px;
-      }
-      .title,
-      .description {
         text-align: center;
       }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
+
+      .filter {
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        justify-content: center;
+        align-items: center;
       }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
-        text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
+      .filter button {
+        padding: 10px;
+        border: none;
+        background-color: transparent;
       }
-      .card:hover {
-        border-color: #067df7;
-      }
-      .card h3 {
+
+      ul {
         margin: 0;
-        color: #067df7;
-        font-size: 18px;
+        padding: 0;
+        list-style: none;
       }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
+      li {
+        margin: 20px 0;
+      }
+      li::after {
+        display: block;
+        content: '';
+        margin: 20px 5px;
+        height: 4px;
+        background-color: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      header {
+        display: flex;
+        margin: 0 0 10px 0;
+      }
+      .date {
+        flex-shrink: 0;
+        margin: 0 10px 0 0;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border-radius: 4px;
+      }
+      .title {
+        font-weight: 600;
       }
     `}</style>
   </div>
-)
+);
 
-export default Home
+export default Home;
