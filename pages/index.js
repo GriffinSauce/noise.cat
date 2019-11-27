@@ -40,7 +40,7 @@ const Home = () => (
           <div className="location">Popcentrale, Dordrecht</div>
           <div className="note">Set: 21.00-21.30 Backline?</div>
           <div className="contact">Bob, I Against I</div>
-          <div className="pay">€150</div>
+          <div className="pay">€XYZ</div>
           <div className="status">Bevestigd</div>
         </li>
         <li>

@@ -1,20 +1,18 @@
-import React from 'react'
-import Link from 'next/link'
-
-const links = [
-  { href: 'https://zeit.co/now', label: 'ZEIT' },
-  { href: 'https://github.com/zeit/next.js', label: 'GitHub' },
-].map(link => {
-  link.key = `nav-link-${link.href}-${link.label}`
-  return link
-})
+import React from 'react';
+import Link from 'next/link';
 
 const Nav = () => (
   <nav>
     <ul>
       <li>
         <Link href="/">
-          <a>noise.cat</a>
+          <a>
+            <div className="logo">
+              <img src="/openmoji-smiley_cat.svg" />
+              <img src="/openmoji-loudspeaker.svg" />
+            </div>
+            noise.cat
+          </a>
         </Link>
       </li>
     </ul>
@@ -30,7 +28,7 @@ const Nav = () => (
       }
       ul {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
       }
       nav > ul {
         padding: 4px 16px;
@@ -44,8 +42,15 @@ const Nav = () => (
         text-decoration: none;
         font-size: 13px;
       }
+
+      .logo {
+        display: flex;
+      }
+      .logo img {
+        width: 30px;
+      }
     `}</style>
   </nav>
-)
+);
 
-export default Nav
+export default Nav;
