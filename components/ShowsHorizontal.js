@@ -9,49 +9,60 @@ import {
 const ShowsHorizontal = ({ shows }) => {
   return (
     <>
-      <table>
-        <tr>
-          <td></td>
-          <td></td>
-          <th className="icon">
-            <FiActivity />
-          </th>
-          <th className="icon">
-            <FiMapPin />
-          </th>
-          <th className="icon">
-            <FiAlignLeft />
-          </th>
-          <th className="icon">
-            <FiPhone />
-          </th>
-          <th className="icon">
-            <FiDollarSign />
-          </th>
-        </tr>
-        {shows.map((show, index) => (
+      <div className="container">
+        <table>
           <tr>
-            <td className="date">{show.date}</td>
-            <td className="status">{show.status}</td>
-
-            <td className="title">{show.title}</td>
-            <td className="location">
-              <div>{show.location}</div>
-            </td>
-            <td className="note">
-              <div>{show.note}</div>
-            </td>
-            <td className="contact">
-              <div>{show.contact}</div>
-            </td>
-            <td className="pay">
-              <div>{show.pay}</div>
-            </td>
+            <td></td>
+            <td></td>
+            <th className="icon">
+              <FiActivity />
+            </th>
+            <th className="icon">
+              <FiMapPin />
+            </th>
+            <th className="icon">
+              <FiAlignLeft />
+            </th>
+            <th className="icon">
+              <FiPhone />
+            </th>
+            <th className="icon">
+              <FiDollarSign />
+            </th>
           </tr>
-        ))}
-      </table>
+          {shows.map((show, index) => (
+            <tr>
+              <td className="date">{show.date}</td>
+              <td className="status">{show.status}</td>
+
+              <td className="title">{show.title}</td>
+              <td className="location">
+                <div>{show.location}</div>
+              </td>
+              <td className="note">
+                <div>{show.note}</div>
+              </td>
+              <td className="contact">
+                <div>{show.contact}</div>
+              </td>
+              <td className="pay">
+                <div>{show.pay}</div>
+              </td>
+            </tr>
+          ))}
+        </table>
+      </div>
 
       <style jsx>{`
+        @media (max-width: 900px) {
+          .container {
+            overflow-x: scroll;
+          }
+          table {
+            width: 1000px;
+          }
+        }
+
         table {
           margin: 0 auto;
           max-width: 1000px;
