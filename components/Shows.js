@@ -3,45 +3,52 @@ import { FiMapPin, FiAlignLeft, FiPhone, FiDollarSign } from 'react-icons/fi';
 const Shows = ({ shows }) => {
   return (
     <>
-      <ul>
-        {shows.map((show, index) => (
-          <li>
-            <header>
-              <div className="date">{show.date}</div>
-              <div className="status">{show.status}</div>
-            </header>
-            <div className="body">
-              <div className="title">{show.title}</div>
-              <div className="location">
-                <div className="icon">
-                  <FiMapPin />
+      <div className="container">
+        <ul>
+          {shows.map((show, index) => (
+            <li>
+              <header>
+                <div className="date">{show.date}</div>
+                <div className="status">{show.status}</div>
+              </header>
+              <div className="body">
+                <div className="title">{show.title}</div>
+                <div className="location">
+                  <div className="icon">
+                    <FiMapPin />
+                  </div>
+                  <div>{show.location}</div>
                 </div>
-                <div>{show.location}</div>
-              </div>
-              <div className="note">
-                <div className="icon">
-                  <FiAlignLeft />
+                <div className="note">
+                  <div className="icon">
+                    <FiAlignLeft />
+                  </div>
+                  <div>{show.note}</div>
                 </div>
-                <div>{show.note}</div>
-              </div>
-              <div className="contact">
-                <div className="icon">
-                  <FiPhone />
+                <div className="contact">
+                  <div className="icon">
+                    <FiPhone />
+                  </div>
+                  <div>{show.contact}</div>
                 </div>
-                <div>{show.contact}</div>
-              </div>
-              <div className="pay">
-                <div className="icon">
-                  <FiDollarSign />
+                <div className="pay">
+                  <div className="icon">
+                    <FiDollarSign />
+                  </div>
+                  <div>{show.pay}</div>
                 </div>
-                <div>{show.pay}</div>
               </div>
-            </div>
-            {index !== shows.length - 1 ? <hr /> : null}
-          </li>
-        ))}
-      </ul>
+              {index !== shows.length - 1 ? <hr /> : null}
+            </li>
+          ))}
+        </ul>
+      </div>
       <style jsx>{`
+        .container {
+          margin: 0 auto;
+          max-width: 400px;
+        }
+
         ul {
           margin: 0;
           padding: 0;
