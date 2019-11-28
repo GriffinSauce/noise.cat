@@ -53,6 +53,8 @@ const ShowsHorizontal = ({ shows }) => {
 
       <style jsx>{`
         table {
+          margin: 0 auto;
+          max-width: 1000px;
           border-collapse: separate;
           border-spacing: 0 10px;
         }
