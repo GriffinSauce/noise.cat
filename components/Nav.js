@@ -1,9 +1,11 @@
-import React from 'react';
 import Link from 'next/link';
+import NavUser from './NavUser';
 
 const Nav = () => (
   <nav>
     <ul>
+      <li></li>
+
       <li>
         <Link href="/">
           <a>
@@ -14,6 +16,9 @@ const Nav = () => (
             noise.cat
           </a>
         </Link>
+      </li>
+      <li>
+        <NavUser />
       </li>
     </ul>
 
@@ -26,6 +31,8 @@ const Nav = () => (
         justify-content: center;
       }
       nav > ul {
+        display: flex;
+        justify-content: space-between;
         padding: 4px 16px;
       }
       li {

@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
 import Nav from '../components/Nav';
+import LoginButton from '../components/LoginButton';
 import Shows from '../components/Shows';
 import ShowsHorizontal from '../components/ShowsHorizontal';
 import { FiRotateCcw } from 'react-icons/fi';
@@ -13,27 +14,20 @@ const Home = () => {
     <Layout>
       <Nav />
 
-      <section className="shows">
-        <h1>Shows</h1>
+      <section>
+        <h1>Noisecat!</h1>
 
-        <div className="controls">
-          <button className="view" onClick={() => setHorizontal(!horizontal)}>
-            <FiRotateCcw /> {horizontal ? 'Lijst' : 'Tabel'}
-          </button>
+        <p>Meow.</p>
 
-          <div className="filter">
-            <button className="active">toekomst</button>
-            <button>verleden</button>
-            <button>alles</button>
-          </div>
-        </div>
-
-        {horizontal ? <ShowsHorizontal shows={data} /> : <Shows shows={data} />}
+        <p>
+          <LoginButton />
+        </p>
       </section>
 
       <style jsx>{`
         section {
           padding: 0 30px;
+          text-align: center;
         }
 
         h1 {
@@ -43,45 +37,6 @@ const Home = () => {
           line-height: 1.15;
           font-size: 48px;
           text-align: center;
-        }
-
-        .controls {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 20px 0;
-        }
-        .controls > * + * {
-          margin-left: 20px;
-        }
-
-        .filter {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .filter button {
-          font-size: 14px;
-          padding: 10px 15px;
-          border: none;
-          background-color: #f0f0f0;
-        }
-        .filter button:first-child {
-          border-radius: 4px 0 0 4px;
-        }
-        .filter button:last-child {
-          border-radius: 0 4px 4px 0;
-        }
-        .filter button.active {
-          background-color: #c3e4d7;
-        }
-
-        button.view {
-          font-size: 14px;
-          padding: 10px 15px;
-          border: none;
-          background-color: #f0f0f0;
-          border-radius: 4px;
         }
       `}</style>
     </Layout>
