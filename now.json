@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "target": "serverless",
   "builds": [
     {
       "src": "next.config.js",
