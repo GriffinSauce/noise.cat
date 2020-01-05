@@ -1,7 +1,8 @@
 const { parsed: localEnv } = require('dotenv').config();
 const webpack = require('webpack');
 
-console.log('ENV_VARS', localEnv);
+console.log('localEnv', localEnv);
+console.log('process.env', process.env);
 
 module.exports = {
   webpack(config, options) {
