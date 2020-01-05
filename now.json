@@ -1,12 +1,6 @@
 {
   "version": 2,
   "target": "serverless",
-  "builds": [
-    {
-      "src": "next.config.js",
-      "use": "@now/next"
-    }
-  ],
   "env": {
     "AUTH0_CLIENTID": "@auth0_clientid",
     "AUTH0_SECRET": "@auth0_secret",
