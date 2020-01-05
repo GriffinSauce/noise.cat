@@ -1,8 +1,11 @@
 const { parsed: localEnv } = require('dotenv').config();
 const webpack = require('webpack');
 
-console.log('localEnv', localEnv);
-console.log('process.env', process.env);
+console.info('localEnv.AUTH0_COOKIE_SECRET', localEnv.AUTH0_COOKIE_SECRET);
+console.info(
+  'process.env.AUTH0_COOKIE_SECRET',
+  process.env.AUTH0_COOKIE_SECRET,
+);
 
 module.exports = {
   webpack(config, options) {

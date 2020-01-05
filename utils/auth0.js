@@ -1,5 +1,7 @@
 import { initAuth0 } from '@auth0/nextjs-auth0';
 
+console.info('AUTH0_COOKIE_SECRET', process.env.AUTH0_COOKIE_SECRET);
+
 export default initAuth0({
   domain: process.env.AUTH0_DOMAIN,
   clientId: process.env.AUTH0_CLIENTID,
