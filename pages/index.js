@@ -1,12 +1,7 @@
 import Layout from '../components/Layout';
 import Nav from '../components/Nav';
 import LoginButton from '../components/LoginButton';
-import Shows from '../components/Shows';
-import ShowsHorizontal from '../components/ShowsHorizontal';
-import { FiRotateCcw } from 'react-icons/fi';
 import { useState } from 'react';
-
-import data from '../data.json';
 
 const Home = () => {
   const [horizontal, setHorizontal] = useState(true);
