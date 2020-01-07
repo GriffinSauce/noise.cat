@@ -19,6 +19,11 @@ const Profile = ({ user }) => {
               <a>Coral Springs</a>
             </Link>
           </li>
+          <li>
+            <Link href="/bands/left-alive">
+              <a>Left Alive</a>
+            </Link>
+          </li>
         </ul>
 
         <p>
