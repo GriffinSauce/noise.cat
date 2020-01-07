@@ -14,13 +14,37 @@ const Layout = ({ children }) => {
       </Head>
       <main>{children}</main>
       <style jsx>{`
-        :global(body) {
+        main {
+          padding-bottom: 50px;
+        }
+      `}</style>
+      <style jsx global>{`
+        body {
           margin: 0;
           font-family: 'Open Sans', sans-serif;
           font-size: 13px;
+          color: #000;
         }
-        main {
-          padding-bottom: 50px;
+
+        h1,
+        .h1 {
+          font-size: 1.6rem;
+          font-weight: 700;
+        }
+        h2,
+        .h2 {
+          font-size: 1.4rem;
+          font-weight: 700;
+        }
+        h3,
+        .h3 {
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+        h4,
+        .h4 {
+          font-size: 1rem;
+          font-weight: 700;
         }
       `}</style>
     </>

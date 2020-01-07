@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Avatar from '../components/Avatar';
 import useAuthentication from '../utils/useAuthentication';
 
 const NavUser = () => {
@@ -17,15 +18,9 @@ const NavUser = () => {
   return (
     <>
       <Link href="/profile">
-        <img src={user.picture}></img>
+        <Avatar alt={user.name} src={user.picture} />
       </Link>
-      <style jsx>{`
-        img {
-          height: 30px;
-          width: 30px;
-          border-radius: 50px;
-        }
-      `}</style>
+      <style jsx>{``}</style>
     </>
   );
 };

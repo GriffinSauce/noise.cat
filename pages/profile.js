@@ -3,6 +3,7 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 import Nav from '../components/Nav';
 import Link from 'next/link';
+import { FiArrowRight } from 'react-icons/fi';
 
 const Profile = ({ user }) => {
   return (
@@ -11,21 +12,33 @@ const Profile = ({ user }) => {
 
       <section>
         <h1>{user.name}</h1>
-
-        <h2>Bands</h2>
+      </section>
+      <section>
         <ul>
           <li>
             <Link href="/bands/coral-springs">
-              <a>Coral Springs</a>
+              <a className="h2">
+                Coral Springs <FiArrowRight />
+              </a>
             </Link>
           </li>
           <li>
             <Link href="/bands/left-alive">
-              <a>Left Alive</a>
+              <a className="h2">
+                Left Alive <FiArrowRight />
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/bands/all">
+              <a className="h2">
+                All <FiArrowRight />
+              </a>
             </Link>
           </li>
         </ul>
-
+      </section>
+      <section>
         <p>
           <a href="/api/logout">Logout</a>
         </p>
@@ -33,7 +46,7 @@ const Profile = ({ user }) => {
 
       <style jsx>{`
         section {
-          padding: 0 30px;
+          padding: 0 30px 30px;
           text-align: center;
         }
 
@@ -41,6 +54,17 @@ const Profile = ({ user }) => {
           list-style: none;
           margin: 0;
           padding: 0;
+        }
+
+        li {
+          margin: 15px 0;
+        }
+
+        a {
+          display: inline-flex;
+          align-items: center;
+          text-decoration: none;
+          color: #000;
         }
       `}</style>
     </Layout>

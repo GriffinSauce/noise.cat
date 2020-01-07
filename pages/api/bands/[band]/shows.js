@@ -9,6 +9,10 @@ const getShows = async band => {
   if (band === 'left-alive') {
     return notion.get();
   }
+  if (band === 'all') {
+    const [csShows, laShows] = await Promise.all([sheets.get(), notion.get()]);
+    return csShows.concat(laShows);
+  }
   throw new Error('notFound');
 };
 
