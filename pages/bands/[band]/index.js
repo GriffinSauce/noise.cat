@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import fetcher from '../../../utils/fetcher';
 import Layout from '../../../components/Layout';
 import Nav from '../../../components/Nav';
+import BandHeader from '../../../components/BandHeader';
 import Shows from '../../../components/Shows';
 import ShowsHorizontal from '../../../components/ShowsHorizontal';
 import { FiRotateCcw } from 'react-icons/fi';
@@ -13,15 +14,19 @@ const Band = () => {
 
   // Get shows data
   const {
-    query: { band },
+    query: { band: bandSlug },
   } = useRouter();
-  const { data } = useSWR(band ? `/api/bands/${band}/shows` : null, fetcher);
+  const { data: showsData } = useSWR(
+    bandSlug ? `/api/bands/${bandSlug}/shows` : null,
+    fetcher,
+  );
 
   return (
     <Layout>
       <Nav />
 
       <section className="shows">
+        <BandHeader slug={bandSlug} />
         <h1>Shows</h1>
 
         <div className="controls">
@@ -36,12 +41,12 @@ const Band = () => {
           </div>
         </div>
 
-        {data ? (
+        {showsData ? (
           <>
             {horizontal ? (
-              <ShowsHorizontal shows={data.shows} />
+              <ShowsHorizontal shows={showsData.shows} />
             ) : (
-              <Shows shows={data.shows} />
+              <Shows shows={showsData.shows} />
             )}
           </>
         ) : (
@@ -57,7 +62,7 @@ const Band = () => {
         h1 {
           margin: 0;
           width: 100%;
-          padding-top: 80px;
+          padding-top: 30px;
           line-height: 1.15;
           font-size: 48px;
           text-align: center;
