@@ -1,14 +1,22 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import fetcher from '../../../utils/fetcher';
 import Layout from '../../../components/Layout';
 import Nav from '../../../components/Nav';
 import Shows from '../../../components/Shows';
 import ShowsHorizontal from '../../../components/ShowsHorizontal';
 import { FiRotateCcw } from 'react-icons/fi';
-import { useState } from 'react';
-
-import data from '../../../data.json';
 
 const Band = () => {
-  const [horizontal, setHorizontal] = useState(true);
+  const [horizontal, setHorizontal] = useState(false);
+
+  // Get shows data
+  const {
+    query: { band },
+  } = useRouter();
+  const { data } = useSWR(band ? `/api/bands/${band}/shows` : null, fetcher);
+
   return (
     <Layout>
       <Nav />
@@ -28,7 +36,17 @@ const Band = () => {
           </div>
         </div>
 
-        {horizontal ? <ShowsHorizontal shows={data} /> : <Shows shows={data} />}
+        {data ? (
+          <>
+            {horizontal ? (
+              <ShowsHorizontal shows={data.shows} />
+            ) : (
+              <Shows shows={data.shows} />
+            )}
+          </>
+        ) : (
+          <div className="loading">Loading...</div>
+        )}
       </section>
 
       <style jsx>{`
@@ -82,6 +100,10 @@ const Band = () => {
           border: none;
           background-color: #f0f0f0;
           border-radius: 4px;
+        }
+
+        .loading {
+          text-align: center;
         }
       `}</style>
     </Layout>
