@@ -1,43 +1,23 @@
 import Link from 'next/link';
-import NavUser from './NavUser';
 
 const Nav = () => (
   <nav>
-    <ul>
-      <li></li>
-
-      <li>
-        <Link href="/">
-          <a>
-            <div className="logo">
-              <img src="/openmoji-smiley_cat.svg" />
-              <img src="/openmoji-loudspeaker.svg" />
-            </div>
-            noise.cat
-          </a>
-        </Link>
-      </li>
-      <li>
-        <NavUser />
-      </li>
-    </ul>
+    <Link href="/">
+      <a>
+        <div className="logo">
+          <img src="/openmoji-smiley_cat.svg" />
+          <img src="/openmoji-loudspeaker.svg" />
+          <span>noise.cat</span>
+        </div>
+      </a>
+    </Link>
 
     <style jsx>{`
       nav {
-        text-align: center;
-      }
-      ul {
         display: flex;
+        align-items: center;
         justify-content: center;
-      }
-      nav > ul {
-        display: flex;
-        justify-content: space-between;
-        padding: 4px 16px;
-      }
-      li {
-        display: flex;
-        padding: 6px 8px;
+        padding: 5px;
       }
       a {
         color: #067df7;
@@ -47,9 +27,15 @@ const Nav = () => (
 
       .logo {
         display: flex;
+        align-items: center;
       }
       .logo img {
-        width: 30px;
+        height: 24px;
+      }
+      .logo span {
+        margin-left: 5px;
+        font-size: 1.1rem;
+        color: #575757;
       }
     `}</style>
   </nav>

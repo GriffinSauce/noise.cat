@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Footer from './Footer';
 
 // TODO: Review font usage and trim
 const Layout = ({ children }) => {
@@ -12,28 +13,39 @@ const Layout = ({ children }) => {
           rel="stylesheet"
         />
       </Head>
-      <main>{children}</main>
+      <div className="page">
+        <main>{children}</main>
+        <Footer />
+      </div>
       <style jsx>{`
+        .page {
+          display: flex;
+          flex-direction: column;
+          height: 100vh;
+        }
         main {
+          flex-grow: 1;
           padding-bottom: 50px;
         }
       `}</style>
       <style jsx global>{`
+        html {
+          font-size: 13px; /* for rem */
+          font-family: 'Open Sans', sans-serif;
+          color: #000;
+        }
         body {
           margin: 0;
-          font-family: 'Open Sans', sans-serif;
-          font-size: 13px;
-          color: #000;
         }
 
         h1,
         .h1 {
-          font-size: 1.6rem;
+          font-size: 1.8rem;
           font-weight: 700;
         }
         h2,
         .h2 {
-          font-size: 1.4rem;
+          font-size: 1.6rem;
           font-weight: 700;
         }
         h3,
