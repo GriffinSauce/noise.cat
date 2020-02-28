@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 15px;
+}
+
+/**
+ * Protip: don't add any margins here, margins are part of the layout, not the element
+ **/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  @apply text-gray-800 font-display font-medium;
+}
+
+h1,
+.h1 {
+  @apply text-xl;
+}
+h2,
+.h2 {
+  @apply text-lg;
+}
+h3,
+.h3 {
+  @apply text-base;
+}
+h4,
+.h4 {
+  @apply text-sm;
+}
+h5,
+.h5 {
+  @apply text-sm;
+}
+h6,
+.h6 {
+  @apply text-xs;
+}
