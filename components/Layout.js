@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Footer from './Footer';
+import Nav from './Nav';
 
 // TODO: Review font usage and trim
 const Layout = ({ children, footer = true }) => {
@@ -13,21 +13,10 @@ const Layout = ({ children, footer = true }) => {
           rel="stylesheet"
         />
       </Head>
-      <div className="page">
-        <main>{children}</main>
-        {footer ? <Footer /> : null}
+      <div className="flex flex-col h-screen">
+        <Nav />
+        <main className="flex-grow">{children}</main>
       </div>
-      <style jsx>{`
-        .page {
-          display: flex;
-          flex-direction: column;
-          height: 100vh;
-        }
-        main {
-          flex-grow: 1;
-          padding-bottom: 50px;
-        }
-      `}</style>
     </>
   );
 };
