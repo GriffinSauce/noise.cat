@@ -1,39 +1,17 @@
 import Layout from '../components/Layout';
 import Nav from '../components/Nav';
 import LoginButton from '../components/LoginButton';
-import { useState } from 'react';
 
 const Home = () => {
-  const [horizontal, setHorizontal] = useState(true);
   return (
-    <Layout>
-      <Nav />
+    <Layout footer={false}>
+      <section className="text-center ">
+        <img className="inline-block w-20 mt-20 mb-10" src="/noisecat.svg" />
+        <h1 className="mb-2 text-4xl">Noise.cat</h1>
+        <p className="mb-20 text-gray-400 h2">Your band home</p>
 
-      <section>
-        <h1>Noisecat!</h1>
-
-        <p>Meow.</p>
-
-        <p>
-          <LoginButton />
-        </p>
+        <LoginButton />
       </section>
-
-      <style jsx>{`
-        section {
-          padding: 0 30px;
-          text-align: center;
-        }
-
-        h1 {
-          margin: 0;
-          width: 100%;
-          padding-top: 80px;
-          line-height: 1.15;
-          font-size: 48px;
-          text-align: center;
-        }
-      `}</style>
     </Layout>
   );
 };
