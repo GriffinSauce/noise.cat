@@ -23,7 +23,7 @@ const BandPicker = () => {
   return (
     <div className="relative flex-grow">
       <button
-        className="p-3 text-lg font-semibold leading-none text-green-300 font-display"
+        className="p-3 text-lg font-semibold leading-none text-green-400 font-display"
         onClick={() => setOpen(true)}
       >
         {data.bands.find(band => band.slug === slug).name}
@@ -38,7 +38,7 @@ const BandPicker = () => {
               <Link href={`/bands/${band.slug}`}>
                 <a
                   className={`block p-3 text-lg font-semibold leading-none truncate font-display ${
-                    band.slug === slug ? 'text-green-300' : 'text-gray-900'
+                    band.slug === slug ? 'text-green-400' : 'text-gray-900'
                   }`}
                 >
                   {band.name}

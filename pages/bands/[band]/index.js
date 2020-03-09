@@ -19,7 +19,7 @@ const Band = () => {
   return (
     <Layout>
       <div className="p-4">
-        <div className="flex mb-2 bg-gray-100 rounded">
+        <div className="flex mb-4 bg-gray-100 rounded">
           <Button color="green">Bevestigd</Button>
           <Button group>Maybe</Button>
           <Button group>Alles</Button>
