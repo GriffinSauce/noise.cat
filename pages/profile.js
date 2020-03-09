@@ -4,43 +4,46 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 import Button from '../components/Button';
 import Avatar from '../components/Avatar';
+import Container from '../components/Container';
 import { FiArrowRight } from 'react-icons/fi';
 
 const Profile = ({ user }) => {
   return (
     <Layout>
-      <div className="p-4">
-        <section className="mb-6">
-          <h1>Profile</h1>
-          <div className="flex items-center mt-2">
-            <Avatar alt={user.name} src={user.picture} size="40px" />
-            <p className="ml-2 font-semibold font-display">{user.name}</p>
-          </div>
-        </section>
-        <section className="mb-6">
-          <h2 className="h1">Bands</h2>
-          <ul className="mb-6">
-            <li>
-              <Link href="/bands/coral-springs">
-                <a className="block py-2 h3">Coral Springs</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/bands/left-alive">
-                <a className="block py-2 h3">Left Alive</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/bands/all">
-                <a className="block py-2 h3">All</a>
-              </Link>
-            </li>
-          </ul>
-        </section>
-        <a href="/api/logout">
-          <Button>Log out</Button>
-        </a>
-      </div>
+      <Container>
+        <div className="p-4">
+          <section className="mb-6">
+            <h1>Profile</h1>
+            <div className="flex items-center mt-2">
+              <Avatar alt={user.name} src={user.picture} size="40px" />
+              <p className="ml-2 font-semibold font-display">{user.name}</p>
+            </div>
+          </section>
+          <section className="mb-6">
+            <h2 className="h1">Bands</h2>
+            <ul className="mb-6">
+              <li>
+                <Link href="/bands/coral-springs">
+                  <a className="block py-2 h3">Coral Springs</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/bands/left-alive">
+                  <a className="block py-2 h3">Left Alive</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/bands/all">
+                  <a className="block py-2 h3">All</a>
+                </Link>
+              </li>
+            </ul>
+          </section>
+          <a href="/api/logout">
+            <Button>Log out</Button>
+          </a>
+        </div>
+      </Container>
     </Layout>
   );
 };

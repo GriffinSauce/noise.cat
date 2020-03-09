@@ -6,6 +6,7 @@ import Layout from '../../../components/Layout';
 import Button from '../../../components/Button';
 import Shows from '../../../components/Shows';
 import { FiRotateCcw } from 'react-icons/fi';
+import Container from '../../../components/Container';
 
 const Band = () => {
   const {
@@ -18,19 +19,21 @@ const Band = () => {
 
   return (
     <Layout>
-      <div className="p-4">
-        <div className="flex mb-4 bg-gray-100 rounded">
-          <Button color="green">Bevestigd</Button>
-          <Button group>Maybe</Button>
-          <Button group>Alles</Button>
-        </div>
+      <Container>
+        <div className="p-4">
+          <div className="flex mb-4 bg-gray-100 rounded">
+            <Button color="green">Bevestigd</Button>
+            <Button group>Maybe</Button>
+            <Button group>Alles</Button>
+          </div>
 
-        {showsData ? (
-          <Shows shows={showsData.shows} />
-        ) : (
-          <div className="mt-10 text-center">Loading...</div>
-        )}
-      </div>
+          {showsData ? (
+            <Shows shows={showsData.shows} />
+          ) : (
+            <div className="mt-10 text-center">Loading...</div>
+          )}
+        </div>
+      </Container>
     </Layout>
   );
 };
