@@ -1,72 +1,49 @@
 import auth0 from '../utils/auth0';
 import axios from 'axios';
-import Layout from '../components/Layout';
-import Nav from '../components/Nav';
 import Link from 'next/link';
+import Layout from '../components/Layout';
+import Button from '../components/Button';
+import Avatar from '../components/Avatar';
+import Container from '../components/Container';
 import { FiArrowRight } from 'react-icons/fi';
 
 const Profile = ({ user }) => {
   return (
     <Layout>
-      <Nav />
-
-      <section>
-        <h1>{user.name}</h1>
-      </section>
-      <section>
-        <ul>
-          <li>
-            <Link href="/bands/coral-springs">
-              <a className="h2">
-                Coral Springs <FiArrowRight />
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/bands/left-alive">
-              <a className="h2">
-                Left Alive <FiArrowRight />
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/bands/all">
-              <a className="h2">
-                All <FiArrowRight />
-              </a>
-            </Link>
-          </li>
-        </ul>
-      </section>
-      <section>
-        <p>
-          <a href="/api/logout">Logout</a>
-        </p>
-      </section>
-
-      <style jsx>{`
-        section {
-          padding: 0 30px 30px;
-          text-align: center;
-        }
-
-        ul {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-
-        li {
-          margin: 15px 0;
-        }
-
-        a {
-          display: inline-flex;
-          align-items: center;
-          text-decoration: none;
-          color: #000;
-        }
-      `}</style>
+      <Container>
+        <div className="p-4">
+          <section className="mb-6">
+            <h1>Profile</h1>
+            <div className="flex items-center mt-2">
+              <Avatar alt={user.name} src={user.picture} size="40px" />
+              <p className="ml-2 font-semibold font-display">{user.name}</p>
+            </div>
+          </section>
+          <section className="mb-6">
+            <h2 className="h1">Bands</h2>
+            <ul className="mb-6">
+              <li>
+                <Link href="/bands/coral-springs">
+                  <a className="block py-2 h3">Coral Springs</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/bands/left-alive">
+                  <a className="block py-2 h3">Left Alive</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/bands/all">
+                  <a className="block py-2 h3">All</a>
+                </Link>
+              </li>
+            </ul>
+          </section>
+          <a href="/api/logout">
+            <Button>Log out</Button>
+          </a>
+        </div>
+      </Container>
     </Layout>
   );
 };

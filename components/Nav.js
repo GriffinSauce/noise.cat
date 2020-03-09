@@ -1,44 +1,27 @@
 import Link from 'next/link';
+import BandPicker from './BandPicker';
+import { FiUser } from 'react-icons/fi';
+import Container from './Container';
 
 const Nav = () => (
-  <nav>
-    <Link href="/">
-      <a>
-        <div className="logo">
-          <img src="/openmoji-smiley_cat.svg" />
-          <img src="/openmoji-loudspeaker.svg" />
-          <span>noise.cat</span>
-        </div>
-      </a>
-    </Link>
-
-    <style jsx>{`
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px;
-      }
-      a {
-        color: #067df7;
-        text-decoration: none;
-        font-size: 13px;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-      }
-      .logo img {
-        height: 24px;
-      }
-      .logo span {
-        margin-left: 5px;
-        font-size: 1.1rem;
-        color: #575757;
-      }
-    `}</style>
-  </nav>
+  <div className="border-b border-gray-200">
+    <Container>
+      <nav className="flex items-center justify-between">
+        <Link href="/">
+          <a className="flex items-center p-3 text-2xl font-bold leading-none font-display">
+            <img className="h-6 mr-3" src="/noisecat.svg" alt="logo" />
+            <span>Noise.cat</span>
+          </a>
+        </Link>
+        <BandPicker />
+        <Link href="/profile">
+          <a className="p-3 text-2xl">
+            <FiUser />
+          </a>
+        </Link>
+      </nav>
+    </Container>
+  </div>
 );
 
 export default Nav;
