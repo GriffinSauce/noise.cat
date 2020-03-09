@@ -1,41 +1,20 @@
 import Link from 'next/link';
 
 const Nav = () => (
-  <nav>
+  <nav className="flex items-center border-b border-gray-200">
     <Link href="/">
-      <a>
-        <div className="logo">
-          <img src="/openmoji-smiley_cat.svg" />
-          <img src="/openmoji-loudspeaker.svg" />
-          <span>noise.cat</span>
-        </div>
+      <a className="flex items-center text-2xl font-bold font-display">
+        <img className="mx-3" src="/noisecat.svg" alt="logo" />
+        <span>Noise.cat</span>
       </a>
     </Link>
 
     <style jsx>{`
       nav {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px;
+        height: 50px;
       }
-      a {
-        color: #067df7;
-        text-decoration: none;
-        font-size: 13px;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-      }
-      .logo img {
-        height: 24px;
-      }
-      .logo span {
-        margin-left: 5px;
-        font-size: 1.1rem;
-        color: #575757;
+      img {
+        height: 1em;
       }
     `}</style>
   </nav>
