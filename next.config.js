@@ -1,5 +1,7 @@
 require('dotenv').config();
-module.exports = {
+const withOffline = require('next-offline');
+
+module.exports = withOffline({
   env: {
     AUTH0_CLIENTID: process.env.AUTH0_CLIENTID,
     AUTH0_SECRET: process.env.AUTH0_SECRET,
@@ -8,4 +10,4 @@ module.exports = {
     CS_API_URL: process.env.CS_API_URL,
     LA_NOTION_TOKEN: process.env.LA_NOTION_TOKEN,
   },
-};
+});
