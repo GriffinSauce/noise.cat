@@ -2,6 +2,9 @@ require('dotenv').config();
 const withOffline = require('next-offline');
 
 module.exports = withOffline({
+  workboxOpts: {
+    swDest: 'static/service-worker.js',
+  },
   env: {
     AUTH0_CLIENTID: process.env.AUTH0_CLIENTID,
     AUTH0_SECRET: process.env.AUTH0_SECRET,
