@@ -1,4 +1,5 @@
 import useAuthentication from '../utils/useAuthentication';
+import Link from 'next/link';
 import Button from './Button';
 
 const LoginButton = () => {
@@ -13,19 +14,23 @@ const LoginButton = () => {
   }
   if (!isAuthenticated) {
     return (
-      <a href="/api/login">
-        <Button inline color="green">
-          Sign in
-        </Button>
-      </a>
+      <Link href="/api/login">
+        <a>
+          <Button inline color="green">
+            Sign in
+          </Button>
+        </a>
+      </Link>
     );
   }
   return (
-    <a href="/profile">
-      <Button inline color="green">
-        View profile
-      </Button>
-    </a>
+    <Link href="/profile">
+      <a>
+        <Button inline color="green">
+          View profile
+        </Button>
+      </a>
+    </Link>
   );
 };
 

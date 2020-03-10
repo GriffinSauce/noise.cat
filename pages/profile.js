@@ -5,7 +5,6 @@ import Layout from '../components/Layout';
 import Button from '../components/Button';
 import Avatar from '../components/Avatar';
 import Container from '../components/Container';
-import { FiArrowRight } from 'react-icons/fi';
 
 const Profile = ({ user }) => {
   return (
@@ -23,17 +22,17 @@ const Profile = ({ user }) => {
             <h2 className="h1">Bands</h2>
             <ul className="mb-6">
               <li>
-                <Link href="/bands/coral-springs">
+                <Link href="/bands/[band]" as="/bands/coral-springs">
                   <a className="block py-2 h3">Coral Springs</a>
                 </Link>
               </li>
               <li>
-                <Link href="/bands/left-alive">
+                <Link href="/bands/[band]" as="/bands/left-alive">
                   <a className="block py-2 h3">Left Alive</a>
                 </Link>
               </li>
               <li>
-                <Link href="/bands/all">
+                <Link href="/bands/[band]" as="/bands/all">
                   <a className="block py-2 h3">All</a>
                 </Link>
               </li>

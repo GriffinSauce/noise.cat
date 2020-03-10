@@ -1,5 +1,4 @@
 import Layout from '../components/Layout';
-import Nav from '../components/Nav';
 import LoginButton from '../components/LoginButton';
 
 const Home = () => {

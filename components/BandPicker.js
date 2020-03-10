@@ -3,9 +3,7 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import fetcher from '../utils/fetcher';
 import useOnClickOutside from '../utils/useOnClickOutside';
-import { FiChevronRight } from 'react-icons/fi';
 import Link from 'next/link';
-import Avatar from '../components/Avatar';
 
 const BandPicker = () => {
   const ref = useRef();
@@ -35,7 +33,7 @@ const BandPicker = () => {
         >
           {data.bands.map(band => (
             <li>
-              <Link href={`/bands/${band.slug}`}>
+              <Link href={`/bands/[band]`} as={`/bands/${band.slug}`}>
                 <a
                   className={`block p-3 text-lg font-semibold leading-none truncate font-display ${
                     band.slug === slug ? 'text-green-400' : 'text-gray-900'

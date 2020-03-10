@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import fetcher from '../../../utils/fetcher';
 import Layout from '../../../components/Layout';
 import Button from '../../../components/Button';
 import Shows from '../../../components/Shows';
-import { FiRotateCcw } from 'react-icons/fi';
 import Container from '../../../components/Container';
 
 const Band = () => {
