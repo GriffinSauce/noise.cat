@@ -1,6 +1,16 @@
 {
   "version": 2,
   "target": "serverless",
+  "routes": [
+    {
+      "src": "^/service-worker.js$",
+      "dest": "/_next/static/service-worker.js",
+      "headers": {
+        "cache-control": "public, max-age=43200, immutable",
+        "Service-Worker-Allowed": "/"
+      }
+    }
+  ],
   "env": {
     "AUTH0_CLIENTID": "@auth0_clientid",
     "AUTH0_SECRET": "@auth0_secret",
