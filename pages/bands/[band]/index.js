@@ -27,11 +27,7 @@ const Band = () => {
             <Button group>Alles</Button>
           </div>
 
-          {showsData ? (
-            <Shows shows={showsData.shows} />
-          ) : (
-            <div className="mt-10 text-center">Loading...</div>
-          )}
+          <Shows shows={showsData?.shows} />
         </div>
       </Container>
     </Layout>
