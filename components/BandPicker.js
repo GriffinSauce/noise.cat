@@ -15,9 +15,8 @@ const BandPicker = () => {
   const {
     query: { band: slug },
   } = useRouter();
-  if (!slug) return null;
 
-  const { data, error } = useSWR(`/api/bands`, fetcher);
+  const { data, error } = useSWR(slug ? `/api/bands` : null, fetcher);
   if (!data) return null;
   if (error) return 'Error';
 
