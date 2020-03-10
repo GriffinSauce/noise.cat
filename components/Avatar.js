@@ -1,13 +1,11 @@
 const Avatar = ({ alt, src, size = '30px' }) => {
   return (
     <>
-      <img alt={alt} src={src}></img>
+      <img className="block rounded-full" alt={alt} src={src} />
       <style jsx>{`
         img {
-          display: block;
           height: ${size};
           width: ${size};
-          border-radius: ${size};
         }
       `}</style>
     </>

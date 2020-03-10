@@ -5,7 +5,7 @@ import LoginButton from '../components/LoginButton';
 const Home = () => {
   return (
     <Layout footer={false}>
-      <section className="text-center ">
+      <section className="text-center">
         <img
           className="inline-block w-20 mt-20 mb-10"
           src="/noisecat.svg"

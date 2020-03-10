@@ -19,9 +19,9 @@ const Button = ({
   /* eslint-disable react/button-has-type */
   return (
     <button
-      className={`font-display font-semibold py-3 px-3 flex items-center justify-center ${rounded} ${
+      className={`font-display font-semibold py-3 px-3 items-center justify-center ${rounded} ${
         colors[disabled ? 'disabled' : color]
-      } ${inline ? '' : 'w-full'} ${className}`}
+      } ${inline ? 'inline-flex' : 'flex w-full'} ${className}`}
       onClick={onClick}
       disabled={state === 'loading' || disabled}
       type={type}
