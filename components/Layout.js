@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import Nav from './Nav';
+import Header from './Header';
+import Footer from './Footer';
 
 // TODO: Review font usage and trim
 const Layout = ({ children, footer = true }) => {
@@ -14,8 +15,9 @@ const Layout = ({ children, footer = true }) => {
         />
       </Head>
       <div className="flex flex-col h-screen">
-        <Nav />
+        <Header />
         <main className="flex-grow">{children}</main>
+        <Footer />
       </div>
     </>
   );

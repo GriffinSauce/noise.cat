@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import BandPicker from './BandPicker';
 import { FiUser } from 'react-icons/fi';
 import Container from './Container';
 
-const Nav = () => (
+const Header = () => (
   <div className="border-b border-gray-200">
     <Container>
       <nav className="flex items-center justify-between">
@@ -13,7 +12,6 @@ const Nav = () => (
             <span>Noise.cat</span>
           </a>
         </Link>
-        <BandPicker />
         <Link href="/profile">
           <a className="p-3 text-2xl">
             <FiUser />
@@ -24,4 +22,4 @@ const Nav = () => (
   </div>
 );
 
-export default Nav;
+export default Header;

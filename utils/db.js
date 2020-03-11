@@ -1,16 +1,14 @@
 // Who needs databases anyway?
 const data = {
-  all: {
-    slug: 'all',
-    name: 'All (unsorted)',
-  },
   'coral-springs': {
     slug: 'coral-springs',
     name: 'Coral Springs',
+    image: '/band-coral-springs.jpg',
   },
   'left-alive': {
     slug: 'left-alive',
     name: 'Left Alive',
+    image: '/band-left-alive.png',
   },
 };
 

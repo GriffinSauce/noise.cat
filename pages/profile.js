@@ -1,12 +1,16 @@
 import auth0 from '../utils/auth0';
 import axios from 'axios';
 import Link from 'next/link';
+import Skeleton from 'react-loading-skeleton';
+import useSWR from 'swr';
+import fetcher from '../utils/fetcher';
 import Layout from '../components/Layout';
 import Button from '../components/Button';
 import Avatar from '../components/Avatar';
 import Container from '../components/Container';
 
 const Profile = ({ user }) => {
+  const { data } = useSWR(`/api/bands`, fetcher);
   return (
     <Layout>
       <Container>
@@ -21,21 +25,19 @@ const Profile = ({ user }) => {
           <section className="mb-6">
             <h2 className="h1">Bands</h2>
             <ul className="mb-6">
-              <li>
-                <Link href="/bands/[band]" as="/bands/coral-springs">
-                  <a className="block py-2 h3">Coral Springs</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/bands/[band]" as="/bands/left-alive">
-                  <a className="block py-2 h3">Left Alive</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/bands/[band]" as="/bands/all">
-                  <a className="block py-2 h3">All</a>
-                </Link>
-              </li>
+              {data ? (
+                data.bands.map(band => (
+                  <li>
+                    <Link href="/bands/[band]" as={`/bands/${band.slug}`}>
+                      <a className="block py-2 h3">{band.name}</a>
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li className="py-2 h3">
+                  <Skeleton width={100} />
+                </li>
+              )}
             </ul>
           </section>
           <a href="/api/logout">

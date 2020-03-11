@@ -50,5 +50,9 @@ h6,
   @apply text-xs font-semibold;
 }
 
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
 @tailwind components;
 @tailwind utilities;
