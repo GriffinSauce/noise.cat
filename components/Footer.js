@@ -70,9 +70,10 @@ const Footer = () => {
         {isOpen && (
           <motion.div
             className="absolute bottom-0 left-0 w-full"
-            initial={{ bottom: -100 }}
+            key="band-picker"
+            initial={{ bottom: -150 }}
             animate={{ bottom: 0 }}
-            exit={{ bottom: -100 }}
+            exit={{ bottom: -150 }}
             ref={ref}
           >
             <BandPicker />
