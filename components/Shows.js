@@ -1,5 +1,8 @@
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import fetcher from '../utils/fetcher';
 import Skeleton from 'react-loading-skeleton';
-import { FiMapPin, FiAlignLeft, FiPhone, FiDollarSign } from 'react-icons/fi';
+import { FiMapPin, FiAlignLeft } from 'react-icons/fi';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 
 const ShowsSkeleton = () =>
@@ -20,7 +23,18 @@ const ShowsSkeleton = () =>
     </li>
   ));
 
-const Shows = ({ shows }) => {
+const Shows = () => {
+  const {
+    query: { band: slug },
+  } = useRouter();
+  const { data, error } = useSWR(
+    slug ? `/api/bands/${slug}/shows` : null,
+    fetcher,
+  );
+
+  if (error) return null;
+  console.log('TCL: Shows -> error', error);
+  const shows = data?.shows;
   return (
     <>
       <div>
