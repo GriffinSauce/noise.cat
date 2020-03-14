@@ -1,3 +1,12 @@
-import axios from 'axios';
+import fetch from 'isomorphic-unfetch';
 
-export default (...args) => axios(...args).then(({ data }) => data);
+function fetcher(...args) {
+  return fetch(...args)
+    .then(response => (response.status === 204 ? null : response.json()))
+    .then(data => {
+      if (data?.error) throw new Error(data.error);
+      return data;
+    });
+}
+
+export default fetcher;

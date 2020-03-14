@@ -33,7 +33,6 @@ const Shows = () => {
   );
 
   if (error) return null;
-  console.log('TCL: Shows -> error', error);
   const shows = data?.shows;
   return (
     <>

@@ -18,6 +18,7 @@ const Footer = () => {
 
   const { data, error } = useSWR(slug ? `/api/bands` : null, fetcher);
   if (!data) return null;
+  if (!data.bands.length) return null;
   if (error) return 'Error';
 
   const BandPicker = () => (

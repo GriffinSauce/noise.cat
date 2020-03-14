@@ -15,6 +15,7 @@
     "axios": "^0.19.2",
     "date-fns": "^2.10.0",
     "framer-motion": "^1.9.1",
+    "isomorphic-unfetch": "^3.0.0",
     "mongodb": "^3.5.5",
     "next": "^9.3.0",
     "next-connect": "^0.6.0",
