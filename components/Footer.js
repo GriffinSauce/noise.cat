@@ -5,7 +5,22 @@ import { useRouter } from 'next/router';
 import fetcher from '../utils/fetcher';
 import useOnClickOutside from '../utils/useOnClickOutside';
 import Link from 'next/link';
-import { FiCalendar } from 'react-icons/fi';
+import { FiCalendar, FiSettings } from 'react-icons/fi';
+
+const ActiveLink = ({ children, href, ...props }) => {
+  const { pathname } = useRouter();
+  return (
+    <Link href={href} {...props}>
+      <a
+        className={`p-3 text-2xl flex-center ${
+          pathname === href ? 'text-green-400' : 'text-gray-900'
+        }`}
+      >
+        {children}
+      </a>
+    </Link>
+  );
+};
 
 const Footer = () => {
   const ref = useRef();
@@ -52,7 +67,7 @@ const Footer = () => {
   );
 
   return (
-    <nav className="bg-white fixed bottom-0 border-t border-gray-200 grid grid-cols-2 w-full">
+    <nav className="bg-white fixed bottom-0 border-t border-gray-200 grid grid-cols-3 w-full">
       <button
         className="p-2 text-center flex-center"
         onClick={() => setOpen(true)}
@@ -62,11 +77,12 @@ const Footer = () => {
           src={data.bands.find(band => band.slug === slug).image}
         />
       </button>
-      <Link href="/bands/[band]" as={`/bands/${slug}`}>
-        <a className="p-3 text-2xl flex-center">
-          <FiCalendar />
-        </a>
-      </Link>
+      <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
+        <FiCalendar />
+      </ActiveLink>
+      <ActiveLink href="/bands/[band]/settings" as={`/bands/${slug}/settings`}>
+        <FiSettings />
+      </ActiveLink>
       <AnimatePresence>
         {isOpen && (
           <motion.div
