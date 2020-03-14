@@ -29,7 +29,9 @@ const Footer = () => {
 
   const {
     query: { band: slug },
+    pathname,
   } = useRouter();
+  const route = pathname.replace(slug, '[band]');
 
   const { data, error } = useSWR(slug ? `/api/bands` : null, fetcher);
   if (!data) return null;
@@ -45,7 +47,7 @@ const Footer = () => {
         )
         .map(band => (
           <li>
-            <Link href={`/bands/[band]`} as={`/bands/${band.slug}`}>
+            <Link href={route} as={route.replace('[band]', band.slug)}>
               <a
                 className={`flex items-center block p-3 text-lg font-semibold leading-none truncate font-display ${
                   band.slug === slug ? 'text-green-400' : 'text-gray-900'

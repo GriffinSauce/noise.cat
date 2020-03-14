@@ -42,6 +42,7 @@ handler.get(async (req, res) => {
   });
   const members = membersUnsafe.map(
     selectFields('name', 'given_name', 'family_name', 'picture'),
+    // Available fields: created_at email email_verified family_name given_name identities locale name nickname picture updated_at user_id last_login last_ip logins_count
   );
 
   res.json({ members });
