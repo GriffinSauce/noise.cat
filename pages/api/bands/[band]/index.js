@@ -1,12 +1,18 @@
-import { Bands } from '../../../../utils/db';
+import nextConnect from 'next-connect';
+import middleware from '../../../../middleware/db';
 
-export default async function band(req, res) {
-  const bandSlug = req.query.band;
-  const band = Bands.findOne(bandSlug);
-  if (!band) {
-    return res.status(404).send({
-      error: `No band by slug "${bandSlug}"`,
-    });
-  }
-  res.send({ band });
-}
+const handler = nextConnect();
+
+handler.use(middleware);
+
+handler.get(async (req, res) => {
+  const slug = req.query.band;
+  let band = await req.db.collection('band').findOne({
+    slug,
+  });
+  if (!band) return res.status(404);
+  res.json({ band });
+});
+
+// Workaround for false positive "API resolved without sending a response"
+export default (req, res) => handler.apply(req, res);

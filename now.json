@@ -17,7 +17,8 @@
     "AUTH0_DOMAIN": "@auth0_domain",
     "AUTH0_COOKIE_SECRET": "@auth0_cookie_secret",
     "CS_API_URL": "@cs_api_url",
-    "LA_NOTION_TOKEN": "@la_notion_token"
+    "LA_NOTION_TOKEN": "@la_notion_token",
+    "MONGO_URI": "@noisecat_mongo_uri"
   },
   "build": {
     "env": {
@@ -26,7 +27,8 @@
       "AUTH0_DOMAIN": "@auth0_domain",
       "AUTH0_COOKIE_SECRET": "@auth0_cookie_secret",
       "CS_API_URL": "@cs_api_url",
-      "LA_NOTION_TOKEN": "@la_notion_token"
+      "LA_NOTION_TOKEN": "@la_notion_token",
+      "MONGO_URI": "@noisecat_mongo_uri"
     }
   }
 }
