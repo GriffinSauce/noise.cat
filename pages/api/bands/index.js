@@ -1,6 +1,17 @@
-import { Bands } from '../../../utils/db';
+import nextConnect from 'next-connect';
+import middleware from '../../../middleware/db';
 
-export default async function(req, res) {
-  const bands = Bands.find();
-  res.send({ bands });
-}
+const handler = nextConnect();
+
+handler.use(middleware);
+
+handler.get(async (req, res) => {
+  let bands = await req.db
+    .collection('band')
+    .find()
+    .toArray();
+  res.json({ bands });
+});
+
+// Workaround for false positive "API resolved without sending a response"
+export default (req, res) => handler.apply(req, res);
