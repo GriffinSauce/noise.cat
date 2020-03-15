@@ -1,3 +1,5 @@
+import Loader from './Loader';
+
 const Button = ({
   className = '',
   color = 'gray',
@@ -17,16 +19,17 @@ const Button = ({
 
   const rounded = group ? 'first:rounded-l last:rounded-r' : 'rounded';
   /* eslint-disable react/button-has-type */
+  const isDisabled = state === 'loading' || disabled;
   return (
     <button
       className={`font-display font-semibold py-3 px-3 items-center justify-center ${rounded} ${
         colors[disabled ? 'disabled' : color]
       } ${inline ? 'inline-flex' : 'flex w-full'} ${className}`}
-      onClick={onClick}
-      disabled={state === 'loading' || disabled}
+      {...(isDisabled ? {} : { onClick })}
+      disabled={isDisabled}
       type={type}
     >
-      {children}
+      {state === 'loading' ? <Loader /> : children}
     </button>
   );
 };

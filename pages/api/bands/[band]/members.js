@@ -36,16 +36,58 @@ handler.get(async (req, res) => {
       error: `You're not a member of this band`,
     });
 
-  // Fetch members
+  // Fetch members data from auth0
   const membersUnsafe = await management.getUsers({
     q: band.members.map(id => `user_id:${id}`).join(' OR '),
   });
   const members = membersUnsafe.map(
-    selectFields('name', 'given_name', 'family_name', 'picture'),
+    selectFields(
+      'user_id',
+      'name',
+      'email',
+      'given_name',
+      'family_name',
+      'picture',
+    ),
     // Available fields: created_at email email_verified family_name given_name identities locale name nickname picture updated_at user_id last_login last_ip logins_count
   );
 
-  res.json({ members });
+  res.json({ members, ids: band.members });
+});
+
+handler.put(async (req, res) => {
+  const { user } = await auth0.getSession(req);
+  const slug = req.query.band;
+
+  let band = await req.db.collection('band').findOne({
+    slug,
+  });
+  if (!band)
+    return res.status(404).json({
+      error: `No band by slug "${slug}"`,
+    });
+  if (!band.members.includes(user.sub))
+    return res.status(403).json({
+      error: `You're not a member of this band`,
+    });
+
+  const { members } = req.body;
+  if (!members || !members.length)
+    return res.status(400).json({
+      error: `No empty members allowed, delete the band instead`,
+    });
+  const update = await req.db.collection('band').updateOne(
+    {
+      slug,
+    },
+    {
+      $set: {
+        members,
+      },
+    },
+  );
+
+  res.status(204).send('');
 });
 
 const appliedHandler = (req, res) => handler.apply(req, res); // Workaround for false positive "API resolved without sending a response"
