@@ -1,9 +1,15 @@
+import useSWR from 'swr';
+import fetcher from '../utils/fetcher';
 import Layout from '../components/Layout';
 import LoginButton from '../components/LoginButton';
 
 const Home = () => {
+  const { data } = useSWR(`/api/bands`, fetcher);
+  if (data?.bands?.length) {
+    window.location = `/bands/${data?.bands[0].slug}`;
+  }
   return (
-    <Layout footer={false}>
+    <Layout header={false} footer={false}>
       <section className="text-center">
         <img
           className="inline-block w-20 mt-20 mb-10"

@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 // TODO: Review font usage and trim
-const Layout = ({ children, footer = true }) => {
+const Layout = ({ children, header = true, footer = true }) => {
   return (
     <>
       <Head>
@@ -15,7 +15,7 @@ const Layout = ({ children, footer = true }) => {
         />
       </Head>
       <div className="flex flex-col h-screen">
-        <Header />
+        {header ? <Header /> : null}
         <main className="flex-grow">{children}</main>
         {footer ? <Footer /> : null}
       </div>
