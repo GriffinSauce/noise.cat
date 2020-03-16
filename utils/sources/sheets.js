@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const CS_API_URL = process.env.CS_API_URL;
-if (!CS_API_URL) throw new Error('env var CS_API_URL is missing');
 
 const mapColumns = show => ({
   date: show['Show datum'],
@@ -20,6 +19,7 @@ const mapColumns = show => ({
 });
 
 const get = async () => {
+  if (!CS_API_URL) throw new Error('env var CS_API_URL is missing');
   const { data } = await axios(CS_API_URL);
   return data.map(mapColumns);
 };
