@@ -46,17 +46,22 @@ const Footer = () => {
           [],
         )
         .map(band => (
-          <li>
+          <li key={band.slug}>
             <Link href={route} as={route.replace('[band]', band.slug)}>
-              <a
-                className={`flex items-center block p-3 text-lg font-semibold leading-none truncate font-display ${
+              <button
+                className={`flex w-full items-center block p-3 text-lg font-semibold leading-none truncate font-display ${
                   band.slug === slug ? 'text-green-400' : 'text-gray-900'
                 }`}
                 onClick={() => setOpen(false)}
+                type="button"
               >
-                <img className="rounded-full w-8 h-8 mr-2" src={band.image} />
+                <img
+                  alt={band.name}
+                  className="rounded-full w-8 h-8 mr-2"
+                  src={band.image}
+                />
                 <span>{band.name}</span>
-              </a>
+              </button>
             </Link>
           </li>
         ))}
@@ -73,8 +78,10 @@ const Footer = () => {
       <button
         className="p-2 text-center flex-center"
         onClick={() => setOpen(true)}
+        type="button"
       >
         <img
+          alt="band switcher"
           className="rounded-full w-8 h-8"
           src={data.bands.find(band => band.slug === slug).image}
         />

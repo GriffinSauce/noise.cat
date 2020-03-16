@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Button from './Button';
 
 const LoginButton = () => {
-  const { isAuthenticated, user } = useAuthentication();
+  const { isAuthenticated } = useAuthentication();
   if (isAuthenticated === null) {
     return (
       <Button inline>

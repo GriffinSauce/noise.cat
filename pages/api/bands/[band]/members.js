@@ -24,7 +24,7 @@ const selectFields = (...keys) => obj => {
 handler.get(async (req, res) => {
   const { user } = await auth0.getSession(req);
   const slug = req.query.band;
-  let band = await req.db.collection('band').findOne({
+  const band = await req.db.collection('band').findOne({
     slug,
   });
   if (!band)
@@ -52,14 +52,14 @@ handler.get(async (req, res) => {
     // Available fields: created_at email email_verified family_name given_name identities locale name nickname picture updated_at user_id last_login last_ip logins_count
   );
 
-  res.json({ members, ids: band.members });
+  return res.json({ members, ids: band.members });
 });
 
 handler.put(async (req, res) => {
   const { user } = await auth0.getSession(req);
   const slug = req.query.band;
 
-  let band = await req.db.collection('band').findOne({
+  const band = await req.db.collection('band').findOne({
     slug,
   });
   if (!band)
@@ -76,7 +76,9 @@ handler.put(async (req, res) => {
     return res.status(400).json({
       error: `No empty members allowed, delete the band instead`,
     });
-  const update = await req.db.collection('band').updateOne(
+
+  // TODO: check update result
+  await req.db.collection('band').updateOne(
     {
       slug,
     },
@@ -87,7 +89,7 @@ handler.put(async (req, res) => {
     },
   );
 
-  res.status(204).send('');
+  return res.status(204).send('');
 });
 
 const appliedHandler = (req, res) => handler.apply(req, res); // Workaround for false positive "API resolved without sending a response"

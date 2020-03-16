@@ -27,7 +27,7 @@ handler.get(async (req, res) => {
   const { user } = await auth0.getSession(req);
 
   const slug = req.query.band;
-  let band = await req.db.collection('band').findOne({
+  const band = await req.db.collection('band').findOne({
     slug,
   });
   if (!band)

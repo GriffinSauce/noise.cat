@@ -6,7 +6,7 @@ const slugify = str =>
   str
     .toLowerCase()
     .trim()
-    .replace(/[\s\W-\&]+/g, '');
+    .replace(/[\s\W-&]+/g, '');
 
 const formatValue = ({ type, value }) => {
   if (type === 'text' || type === 'title') return value.pop().pop();
@@ -28,14 +28,18 @@ const formatValue = ({ type, value }) => {
 const maptoSchema = ({ properties, schema }) =>
   Object.keys(properties).reduce((memo, key) => {
     const { slug, type } = schema[key];
-    const value = formatValue({ type, value: properties[key] });
-    memo[slug] = value;
+    const value = formatValue({
+      type,
+      value: properties[key],
+    });
+    memo[slug] = value; // eslint-disable-line no-param-reassign
     return memo;
   }, {});
 
 export default rawData => {
   const rawSchema = rawData.recordMap.collection[collectionId].value.schema;
   const schema = Object.keys(rawSchema).reduce((memo, key) => {
+    // eslint-disable-next-line no-param-reassign
     memo[key] = {
       ...rawSchema[key],
       slug: slugify(rawSchema[key].name),
@@ -47,7 +51,7 @@ export default rawData => {
     .map(blockId => {
       const block = rawData.recordMap.block[blockId].value;
       const { id, properties } = block;
-      if (!properties) return;
+      if (!properties) return null;
       return {
         id,
         ...maptoSchema({ properties, schema }),

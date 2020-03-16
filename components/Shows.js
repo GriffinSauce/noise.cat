@@ -7,6 +7,7 @@ import { IoIosCheckmarkCircle } from 'react-icons/io';
 
 const ShowsSkeleton = () =>
   [...Array(5)].map((v, index) => (
+    // eslint-disable-next-line react/no-array-index-key
     <li key={index} className="pb-6">
       <h2 className="text-lg">
         <Skeleton width={250} />
@@ -39,7 +40,7 @@ const Shows = () => {
       <div>
         <ul>
           {shows ? (
-            shows.map((show, index) => (
+            shows.map(show => (
               <li key={show.title} className="pb-6">
                 <h2 className="text-lg truncate">{show.title}</h2>
                 <h3 className="flex items-center text-sm font-medium text-green-500">

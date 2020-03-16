@@ -7,10 +7,7 @@ import Button from './Button';
 
 const Members = ({ slug }) => {
   const { user } = useAuthentication();
-  const { data, mutate } = useSWR(
-    slug ? `/api/bands/${slug}/members` : null,
-    fetcher,
-  );
+  const { data } = useSWR(slug ? `/api/bands/${slug}/members` : null, fetcher);
   const [removeState, setRemoveState] = useState(null);
 
   const removeMember = async memberId => {

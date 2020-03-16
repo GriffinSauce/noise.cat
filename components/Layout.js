@@ -17,7 +17,7 @@ const Layout = ({ children, footer = true }) => {
       <div className="flex flex-col h-screen">
         <Header />
         <main className="flex-grow">{children}</main>
-        <Footer />
+        {footer ? <Footer /> : null}
       </div>
     </>
   );

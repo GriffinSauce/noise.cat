@@ -9,7 +9,7 @@ handler.use(middleware);
 handler.get(async (req, res) => {
   const { user } = await auth0.getSession(req);
   const slug = req.query.band;
-  let band = await req.db.collection('band').findOne({
+  const band = await req.db.collection('band').findOne({
     slug,
   });
   if (!band)
@@ -20,7 +20,7 @@ handler.get(async (req, res) => {
     return res.status(403).json({
       error: `You're not a member of this band`,
     });
-  res.json({ band });
+  return res.json({ band });
 });
 
 const appliedHandler = (req, res) => handler.apply(req, res); // Workaround for false positive "API resolved without sending a response"

@@ -1,4 +1,4 @@
-import dotenv from '../utils/dotenv';
+import '../utils/dotenv';
 import { MongoClient } from 'mongodb';
 import nextConnect from 'next-connect';
 

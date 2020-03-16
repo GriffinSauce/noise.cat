@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const CS_API_URL = process.env.CS_API_URL;
+const CS_API_URL = process.env.CS_API_URL; // eslint-disable-line prefer-destructuring
 
 const mapColumns = show => ({
   date: show['Show datum'],
@@ -8,7 +8,7 @@ const mapColumns = show => ({
   location: show['Show locatie'],
   note: show['Show info'],
   contact: show['Contact info'],
-  pay: show['Gage'],
+  pay: show.Gage,
   status: 'Bevestigd',
 
   // Unused

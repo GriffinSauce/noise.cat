@@ -16,10 +16,9 @@ const Profile = () => {
     // Should redirect to login
     if (process.browser) {
       window.location = '/';
-      return;
-    } else {
       return null;
     }
+    return null;
   }
   return (
     <Layout>
@@ -41,7 +40,7 @@ const Profile = () => {
                 {data.bands.length ? (
                   <ul className="mb-6">
                     {data.bands.map(band => (
-                      <li>
+                      <li key={band.slug}>
                         <Link href="/bands/[band]" as={`/bands/${band.slug}`}>
                           <a className="block py-2 h3">{band.name}</a>
                         </Link>

@@ -8,7 +8,7 @@ handler.use(middleware);
 
 handler.get(async (req, res) => {
   const { user } = await auth0.getSession(req);
-  let bands = await req.db
+  const bands = await req.db
     .collection('band')
     .find({
       members: user.sub,
