@@ -1,11 +1,10 @@
 import useSWR from 'swr';
-import fetcher from '../utils/fetcher';
 import Link from 'next/link';
 import { FiUser } from 'react-icons/fi';
 import Container from './Container';
 
 const Header = () => {
-  const { data } = useSWR(`/api/bands`, fetcher);
+  const { data } = useSWR(`/api/bands`);
   return (
     <div className="border-b border-gray-200">
       <Container>

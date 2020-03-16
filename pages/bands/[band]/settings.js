@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import Skeleton from 'react-loading-skeleton';
-import fetcher from '../../../utils/fetcher';
 import Layout from '../../../components/Layout';
 import Container from '../../../components/Container';
 import Members from '../../../components/Members';
@@ -10,7 +9,7 @@ const Settings = () => {
   const {
     query: { band: slug },
   } = useRouter();
-  const { data } = useSWR(slug ? `/api/bands/${slug}` : null, fetcher);
+  const { data } = useSWR(slug ? `/api/bands/${slug}` : null);
 
   const band = data?.band || {};
   return (

@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import fetcher from '../utils/fetcher';
 import useOnClickOutside from '../utils/useOnClickOutside';
 import Link from 'next/link';
 import { FiCalendar, FiSettings } from 'react-icons/fi';
@@ -33,7 +32,7 @@ const Footer = () => {
   } = useRouter();
   const route = pathname.replace(slug, '[band]');
 
-  const { data, error } = useSWR(slug ? `/api/bands` : null, fetcher);
+  const { data, error } = useSWR(slug ? `/api/bands` : null);
   if (!data) return null;
   if (!data.bands.length) return null;
   if (error) return 'Error';

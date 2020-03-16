@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import fetcher from '../utils/fetcher';
 import Skeleton from 'react-loading-skeleton';
 import { FiMapPin, FiAlignLeft } from 'react-icons/fi';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
@@ -28,10 +27,7 @@ const Shows = () => {
   const {
     query: { band: slug },
   } = useRouter();
-  const { data, error } = useSWR(
-    slug ? `/api/bands/${slug}/shows` : null,
-    fetcher,
-  );
+  const { data, error } = useSWR(slug ? `/api/bands/${slug}/shows` : null);
 
   if (error) return null;
   const shows = data?.shows;

@@ -1,10 +1,9 @@
 import useSWR from 'swr';
-import fetcher from '../utils/fetcher';
 import Layout from '../components/Layout';
 import LoginButton from '../components/LoginButton';
 
 const Home = () => {
-  const { data } = useSWR(`/api/bands`, fetcher);
+  const { data } = useSWR(`/api/bands`);
   if (data?.bands?.length) {
     window.location = `/bands/${data?.bands[0].slug}`;
   }

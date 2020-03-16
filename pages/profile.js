@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 import useSWR from 'swr';
-import fetcher from '../utils/fetcher';
 import useAuthentication from '../utils/useAuthentication';
 import Layout from '../components/Layout';
 import Button from '../components/Button';
@@ -10,7 +9,7 @@ import Container from '../components/Container';
 
 const Profile = () => {
   const { isAuthenticated, user = {} } = useAuthentication();
-  const { data } = useSWR(isAuthenticated ? `/api/bands` : null, fetcher);
+  const { data } = useSWR(isAuthenticated ? `/api/bands` : null);
 
   if (isAuthenticated !== null && !isAuthenticated) {
     // Should redirect to login
