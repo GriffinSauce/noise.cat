@@ -1,6 +1,10 @@
 # noise.cat
 
-Your band home (currently just the home of [Left Alive](https://www.leftalive.nl/) and [Coral Springs](https://www.coralsprings.nl/)).
+_Your band home_
+
+Currently just the home of [Left Alive](https://www.leftalive.nl/) and [Coral Springs](https://www.coralsprings.nl/).
+
+**Features and to-do's:**
 
 - [x] See all your planned shows
   - [x] From Google Sheets source
@@ -13,4 +17,4 @@ Your band home (currently just the home of [Left Alive](https://www.leftalive.nl
   - [x] Remove members from your band
   - [ ] Invite members to your band (yay)
 
-## License: MIT
+**License: MIT**
