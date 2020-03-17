@@ -1,9 +1,10 @@
-const Loader = () => {
+const Loader = ({ inline = false }) => {
   return (
     <>
       <div className="loader" />
       <style jsx>{`
         .loader {
+          ${inline ? 'display: inline-block;' : ''}
           border: 0.1em solid #f3f3f3;
           border-top: 0.1em solid #3498db;
           border-radius: 50%;
