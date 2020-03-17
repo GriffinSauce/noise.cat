@@ -45,7 +45,7 @@ const Members = ({ slug }) => {
               </div>
             </div>
           </div>
-          {member.user_id !== user.sub ? (
+          {member.user_id !== user?.sub ? (
             <Button
               state={removeState}
               inline
