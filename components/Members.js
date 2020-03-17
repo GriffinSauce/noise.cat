@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useSWR, { mutate } from 'swr';
+import Skeleton from 'react-loading-skeleton';
 import fetcher from '../utils/fetcher';
 import useAuthentication from '../utils/useAuthentication';
 import Avatar from './Avatar';
@@ -28,7 +29,21 @@ const Members = ({ slug }) => {
     setRemoveState(null);
   };
 
-  if (!data) return null;
+  // TODO: find a way to merge loading skeleton better into layout so it stays in sync
+  if (!data)
+    return (
+      <div className="flex items-center">
+        <Avatar loading />
+        <div>
+          <div className="ml-2 font-bold font-display">
+            <Skeleton width={100} />
+          </div>
+          <div className="ml-2 text-xs font-semibold text-gray-600 font-display">
+            <Skeleton width={130} />
+          </div>
+        </div>
+      </div>
+    );
   return (
     <ul>
       {data.members.map(member => (
@@ -39,8 +54,8 @@ const Members = ({ slug }) => {
           <div className="flex items-center">
             <Avatar alt={member.name} src={member.picture} />
             <div>
-              <div className="ml-2 font-display font-bold">{member.name}</div>
-              <div className="ml-2 font-display font-semibold text-xs text-gray-600">
+              <div className="ml-2 font-bold font-display">{member.name}</div>
+              <div className="ml-2 text-xs font-semibold text-gray-600 font-display">
                 {member.email}
               </div>
             </div>
