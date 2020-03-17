@@ -10,7 +10,7 @@ const client = new MongoClient(process.env.MONGO_URI, {
 async function database(req, res, next) {
   if (!client.isConnected()) await client.connect();
   req.dbClient = client;
-  req.db = client.db('prod');
+  req.db = client.db();
   return next();
 }
 
