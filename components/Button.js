@@ -12,8 +12,9 @@ const Button = ({
   type = 'button',
 }) => {
   const colors = {
-    gray: 'bg-gray-100 text-green-500 hover:text-green-600',
-    green: 'bg-green-400 text-white hover:bg-green-500',
+    gray: 'bg-gray-100 text-green-500 hover:text-green-600 dark:bg-gray-800',
+    green:
+      'bg-green-400 text-white hover:bg-green-500 dark:bg-green-700 dark:hover:bg-green-800 dark:text-gray-200',
     disabled: 'bg-gray-300 text-white',
   };
 

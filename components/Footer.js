@@ -12,7 +12,9 @@ const ActiveLink = ({ children, href, ...props }) => {
     <Link href={href} {...props}>
       <a
         className={`p-3 text-2xl flex-center ${
-          pathname === href ? 'text-green-400' : 'text-gray-900'
+          pathname === href
+            ? 'text-green-400 dark:text-green-600'
+            : 'text-gray-900 dark:text-gray-600'
         }`}
       >
         {children}
@@ -23,7 +25,8 @@ const ActiveLink = ({ children, href, ...props }) => {
 
 const Footer = () => {
   const ref = useRef();
-  const [isOpen, setOpen] = useState(false);
+  // const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true);
   useOnClickOutside(ref, () => setOpen(false));
 
   const {
@@ -37,7 +40,7 @@ const Footer = () => {
   if (error) return 'Error';
 
   const BandPicker = () => (
-    <ul className="bg-white modal-shadow">
+    <ul className="bg-white modal-shadow dark:bg-gray-900 dark:border-gray-800 dark:border-t">
       {data.bands
         .reduce(
           (acc, band) => (band.slug === slug ? [band, ...acc] : [...acc, band]), // Sort current band to top
@@ -48,7 +51,9 @@ const Footer = () => {
             <Link href={pathname} as={pathname.replace('[band]', band.slug)}>
               <button
                 className={`flex w-full items-center block p-3 text-lg font-semibold leading-none truncate font-display ${
-                  band.slug === slug ? 'text-green-400' : 'text-gray-900'
+                  band.slug === slug
+                    ? 'text-green-400 dark:text-green-600'
+                    : 'text-gray-900 dark:text-gray-600'
                 }`}
                 onClick={() => setOpen(false)}
                 type="button"
@@ -72,7 +77,7 @@ const Footer = () => {
   );
 
   return (
-    <nav className="fixed bottom-0 grid w-full grid-cols-3 bg-white border-t border-gray-200">
+    <nav className="fixed bottom-0 grid w-full grid-cols-3 bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800">
       <button
         className="p-2 text-center flex-center"
         onClick={() => setOpen(true)}

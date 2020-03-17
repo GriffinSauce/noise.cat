@@ -14,7 +14,7 @@ const Layout = ({ children, header = true, footer = true }) => {
           rel="stylesheet"
         />
       </Head>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-screen dark:bg-gray-900">
         {header ? <Header /> : null}
         <main className="flex-grow">{children}</main>
         {footer ? <Footer /> : null}

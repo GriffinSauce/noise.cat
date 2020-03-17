@@ -5,6 +5,9 @@ module.exports = {
         sans: ['Source Sans Pro', 'sans-serif'],
         display: ['Poppins', 'sans-serif'],
       },
+      screens: {
+        dark: { raw: '(prefers-color-scheme: dark)' },
+      },
     },
   },
   variants: {

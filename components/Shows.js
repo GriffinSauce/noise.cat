@@ -45,11 +45,11 @@ const Shows = () => {
                   </div>
                   <span>{show.date.replace(/-/g, ' ')}</span>
                 </h3>
-                <div className="flex items-center pt-1  min-w-0 text-gray-500">
+                <div className="flex items-center pt-1  min-w-0 text-gray-500 dark:text-gray-600">
                   <FiMapPin className="mr-1" />
                   <div className="truncate">{show.location}</div>
                 </div>
-                <div className="flex items-center pt-1 italic text-gray-500">
+                <div className="flex items-center pt-1 italic text-gray-500 dark:text-gray-600">
                   <FiAlignLeft className="mr-1" />
                   <div>{show.note || 'Notes'}</div>
                 </div>
