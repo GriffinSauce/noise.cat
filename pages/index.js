@@ -26,7 +26,7 @@ const Home = () => {
         />
         <h1 className="mb-2 text-4xl">Noise.cat</h1>
         <p className="mb-20 text-gray-400 h2">Your band home</p>
-        {isAuthenticated !== null && !isAuthenticated ? (
+        {isAuthenticated === false ? (
           <Link href="/api/login">
             <a>
               <Button inline color="green">
@@ -35,7 +35,19 @@ const Home = () => {
             </a>
           </Link>
         ) : (
-          <Loader inline />
+          <>
+            {data && !data.bands.length ? (
+              <Link href="/profile">
+                <a>
+                  <Button inline color="green">
+                    View profile
+                  </Button>
+                </a>
+              </Link>
+            ) : (
+              <Loader inline />
+            )}
+          </>
         )}
       </section>
     </Layout>
