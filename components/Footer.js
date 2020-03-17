@@ -30,7 +30,6 @@ const Footer = () => {
     query: { band: slug },
     pathname,
   } = useRouter();
-  const route = pathname.replace(slug, '[band]');
 
   const { data, error } = useSWR(slug ? `/api/bands` : null);
   if (!data) return null;
@@ -46,7 +45,7 @@ const Footer = () => {
         )
         .map(band => (
           <li key={band.slug}>
-            <Link href={route} as={route.replace('[band]', band.slug)}>
+            <Link href={pathname} as={pathname.replace('[band]', band.slug)}>
               <button
                 className={`flex w-full items-center block p-3 text-lg font-semibold leading-none truncate font-display ${
                   band.slug === slug ? 'text-green-400' : 'text-gray-900'
@@ -56,7 +55,7 @@ const Footer = () => {
               >
                 <img
                   alt={band.name}
-                  className="rounded-full w-8 h-8 mr-2"
+                  className="w-8 h-8 mr-2 rounded-full"
                   src={band.image}
                 />
                 <span>{band.name}</span>
@@ -73,7 +72,7 @@ const Footer = () => {
   );
 
   return (
-    <nav className="bg-white fixed bottom-0 border-t border-gray-200 grid grid-cols-3 w-full">
+    <nav className="fixed bottom-0 grid w-full grid-cols-3 bg-white border-t border-gray-200">
       <button
         className="p-2 text-center flex-center"
         onClick={() => setOpen(true)}
@@ -81,7 +80,7 @@ const Footer = () => {
       >
         <img
           alt="band switcher"
-          className="rounded-full w-8 h-8"
+          className="w-8 h-8 rounded-full"
           src={data.bands.find(band => band.slug === slug).image}
         />
       </button>
