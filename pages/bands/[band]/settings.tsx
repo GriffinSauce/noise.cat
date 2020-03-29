@@ -20,7 +20,7 @@ const Settings = () => {
           <h2>{band.name || <Skeleton width={200} />}</h2>
 
           <h3 className="mt-4 block font-display font-bold">Members</h3>
-          <Members slug={slug} />
+          <Members slug={`${slug}`} />
         </div>
       </Container>
     </Layout>

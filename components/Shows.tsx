@@ -3,27 +3,31 @@ import useSWR from 'swr';
 import Skeleton from 'react-loading-skeleton';
 import { FiMapPin, FiAlignLeft } from 'react-icons/fi';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
+import { FunctionComponent } from 'react';
 
-const ShowsSkeleton = () =>
-  [...Array(5)].map((v, index) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <li key={index} className="pb-6">
-      <h2 className="text-lg">
-        <Skeleton width={250} />
-      </h2>
-      <h3 className="text-sm">
-        <Skeleton width={100} />
-      </h3>
-      <div className="pt-1">
-        <Skeleton width={150} />
-      </div>
-      <div className="pt-1">
-        <Skeleton width={130} />
-      </div>
-    </li>
-  ));
+const ShowsSkeleton: FunctionComponent = () => (
+  <>
+    {[...Array(5)].map((v, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <li key={index} className="pb-6">
+        <h2 className="text-lg">
+          <Skeleton width={250} />
+        </h2>
+        <h3 className="text-sm">
+          <Skeleton width={100} />
+        </h3>
+        <div className="pt-1">
+          <Skeleton width={150} />
+        </div>
+        <div className="pt-1">
+          <Skeleton width={130} />
+        </div>
+      </li>
+    ))}
+  </>
+);
 
-const Shows = () => {
+const Shows: FunctionComponent = () => {
   const {
     query: { band: slug },
   } = useRouter();

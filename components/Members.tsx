@@ -1,14 +1,18 @@
-import { useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import { useState, FunctionComponent } from 'react';
+import useSWR from 'swr';
 import Skeleton from 'react-loading-skeleton';
 import fetcher from '../utils/fetcher';
 import useAuthentication from '../utils/useAuthentication';
 import Avatar from './Avatar';
 import Button from './Button';
 
-const Members = ({ slug }) => {
+type Props = {
+  slug: string;
+};
+
+const Members: FunctionComponent<Props> = ({ slug }) => {
   const { user } = useAuthentication();
-  const { data } = useSWR(slug ? `/api/bands/${slug}/members` : null);
+  const { data, mutate } = useSWR(slug ? `/api/bands/${slug}/members` : null);
   const [removeState, setRemoveState] = useState(null);
 
   const removeMember = async memberId => {
@@ -33,7 +37,7 @@ const Members = ({ slug }) => {
   if (!data)
     return (
       <div className="flex items-center">
-        <Avatar loading />
+        <Avatar alt="" src="" loading />
         <div>
           <div className="ml-2 font-bold font-display">
             <Skeleton width={100} />

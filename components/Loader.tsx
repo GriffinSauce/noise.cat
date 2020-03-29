@@ -1,4 +1,8 @@
-const Loader = ({ inline = false }) => {
+import { FunctionComponent } from 'react';
+
+type Props = { inline?: boolean };
+
+const Loader: FunctionComponent<Props> = ({ inline = false }) => {
   return (
     <>
       <div className="loader" />

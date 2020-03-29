@@ -1,6 +1,18 @@
+import { MouseEvent, FunctionComponent } from 'react';
 import Loader from './Loader';
 
-const Button = ({
+type Props = {
+  className?: String;
+  color?: 'green' | 'gray' | 'disabled';
+  inline?: boolean;
+  disabled?: boolean;
+  state?: null | 'loading';
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  group?: boolean;
+  type?: 'button' | 'submit';
+};
+
+const Button: FunctionComponent<Props> = ({
   className = '',
   color = 'gray',
   inline = false,

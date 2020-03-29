@@ -1,9 +1,24 @@
+import { FunctionComponent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { FiUser } from 'react-icons/fi';
 
-const Avatar = ({ alt, src, size = '30px', loading }) => {
+type Props = {
+  alt: string;
+  src: string;
+  size?: string;
+  loading?: boolean;
+};
+
+const unused = true;
+
+const Avatar: FunctionComponent<Props> = ({
+  alt,
+  src,
+  size = '30px',
+  loading,
+}) => {
   const sizeInt = parseInt(size, 10); // Assumes px
-  if (loading) return <Skeleton circle width={sizeInt} height={sizeInt} />;
+  if (loading) return <Skeleton circle width={sizeInt} height={sizeInt} />; // Attempt to create a skeleton that will stay in sync w. avatar options
   return (
     <>
       {src ? (

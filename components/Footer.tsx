@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, FunctionComponent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
@@ -6,7 +6,10 @@ import useOnClickOutside from '../utils/useOnClickOutside';
 import Link from 'next/link';
 import { FiCalendar, FiSettings } from 'react-icons/fi';
 
-const ActiveLink = ({ children, href, ...props }) => {
+const ActiveLink: FunctionComponent<{
+  href: string;
+  as?: string;
+}> = ({ children, href, ...props }) => {
   const { pathname } = useRouter();
   return (
     <Link href={href} {...props}>
@@ -21,7 +24,7 @@ const ActiveLink = ({ children, href, ...props }) => {
   );
 };
 
-const Footer = () => {
+const Footer: FunctionComponent = () => {
   const ref = useRef();
   const [isOpen, setOpen] = useState(false);
   useOnClickOutside(ref, () => setOpen(false));
@@ -34,7 +37,7 @@ const Footer = () => {
   const { data, error } = useSWR(slug ? `/api/bands` : null);
   if (!data) return null;
   if (!data.bands.length) return null;
-  if (error) return 'Error';
+  if (error) return <div>Error</div>;
 
   const BandPicker = () => (
     <ul className="bg-white modal-shadow">

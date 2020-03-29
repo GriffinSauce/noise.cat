@@ -1,9 +1,19 @@
+import { FunctionComponent } from 'react';
 import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
 
+type Props = {
+  header?: boolean;
+  footer?: boolean;
+};
+
 // TODO: Review font usage and trim
-const Layout = ({ children, header = true, footer = true }) => {
+const Layout: FunctionComponent<Props> = ({
+  children,
+  header = true,
+  footer = true,
+}) => {
   return (
     <>
       <Head>

@@ -14,7 +14,7 @@ const Profile = () => {
   if (isAuthenticated !== null && !isAuthenticated) {
     // Should redirect to login
     if (process.browser) {
-      window.location = '/';
+      window.location.replace('/');
       return null;
     }
     return null;
@@ -54,7 +54,7 @@ const Profile = () => {
               </>
             ) : (
               <div className="mb-6 py-2 h3">
-                <Skeleton className="mb-6 py-2 h3" width={100} />
+                <Skeleton width={100} />
               </div>
             )}
           </section>
