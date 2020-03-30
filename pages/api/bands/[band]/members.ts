@@ -14,7 +14,7 @@ const handler = nextConnect();
 
 handler.use(middleware);
 
-const selectFields = (...keys) => obj => {
+const selectFields = (...keys) => (obj) => {
   return keys.reduce((acc, key) => {
     acc[key] = obj[key];
     return acc;
@@ -38,7 +38,7 @@ handler.get(async (req, res) => {
 
   // Fetch members data from auth0
   const membersUnsafe = await management.getUsers({
-    q: band.members.map(id => `user_id:${id}`).join(' OR '),
+    q: band.members.map((id) => `user_id:${id}`).join(' OR '),
   });
   const members = membersUnsafe.map(
     selectFields(

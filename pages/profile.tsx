@@ -38,7 +38,7 @@ const Profile = () => {
               <>
                 {data.bands.length ? (
                   <ul className="mb-6">
-                    {data.bands.map(band => (
+                    {data.bands.map((band) => (
                       <li key={band.slug}>
                         <Link href="/bands/[band]" as={`/bands/${band.slug}`}>
                           <a className="block py-2 h3">{band.name}</a>

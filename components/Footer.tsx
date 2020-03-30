@@ -2,9 +2,9 @@ import { useState, useRef, FunctionComponent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import useOnClickOutside from '../utils/useOnClickOutside';
 import Link from 'next/link';
 import { FiCalendar, FiSettings } from 'react-icons/fi';
+import useOnClickOutside from '../utils/useOnClickOutside';
 
 const ActiveLink: FunctionComponent<{
   href: string;
@@ -46,7 +46,7 @@ const Footer: FunctionComponent = () => {
           (acc, band) => (band.slug === slug ? [band, ...acc] : [...acc, band]), // Sort current band to top
           [],
         )
-        .map(band => (
+        .map((band) => (
           <li key={band.slug}>
             <Link href={pathname} as={pathname.replace('[band]', band.slug)}>
               <button
@@ -66,11 +66,13 @@ const Footer: FunctionComponent = () => {
             </Link>
           </li>
         ))}
-      <style jsx>{`
-        .modal-shadow {
-          box-shadow: 0 10px 30px 0px rgba(0, 0, 0, 0.2);
-        }
-      `}</style>
+      <style jsx>
+        {`
+          .modal-shadow {
+            box-shadow: 0 10px 30px 0px rgba(0, 0, 0, 0.2);
+          }
+        `}
+      </style>
     </ul>
   );
 
@@ -84,7 +86,7 @@ const Footer: FunctionComponent = () => {
         <img
           alt="band switcher"
           className="w-8 h-8 rounded-full"
-          src={data.bands.find(band => band.slug === slug).image}
+          src={data.bands.find((band) => band.slug === slug).image}
         />
       </button>
       <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>

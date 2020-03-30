@@ -1,11 +1,12 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import '../styles/index.css';
-import fetcher from '../utils/fetcher';
 import { SWRConfig } from 'swr';
+import fetcher from '../utils/fetcher';
 
 export default ({ Component, pageProps }) => {
   return (
     <SWRConfig value={{ fetcher }}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </SWRConfig>
   );
 };

@@ -2,7 +2,7 @@ import { MouseEvent, FunctionComponent } from 'react';
 import Loader from './Loader';
 
 type Props = {
-  className?: String;
+  className?: string;
   color?: 'green' | 'gray' | 'disabled';
   inline?: boolean;
   disabled?: boolean;

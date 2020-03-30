@@ -9,8 +9,6 @@ type Props = {
   loading?: boolean;
 };
 
-const unused = true;
-
 const Avatar: FunctionComponent<Props> = ({
   alt,
   src,
@@ -31,13 +29,15 @@ const Avatar: FunctionComponent<Props> = ({
           <FiUser />
         </figure>
       )}
-      <style jsx>{`
-        img,
-        figure {
-          height: ${size};
-          width: ${size};
-        }
-      `}</style>
+      <style jsx>
+        {`
+          img,
+          figure {
+            height: ${size};
+            width: ${size};
+          }
+        `}
+      </style>
     </>
   );
 };

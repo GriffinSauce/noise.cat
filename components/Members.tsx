@@ -10,22 +10,34 @@ type Props = {
   slug: string;
 };
 
+type User = {
+  user_id: string;
+  name: string;
+  given_name: string;
+  family_name: string;
+  picture: string;
+  email: string;
+};
+
 const Members: FunctionComponent<Props> = ({ slug }) => {
   const { user } = useAuthentication();
-  const { data, mutate } = useSWR(slug ? `/api/bands/${slug}/members` : null);
+  const { data, mutate } = useSWR<{ members: Array<User>; ids: Array<string> }>(
+    slug ? `/api/bands/${slug}/members` : null,
+  );
   const [removeState, setRemoveState] = useState(null);
 
-  const removeMember = async memberId => {
+  const removeMember = async (memberId) => {
     setRemoveState('loading');
     try {
       await fetcher(`/api/bands/${slug}/members`, {
         method: 'PUT',
         body: {
-          members: data.ids.filter(id => id !== memberId),
+          members: data.ids.filter((id) => id !== memberId),
         },
       });
       mutate({
-        members: data.members.filter(member => member.user_id !== memberId),
+        members: data.members.filter((member) => member.user_id !== memberId),
+        ids: data.ids,
       });
     } catch (err) {
       console.error(err);
@@ -50,7 +62,7 @@ const Members: FunctionComponent<Props> = ({ slug }) => {
     );
   return (
     <ul>
-      {data.members.map(member => (
+      {data.members.map((member) => (
         <li
           key={member.user_id}
           className="flex items-center justify-between mb-1"

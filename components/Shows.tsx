@@ -40,7 +40,7 @@ const Shows: FunctionComponent = () => {
       <div>
         <ul>
           {shows ? (
-            shows.map(show => (
+            shows.map((show) => (
               <li key={show.title} className="pb-6">
                 <h2 className="text-lg truncate">{show.title}</h2>
                 <h3 className="flex items-center text-sm font-medium text-green-500">
@@ -64,11 +64,13 @@ const Shows: FunctionComponent = () => {
           )}
         </ul>
       </div>
-      <style jsx>{`
-        .icon-fix {
-          transform: translate(-1px, -1px);
-        }
-      `}</style>
+      <style jsx>
+        {`
+          .icon-fix {
+            transform: translate(-1px, -1px);
+          }
+        `}
+      </style>
     </>
   );
 };

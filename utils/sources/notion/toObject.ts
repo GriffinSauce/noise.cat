@@ -2,7 +2,7 @@ import { parseISO, format } from 'date-fns';
 
 const collectionId = 'dc2eff91-626a-4d68-8abe-8b316cb25ac9';
 
-const slugify = str =>
+const slugify = (str) =>
   str
     .toLowerCase()
     .trim()
@@ -36,7 +36,7 @@ const maptoSchema = ({ properties, schema }) =>
     return memo;
   }, {});
 
-export default rawData => {
+export default (rawData) => {
   const rawSchema = rawData.recordMap.collection[collectionId].value.schema;
   const schema = Object.keys(rawSchema).reduce((memo, key) => {
     // eslint-disable-next-line no-param-reassign
@@ -48,7 +48,7 @@ export default rawData => {
   }, {});
 
   return rawData.result.blockIds
-    .map(blockId => {
+    .map((blockId) => {
       const block = rawData.recordMap.block[blockId].value;
       const { id, properties } = block;
       if (!properties) return null;
@@ -57,5 +57,5 @@ export default rawData => {
         ...maptoSchema({ properties, schema }),
       };
     })
-    .filter(block => !!block); // Remove unmappable blocks
+    .filter((block) => !!block); // Remove unmappable blocks
 };

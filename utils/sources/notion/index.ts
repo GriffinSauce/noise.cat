@@ -5,7 +5,7 @@ import toObject from './toObject';
 // with
 // adress
 // showinfo
-const mapColumns = show => ({
+const mapColumns = (show) => ({
   date: show.date,
   title: show.showinfo,
   location: show.adress,

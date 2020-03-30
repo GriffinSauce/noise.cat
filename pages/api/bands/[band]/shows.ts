@@ -5,7 +5,7 @@ import sheets from '../../../../utils/sources/sheets';
 import notion from '../../../../utils/sources/notion';
 
 // Data fetching is hardcoded per-band for now
-const getShows = async band => {
+const getShows = async (band) => {
   if (band === 'coral-springs') {
     return sheets.get();
   }
