@@ -10,7 +10,9 @@ import Loader from '../components/Loader';
 const Home = () => {
   const { isAuthenticated } = useAuthentication();
   const router = useRouter();
-  const { data } = useSWR(`/api/bands`);
+  const { data } = useSWR<{
+    bands: Array<Band>;
+  }>(`/api/bands`);
   useEffect(() => {
     if (data?.bands?.length) {
       router.push(`/bands/[band]`, `/bands/${data?.bands[0].slug}`);

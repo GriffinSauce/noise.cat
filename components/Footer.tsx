@@ -25,7 +25,7 @@ const ActiveLink: FunctionComponent<{
 };
 
 const Footer: FunctionComponent = () => {
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setOpen] = useState(false);
   useOnClickOutside(ref, () => setOpen(false));
 
@@ -34,8 +34,11 @@ const Footer: FunctionComponent = () => {
     pathname,
   } = useRouter();
 
-  const { data, error } = useSWR(slug ? `/api/bands` : null);
+  const { data, error } = useSWR<{ bands: Array<Band> }>(
+    slug ? `/api/bands` : null,
+  );
   if (!data) return null;
+  if (!data.bands) return null;
   if (!data.bands.length) return null;
   if (error) return <div>Error</div>;
 
@@ -86,7 +89,7 @@ const Footer: FunctionComponent = () => {
         <img
           alt="band switcher"
           className="w-8 h-8 rounded-full"
-          src={data.bands.find((band) => band.slug === slug).image}
+          src={data.bands.find((band) => band.slug === slug)?.image}
         />
       </button>
       <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>

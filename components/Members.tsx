@@ -24,9 +24,10 @@ const Members: FunctionComponent<Props> = ({ slug }) => {
   const { data, mutate } = useSWR<{ members: Array<User>; ids: Array<string> }>(
     slug ? `/api/bands/${slug}/members` : null,
   );
-  const [removeState, setRemoveState] = useState(null);
+  const [removeState, setRemoveState] = useState<null | 'loading'>(null);
 
-  const removeMember = async (memberId) => {
+  const removeMember = async (memberId: string) => {
+    if (!data) return;
     setRemoveState('loading');
     try {
       await fetcher(`/api/bands/${slug}/members`, {

@@ -8,8 +8,10 @@ import Avatar from '../components/Avatar';
 import Container from '../components/Container';
 
 const Profile = () => {
-  const { isAuthenticated, user = {} } = useAuthentication();
-  const { data } = useSWR(isAuthenticated ? `/api/bands` : null);
+  const { isAuthenticated, user } = useAuthentication();
+  const { data } = useSWR<{ bands: Array<Band> }>(
+    isAuthenticated ? `/api/bands` : null,
+  );
 
   if (isAuthenticated !== null && !isAuthenticated) {
     // Should redirect to login
@@ -26,9 +28,9 @@ const Profile = () => {
           <section className="mb-6">
             <h1>Profile</h1>
             <div className="flex items-center mt-2">
-              <Avatar alt={user.name} src={user.picture} size="40px" />
+              <Avatar alt={user?.name} src={user?.picture} size="40px" />
               <p className="ml-2 font-semibold font-display">
-                {user.name || <Skeleton width={100} />}
+                {user?.name || <Skeleton width={100} />}
               </p>
             </div>
           </section>

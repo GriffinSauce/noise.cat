@@ -1,12 +1,12 @@
 import nextConnect from 'next-connect';
 import { ManagementClient } from 'auth0';
-import middleware from '../../../../middleware/db';
+import middleware, { RequestWithDb } from '../../../../middleware/db';
 import auth0 from '../../../../utils/auth0';
 
 const management = new ManagementClient({
-  domain: process.env.AUTH0_DOMAIN,
-  clientId: process.env.AUTH0_CLIENTID,
-  clientSecret: process.env.AUTH0_SECRET,
+  domain: process.env.AUTH0_DOMAIN as string,
+  clientId: process.env.AUTH0_CLIENTID as string,
+  clientSecret: process.env.AUTH0_SECRET as string,
   scope: 'read:users update:users',
 });
 
@@ -14,17 +14,21 @@ const handler = nextConnect();
 
 handler.use(middleware);
 
-const selectFields = (...keys) => (obj) => {
-  return keys.reduce((acc, key) => {
+type Obj = {
+  [key: string]: any; // eslint-disable-line
+};
+
+const selectFields = (...keys: Array<string>) => (obj: Obj) => {
+  return keys.reduce((acc: Obj, key) => {
     acc[key] = obj[key];
     return acc;
   }, {});
 };
 
-handler.get(async (req, res) => {
+handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
   const { user } = await auth0.getSession(req);
   const slug = req.query.band;
-  const band = await req.db.collection('band').findOne({
+  const band = await req.db.collection('band').findOne<Band>({
     slug,
   });
   if (!band)
@@ -55,7 +59,7 @@ handler.get(async (req, res) => {
   return res.json({ members, ids: band.members });
 });
 
-handler.put(async (req, res) => {
+handler.put(async (req: RequestWithDb, res: NextConnectResponse) => {
   const { user } = await auth0.getSession(req);
   const slug = req.query.band;
 
@@ -92,5 +96,6 @@ handler.put(async (req, res) => {
   return res.status(204).send('');
 });
 
-const appliedHandler = (req, res) => handler.apply(req, res); // Workaround for false positive "API resolved without sending a response"
+const appliedHandler: NextConnectHandler = (req, res) =>
+  handler.apply(req, res); // Workaround for false positive "API resolved without sending a response"
 export default auth0.requireAuthentication(appliedHandler);

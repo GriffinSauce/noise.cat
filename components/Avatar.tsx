@@ -3,8 +3,8 @@ import Skeleton from 'react-loading-skeleton';
 import { FiUser } from 'react-icons/fi';
 
 type Props = {
-  alt: string;
-  src: string;
+  alt?: string;
+  src?: string;
   size?: string;
   loading?: boolean;
 };

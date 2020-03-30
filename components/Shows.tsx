@@ -31,7 +31,9 @@ const Shows: FunctionComponent = () => {
   const {
     query: { band: slug },
   } = useRouter();
-  const { data, error } = useSWR(slug ? `/api/bands/${slug}/shows` : null);
+  const { data, error } = useSWR<{ shows: Array<Show> }>(
+    slug ? `/api/bands/${slug}/shows` : null,
+  );
 
   if (error) return null;
   const shows = data?.shows;
