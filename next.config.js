@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const withOffline = require('next-offline');
 
 module.exports = withOffline({
   target: 'serverless',
-  transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
+  transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache
   workboxOpts: {
     swDest: 'static/service-worker.js',
     runtimeCaching: [
