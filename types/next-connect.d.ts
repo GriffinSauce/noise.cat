@@ -24,4 +24,4 @@ declare type NextConnectNext = () => void;
 declare type NextConnectHandler = (
   NextConnectRequest,
   NextConnectResponse,
-) => void;
+) => Promise<void>;

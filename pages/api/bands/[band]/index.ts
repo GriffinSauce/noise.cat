@@ -7,6 +7,7 @@ const handler = nextConnect();
 handler.use(middleware);
 
 handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
+  // @ts-ignore
   const { user } = await auth0.getSession(req);
   const slug = req.query.band;
   const band = await req.db.collection('band').findOne({
@@ -20,9 +21,9 @@ handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
     return res.status(403).json({
       error: `You're not a member of this band`,
     });
-  return res.json({ band });
+  return res.json({
+    band,
+  });
 });
 
-const appliedHandler: NextConnectHandler = (req, res) =>
-  handler.apply(req, res); // Workaround for false positive "API resolved without sending a response"
-export default auth0.requireAuthentication(appliedHandler);
+export default auth0.requireAuthentication(handler);

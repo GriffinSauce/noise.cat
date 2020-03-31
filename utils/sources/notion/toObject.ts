@@ -2,13 +2,17 @@ import { parseISO, format } from 'date-fns';
 
 const collectionId = 'dc2eff91-626a-4d68-8abe-8b316cb25ac9';
 
-const slugify = (str) =>
+const slugify = (str: string) =>
   str
     .toLowerCase()
     .trim()
     .replace(/[\s\W-&]+/g, '');
 
-const formatValue = ({ type, value }) => {
+type Value = {
+  type: 'text' | 'title' | 'date';
+  value: any;
+};
+const formatValue = ({ type, value }: Value) => {
   if (type === 'text' || type === 'title') return value.pop().pop();
   if (type === 'date') {
     const raw = value[0][1][0][1];
@@ -48,7 +52,7 @@ export default (rawData) => {
   }, {});
 
   return rawData.result.blockIds
-    .map((blockId) => {
+    .map((blockId: string) => {
       const block = rawData.recordMap.block[blockId].value;
       const { id, properties } = block;
       if (!properties) return null;
@@ -57,5 +61,5 @@ export default (rawData) => {
         ...maptoSchema({ properties, schema }),
       };
     })
-    .filter((block) => !!block); // Remove unmappable blocks
+    .filter((block: any) => !!block); // Remove unmappable blocks
 };

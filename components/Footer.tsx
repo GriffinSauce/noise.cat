@@ -45,9 +45,8 @@ const Footer: FunctionComponent = () => {
   const BandPicker = () => (
     <ul className="bg-white modal-shadow">
       {data.bands
-        .reduce(
-          (acc, band) => (band.slug === slug ? [band, ...acc] : [...acc, band]), // Sort current band to top
-          [],
+        .sort(
+          (a) => (a.slug === slug ? -1 : 1), // Sort current band to top
         )
         .map((band) => (
           <li key={band.slug}>

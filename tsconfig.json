@@ -16,7 +16,7 @@
     "sourceMap": true,
     "removeComments": false,
     "outDir": "build",
-    "noImplicitAny": true,
+    "noImplicitAny": false, // FIXME
     "alwaysStrict": true,
     "strictNullChecks": true,
     "noUnusedLocals": false,

@@ -26,6 +26,7 @@ const selectFields = (...keys: Array<string>) => (obj: Obj) => {
 };
 
 handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
+  // @ts-ignore
   const { user } = await auth0.getSession(req);
   const slug = req.query.band;
   const band = await req.db.collection('band').findOne<Band>({
@@ -56,10 +57,14 @@ handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
     // Available fields: created_at email email_verified family_name given_name identities locale name nickname picture updated_at user_id last_login last_ip logins_count
   );
 
-  return res.json({ members, ids: band.members });
+  return res.json({
+    members,
+    ids: band.members,
+  });
 });
 
 handler.put(async (req: RequestWithDb, res: NextConnectResponse) => {
+  // @ts-ignore
   const { user } = await auth0.getSession(req);
   const slug = req.query.band;
 
@@ -96,6 +101,4 @@ handler.put(async (req: RequestWithDb, res: NextConnectResponse) => {
   return res.status(204).send('');
 });
 
-const appliedHandler: NextConnectHandler = (req, res) =>
-  handler.apply(req, res); // Workaround for false positive "API resolved without sending a response"
-export default auth0.requireAuthentication(appliedHandler);
+export default auth0.requireAuthentication(handler);

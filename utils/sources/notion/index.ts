@@ -1,11 +1,13 @@
 import fetchCollection from './fetchCollection';
 import toObject from './toObject';
 
-// date
-// with
-// adress
-// showinfo
-const mapColumns = (show) => ({
+type NotionShow = {
+  date: string;
+  showinfo: string;
+  adress: string;
+};
+
+const mapColumns = (show: NotionShow): Show => ({
   date: show.date,
   title: show.showinfo,
   location: show.adress,

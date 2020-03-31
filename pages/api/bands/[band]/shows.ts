@@ -20,6 +20,7 @@ const handler = nextConnect();
 handler.use(middleware);
 
 handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
+  // @ts-ignore
   const { user } = await auth0.getSession(req);
 
   const slug = req.query.band;
@@ -37,7 +38,9 @@ handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
 
   try {
     const shows = await getShows(slug);
-    return res.json({ shows });
+    return res.json({
+      shows,
+    });
   } catch (err) {
     if (err.message === 'notFound') {
       return res.status(404).json({
@@ -48,6 +51,4 @@ handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
   }
 });
 
-const appliedHandler: NextConnectHandler = (req, res) =>
-  handler.apply(req, res); // Workaround for false positive "API resolved without sending a response"
-export default auth0.requireAuthentication(appliedHandler);
+export default auth0.requireAuthentication(handler);

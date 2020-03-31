@@ -16,4 +16,7 @@ declare type Show = {
   date: string;
   location: string;
   note: string;
+  contact: string;
+  pay: string;
+  status: string;
 };

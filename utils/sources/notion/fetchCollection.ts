@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const NOTION_TOKEN = process.env.LA_NOTION_TOKEN;
+const NOTION_TOKEN = process.env.LA_NOTION_TOKEN as string;
 const BASEURL = 'https://www.notion.so/api/v3/';
 
 const collectionId = 'dc2eff91-626a-4d68-8abe-8b316cb25ac9';
@@ -18,7 +18,7 @@ const req = {
   },
 };
 
-function request({ endpoint, token, data }) {
+function request({ endpoint, token }: { endpoint: string; token: string }) {
   return axios(`${BASEURL}${endpoint}`, {
     method: 'POST',
     headers: {
@@ -27,7 +27,7 @@ function request({ endpoint, token, data }) {
       'content-type': 'application/json',
       cookie: `token_v2=${token};`,
     },
-    data,
+    data: req,
   });
 }
 
@@ -35,7 +35,6 @@ export default async () => {
   const { data } = await request({
     endpoint: 'queryCollection',
     token: NOTION_TOKEN,
-    data: req,
   });
   return data;
 };
