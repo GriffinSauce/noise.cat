@@ -2,7 +2,17 @@ import axios from 'axios';
 
 const CS_API_URL = process.env.CS_API_URL; // eslint-disable-line prefer-destructuring
 
-const mapColumns = (show) => ({
+// Huehue
+type SheetShow = {
+  'Show datum': string;
+  'Show naam': string;
+  'Show locatie': string;
+  'Show info': string;
+  'Contact info': string;
+  Gage: string;
+};
+
+const mapColumns = (show: SheetShow) => ({
   date: show['Show datum'],
   title: show['Show naam'],
   location: show['Show locatie'],

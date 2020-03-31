@@ -1,7 +1,8 @@
 import './dotenv';
+import { IncomingMessage } from 'http';
 import { initAuth0 } from '@auth0/nextjs-auth0';
 
-export default initAuth0({
+const auth0 = initAuth0({
   domain: process.env.AUTH0_DOMAIN as string,
   clientId: process.env.AUTH0_CLIENTID as string,
   clientSecret: process.env.AUTH0_SECRET as string,
@@ -19,3 +20,16 @@ export default initAuth0({
     cookieLifetime: 60 * 60 * 24 * 365 * 5, // Five years, YOLO
   },
 });
+
+// Typing helper ¯\_(ツ)_/¯
+const getSessionFromReq = async (req: NextConnectRequest) => {
+  const session = await auth0.getSession((req as unknown) as IncomingMessage);
+  return (session as unknown) as {
+    user: User;
+  };
+};
+
+export default {
+  ...auth0,
+  getSessionFromReq,
+};

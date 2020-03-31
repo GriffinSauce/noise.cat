@@ -1,11 +1,6 @@
 import useSWR from 'swr';
 import fetcher from './fetcher';
 
-type User = {
-  sub: string;
-  name: string;
-  picture: string;
-};
 type Return = { isAuthenticated: null | boolean; user?: User };
 
 const useAuthentication = (): Return => {

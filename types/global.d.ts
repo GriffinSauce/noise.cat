@@ -4,6 +4,12 @@ declare namespace NodeJS {
   }
 }
 
+declare type User = {
+  sub: string;
+  name: string;
+  picture: string;
+};
+
 declare type Band = {
   slug: string;
   name: string;

@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/**
+ * This is a stopgap hack until Notion API becomes available, wild west it a little bit
+ */
+
 import { parseISO, format } from 'date-fns';
 
 const collectionId = 'dc2eff91-626a-4d68-8abe-8b316cb25ac9';
@@ -8,30 +13,50 @@ const slugify = (str: string) =>
     .trim()
     .replace(/[\s\W-&]+/g, '');
 
-type Value = {
-  type: 'text' | 'title' | 'date';
-  value: any;
+type PropertyType = 'text' | 'title' | 'date' | 'file';
+type Date = {
+  type: string;
+  start_date: string;
 };
-const formatValue = ({ type, value }: Value) => {
-  if (type === 'text' || type === 'title') return value.pop().pop();
-  if (type === 'date') {
-    const raw = value[0][1][0][1];
+type Property =
+  | {
+      type: 'text' | 'title';
+      value: [[string]];
+    }
+  | {
+      type: 'date';
+      value: [[string, [[string, Date]]]];
+    }
+  | {
+      type: 'file';
+      value: [[string, [string, [string, string]]]];
+    };
 
+const formatValue = ({ type, value }: Property): any => {
+  if (type === 'text' || type === 'title') return value?.pop()?.pop();
+  if (type === 'date') {
+    const raw = value?.[0]?.[1]?.[0]?.[1] as Date;
     return format(parseISO(raw.start_date), 'yyyy-MM-dd');
   }
   if (type === 'file') {
     const [filename, rawUrl] = value[0];
     return {
       filename,
-      url: rawUrl[0][1],
+      url: rawUrl?.[0][1],
     };
   }
   return value;
 };
 
-const maptoSchema = ({ properties, schema }) =>
-  Object.keys(properties).reduce((memo, key) => {
-    const { slug, type } = schema[key];
+const maptoSchema = ({
+  properties,
+  schema,
+}: {
+  properties: any;
+  schema: any;
+}) =>
+  Object.keys(properties).reduce((memo: any, key: string) => {
+    const { slug, type } = schema[key] as { slug: string; type: PropertyType };
     const value = formatValue({
       type,
       value: properties[key],
@@ -40,9 +65,9 @@ const maptoSchema = ({ properties, schema }) =>
     return memo;
   }, {});
 
-export default (rawData) => {
+export default (rawData: any) => {
   const rawSchema = rawData.recordMap.collection[collectionId].value.schema;
-  const schema = Object.keys(rawSchema).reduce((memo, key) => {
+  const schema = Object.keys(rawSchema).reduce((memo: any, key: string) => {
     // eslint-disable-next-line no-param-reassign
     memo[key] = {
       ...rawSchema[key],
@@ -61,5 +86,5 @@ export default (rawData) => {
         ...maptoSchema({ properties, schema }),
       };
     })
-    .filter((block: any) => !!block); // Remove unmappable blocks
+    .filter((block: null | object) => !!block); // Remove unmappable blocks
 };

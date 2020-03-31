@@ -7,8 +7,7 @@ const handler = nextConnect();
 handler.use(middleware);
 
 handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
-  // @ts-ignore
-  const { user } = await auth0.getSession(req);
+  const { user } = await auth0.getSessionFromReq(req);
   const slug = req.query.band;
   const band = await req.db.collection('band').findOne({
     slug,
