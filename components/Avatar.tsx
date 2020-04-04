@@ -16,7 +16,12 @@ const Avatar: FunctionComponent<Props> = ({
   loading,
 }) => {
   const sizeInt = parseInt(size, 10); // Assumes px
-  if (loading) return <Skeleton circle width={sizeInt} height={sizeInt} />; // Attempt to create a skeleton that will stay in sync w. avatar options
+  if (loading)
+    return (
+      <div className="leading-none">
+        <Skeleton circle width={sizeInt} height={sizeInt} />
+      </div>
+    ); // Attempt to create a skeleton that will stay in sync w. avatar options
   return (
     <>
       {src ? (
