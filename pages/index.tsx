@@ -14,9 +14,8 @@ const Home = () => {
     bands: Array<Band>;
   }>(`/api/bands`);
   useEffect(() => {
-    if (data?.bands?.length) {
-      router.push(`/bands/[band]`, `/bands/${data?.bands[0].slug}`);
-    }
+    if (!data?.bands?.length) return;
+    router.push(`/bands/[band]`, `/bands/${data?.bands[0].slug}`);
   }, [data]);
   return (
     <Layout header={false} footer={false}>

@@ -46,6 +46,7 @@
       }
     ],
     "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off", // Conflicts with prettier
     "no-unused-expressions": [
       "warn",
       {
