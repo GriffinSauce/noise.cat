@@ -7,6 +7,9 @@ declare type NextConnectRequest = {
   body: {
     [key: string]: any; // eslint-disable-line
   };
+  headers: {
+    [key: string]: string; // eslint-disable-line
+  };
 };
 
 declare type NextConnectResponse = {
