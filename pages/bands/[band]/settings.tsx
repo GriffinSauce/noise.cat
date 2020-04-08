@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
+import { useState } from 'react';
 import qs from 'qs';
 import Skeleton from 'react-loading-skeleton';
 import copyToClipboard from '../../../utils/copyToClipboard';
@@ -14,9 +15,11 @@ const Settings = () => {
     query: { band: slug },
   } = useRouter();
   const { data } = useSWR<{ band: Band }>(slug ? `/api/bands/${slug}` : null);
+  const [inviteState, setInviteState] = useState<null | 'loading'>(null);
 
   const copyInviteLink = async () => {
     if (!data) return;
+    setInviteState('loading');
     const { invite } = await fetcher<{ invite: Invite }>(`/api/invites`, {
       method: 'POST',
       body: {
@@ -31,6 +34,7 @@ const Settings = () => {
         slug: invite.slug,
       })}`,
     );
+    setInviteState(null);
   };
 
   return (
@@ -45,7 +49,7 @@ const Settings = () => {
           <h3 className="mt-4 block font-display font-bold">
             Invite new members
           </h3>
-          <Button inline onClick={copyInviteLink}>
+          <Button inline state={inviteState} onClick={copyInviteLink}>
             Copy invite link
           </Button>
         </div>
