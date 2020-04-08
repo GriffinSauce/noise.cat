@@ -23,7 +23,7 @@ const Settings = () => {
         slug,
       },
     });
-    const baseUrl = 'http://localhost:3000';
+    const baseUrl = window.location.origin;
     copyToClipboard(
       `${baseUrl}/join?${qs.stringify({
         band: data?.band.name,
