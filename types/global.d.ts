@@ -11,10 +11,17 @@ declare type User = {
 };
 
 declare type Band = {
+  _id: string;
   slug: string;
   name: string;
   image: string;
   members: Array<string>;
+};
+
+declare type Invite = {
+  _id: string;
+  token: string;
+  slug: string;
 };
 
 declare type Show = {

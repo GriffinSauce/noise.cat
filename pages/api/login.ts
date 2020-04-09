@@ -2,8 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import auth0 from '../../utils/auth0';
 
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
+  const redirectTo = req.query.redirectTo ? `${req.query.redirectTo}` : '/';
   try {
-    await auth0.handleLogin(req, res, {});
+    await auth0.handleLogin(req, res, { redirectTo });
   } catch (error) {
     console.error(error);
     res.status(error.status || 400).end(error.message);

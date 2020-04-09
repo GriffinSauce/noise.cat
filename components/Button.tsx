@@ -42,7 +42,16 @@ const Button: FunctionComponent<Props> = ({
       disabled={isDisabled}
       type={type}
     >
-      {state === 'loading' ? <Loader /> : children}
+      {state === 'loading' ? (
+        <>
+          <div className="opacity-0">{children}</div>
+          <div className="absolute">
+            <Loader />
+          </div>
+        </>
+      ) : (
+        children
+      )}
     </button>
   );
 };

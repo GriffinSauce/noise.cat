@@ -42,10 +42,11 @@
     "no-console": [
       2,
       {
-        "allow": ["warn", "error"]
+        "allow": ["warn", "error", "info"]
       }
     ],
     "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off", // Conflicts with prettier
     "no-unused-expressions": [
       "warn",
       {
@@ -53,6 +54,12 @@
         "allowTernary": true
       }
     ], // https://eslint.org/docs/rules/no-unused-expressions
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": ["_id"]
+      }
+    ],
     "@typescript-eslint/prefer-interface": "off", // also want to use "type"
     "@typescript-eslint/explicit-function-return-type": "off", // annoying to force return type
     "react/jsx-filename-extension": [

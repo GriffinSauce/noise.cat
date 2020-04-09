@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState, FunctionComponent } from 'react';
 import useSWR from 'swr';
 import Skeleton from 'react-loading-skeleton';
@@ -6,9 +7,7 @@ import useAuthentication from '../utils/useAuthentication';
 import Avatar from './Avatar';
 import Button from './Button';
 
-type Props = {
-  slug: string;
-};
+type Props = {};
 
 type User = {
   user_id: string;
@@ -19,8 +18,11 @@ type User = {
   email: string;
 };
 
-const Members: FunctionComponent<Props> = ({ slug }) => {
+const Members: FunctionComponent<Props> = () => {
   const { user } = useAuthentication();
+  const {
+    query: { band: slug },
+  } = useRouter();
   const { data, mutate } = useSWR<{ members: Array<User>; ids: Array<string> }>(
     slug ? `/api/bands/${slug}/members` : null,
   );
