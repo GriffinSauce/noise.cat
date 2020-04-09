@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import nextConnect from 'next-connect';
-import { ObjectId } from 'mongodb';
+import { addDays } from 'date-fns';
 import { RateLimiterMongo } from 'rate-limiter-flexible';
 import middleware, { RequestWithDb } from '../../../middleware/db';
 import auth0 from '../../../utils/auth0';
@@ -29,6 +29,7 @@ handler.post(async (req: RequestWithDb, res: NextConnectResponse) => {
     });
 
   const invite = {
+    expireAt: addDays(new Date(), 7), // Relies on 0 second TTL index
     slug,
     token: generateInviteToken(),
   };
@@ -68,18 +69,6 @@ handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
     return res.status(400).json({
       error: `Invite invalid`,
     });
-
-  // Delete invite
-  await req.db.collection('invite').updateOne(
-    {
-      _id: new ObjectId(invite._id),
-    },
-    {
-      $set: {
-        deleted: new Date(),
-      },
-    },
-  );
 
   // Add member
   await req.db.collection('band').updateOne(
