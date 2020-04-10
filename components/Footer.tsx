@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { FiCalendar, FiSettings } from 'react-icons/fi';
+import { FiCalendar, FiSettings, FiExternalLink } from 'react-icons/fi';
 import useOnClickOutside from '../utils/useOnClickOutside';
 
 const ActiveLink: FunctionComponent<{
@@ -79,7 +79,7 @@ const Footer: FunctionComponent = () => {
   );
 
   return (
-    <nav className="fixed bottom-0 grid w-full grid-cols-3 bg-white border-t border-gray-200">
+    <nav className="fixed bottom-0 grid w-full grid-cols-4 bg-white border-t border-gray-200">
       <button
         className="p-2 text-center flex-center"
         onClick={() => setOpen(true)}
@@ -93,6 +93,9 @@ const Footer: FunctionComponent = () => {
       </button>
       <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
         <FiCalendar />
+      </ActiveLink>
+      <ActiveLink href="/bands/[band]/links" as={`/bands/${slug}/links`}>
+        <FiExternalLink />
       </ActiveLink>
       <ActiveLink href="/bands/[band]/settings" as={`/bands/${slug}/settings`}>
         <FiSettings />
