@@ -13,9 +13,9 @@ Currently just the home of [Left Alive](https://www.leftalive.nl/) and [Coral Sp
 - [ ] See previous shows and options
 - [ ] Share your demo's, with versioning and notes
 - [ ] Keep a list of useful links (eg. stageplan, presskit)
-- [ ] Member management
+- [x] Member management
   - [x] Remove members from your band
-  - [ ] Invite members to your band (yay)
+  - [x] Invite members to your band (yay)
 
 **Development**
 
