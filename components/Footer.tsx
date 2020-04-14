@@ -97,7 +97,7 @@ const Footer: FunctionComponent = () => {
       <ActiveLink href="/bands/[band]/settings" as={`/bands/${slug}/settings`}>
         <FiSettings />
       </ActiveLink>
-      <Modal isOpen={isOpen} onRequestClose={() => setOpen(false)}>
+      <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
         <BandPicker />
       </Modal>
     </nav>

@@ -70,7 +70,7 @@ const Links = () => {
       </Container>
       <Modal
         isOpen={isFormOpen}
-        onRequestClose={closeForm}
+        onClose={closeForm}
         className="Modal"
         overlayClassName="Overlay"
       >
