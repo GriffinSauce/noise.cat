@@ -19,6 +19,8 @@ Currently just the home of [Left Alive](https://www.leftalive.nl/) and [Coral Sp
 
 **Development**
 
+`now env pull`
+
 `yarn dev` => open [localhost:3000](http://localhost:3000)
 
 **Preview deployments and auth**
