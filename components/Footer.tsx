@@ -1,10 +1,9 @@
-import { useState, useRef, FunctionComponent } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, FunctionComponent } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { FiCalendar, FiSettings, FiExternalLink } from 'react-icons/fi';
-import useOnClickOutside from '../utils/useOnClickOutside';
+import Modal from './Modal';
 
 const ActiveLink: FunctionComponent<{
   href: string;
@@ -25,9 +24,7 @@ const ActiveLink: FunctionComponent<{
 };
 
 const Footer: FunctionComponent = () => {
-  const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setOpen] = useState(false);
-  useOnClickOutside(ref, () => setOpen(false));
 
   const {
     query: { band: slug },
@@ -100,20 +97,9 @@ const Footer: FunctionComponent = () => {
       <ActiveLink href="/bands/[band]/settings" as={`/bands/${slug}/settings`}>
         <FiSettings />
       </ActiveLink>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="absolute bottom-0 left-0 w-full"
-            key="band-picker"
-            initial={{ bottom: -150 }}
-            animate={{ bottom: 0 }}
-            exit={{ bottom: -150 }}
-            ref={ref}
-          >
-            <BandPicker />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Modal isOpen={isOpen} onRequestClose={() => setOpen(false)}>
+        <BandPicker />
+      </Modal>
     </nav>
   );
 };

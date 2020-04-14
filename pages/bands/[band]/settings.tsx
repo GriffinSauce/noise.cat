@@ -41,14 +41,12 @@ const Settings = () => {
     <Layout>
       <Container>
         <div className="p-4">
-          <h3 className="font-display font-bold">Name</h3>
+          <h3 className="label">Name</h3>
           <h2>{data?.band?.name || <Skeleton width={200} />}</h2>
 
-          <h3 className="mt-4 block font-display font-bold">Members</h3>
+          <h3 className="mt-4 block label">Members</h3>
           <Members />
-          <h3 className="mt-4 block font-display font-bold">
-            Invite new members
-          </h3>
+          <h3 className="mt-4 block label">Invite new members</h3>
           <Button inline state={inviteState} onClick={copyInviteLink}>
             Copy invite link
           </Button>
