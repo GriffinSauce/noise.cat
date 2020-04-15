@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { FiX, FiExternalLink } from 'react-icons/fi';
+import { FiX } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
 import fetcher from '../../../utils/fetcher';
 import Layout from '../../../components/Layout';
 import Container from '../../../components/Container';
 import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
+import Links from '../../../components/Links';
 
 const FormError = ({ children }: { children: string }) => (
   <span className="text-xs font-semibold absolute">{children}</span>
 );
 
-const Links = () => {
+const LinksPage = () => {
   const {
     query: { band: slug },
   } = useRouter();
@@ -56,15 +57,7 @@ const Links = () => {
     <Layout>
       <Container>
         <div className="p-4">
-          <ul className="grid gap-2 mb-4">
-            {data?.band?.links?.map((link) => (
-              <li>
-                <a href={link.url} className="flex items-center capitalize h2">
-                  <FiExternalLink className="mr-2" /> {link.title}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <Links slug={slug as string} links={data?.band?.links || []} />
           <Button onClick={openForm}>Add link</Button>
         </div>
       </Container>
@@ -110,12 +103,7 @@ const Links = () => {
               <FormError>{errors?.url?.message}</FormError>
             </label>
           </div>
-          <Button
-            color="green"
-            type="submit"
-            state={postState}
-            onClick={openForm}
-          >
+          <Button color="green" type="submit" state={postState}>
             Add link
           </Button>
         </form>
@@ -124,4 +112,4 @@ const Links = () => {
   );
 };
 
-export default Links;
+export default LinksPage;

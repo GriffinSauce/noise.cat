@@ -1,6 +1,7 @@
 import nextConnect from 'next-connect';
-import middleware, { RequestWithDb } from '../../../../middleware/db';
-import auth0 from '../../../../utils/auth0';
+import { ObjectId } from 'mongodb';
+import middleware, { RequestWithDb } from '../../../../../middleware/db';
+import auth0 from '../../../../../utils/auth0';
 
 const handler = nextConnect();
 
@@ -47,6 +48,7 @@ handler.post(async (req: RequestWithDb, res: NextConnectResponse) => {
       $push: {
         links: {
           ...link,
+          _id: new ObjectId(),
           created: new Date(),
           creatorId: user.sub,
         },
