@@ -24,20 +24,42 @@ const LinksPage = () => {
   }>(slug ? `/api/bands/${slug}` : null);
 
   const [isFormOpen, setFormOpen] = useState(false);
-  const openForm = () => setFormOpen(true);
-  const closeForm = () => setFormOpen(false);
-  const { handleSubmit, register, errors } = useForm();
+  const [editingLink, setEditingLink] = useState<null | Link>(null);
+
+  const { handleSubmit, register, errors, reset } = useForm();
   const [postState, setPostState] = useState<null | 'loading'>(null);
+
+  const closeForm = () => {
+    setFormOpen(false);
+    setEditingLink(null);
+    reset({});
+  };
+  const addLink = () => setFormOpen(true);
+  const editLink = (link: Link) => {
+    setFormOpen(true);
+    setEditingLink(link);
+    reset(link);
+  };
 
   const onSubmit = handleSubmit(async (link) => {
     setPostState('loading');
     try {
-      await fetcher(`/api/bands/${slug}/links`, {
-        method: 'POST',
-        body: {
-          link,
-        },
-      });
+      if (editingLink) {
+        await fetcher(`/api/bands/${slug}/links/${editingLink?._id}`, {
+          method: 'PUT',
+          body: {
+            ...editingLink,
+            link,
+          },
+        });
+      } else {
+        await fetcher(`/api/bands/${slug}/links`, {
+          method: 'POST',
+          body: {
+            link,
+          },
+        });
+      }
     } catch (err) {
       console.error(err);
       return;
@@ -45,20 +67,14 @@ const LinksPage = () => {
     setPostState(null);
     closeForm();
     mutate();
-    // mutate({
-    //   band: {
-    //     ...data.band,
-    //     links: [...data.band.links, link],
-    //   },
-    // });
   });
 
   return (
     <Layout>
       <Container>
         <div className="p-4">
-          <Links slug={slug as string} links={data?.band?.links || []} />
-          <Button onClick={openForm}>Add link</Button>
+          <Links links={data?.band?.links || []} editLink={editLink} />
+          <Button onClick={addLink}>Add link</Button>
         </div>
       </Container>
       <Modal
