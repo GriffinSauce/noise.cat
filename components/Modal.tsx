@@ -9,8 +9,9 @@ const TRANSITION_TIME_MS = 150;
 const Modal: FunctionComponent<
   Omit<ReactModal.Props, 'onRequestClose'> & {
     onClose: () => void;
+    blockDrag?: boolean; // Eg. to block drag when selecting text in inputs
   }
-> = ({ children, onClose, ...props }) => {
+> = ({ children, onClose, blockDrag, ...props }) => {
   const controls = useAnimation();
   return (
     <>
@@ -24,7 +25,7 @@ const Modal: FunctionComponent<
         <motion.div
           className="Modal_Content"
           animate={controls}
-          drag="y"
+          drag={blockDrag ? false : 'y'}
           dragConstraints={{ top: 0 }}
           dragElastic={0}
           onDragEnd={(event, info) => {

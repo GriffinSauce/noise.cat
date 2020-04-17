@@ -23,6 +23,10 @@ const LinksPage = () => {
     band: Band;
   }>(slug ? `/api/bands/${slug}` : null);
 
+  const [isDragBlocked, setDragBlocked] = useState(false);
+  const blockDrag = () => setDragBlocked(true);
+  const unblockDrag = () => setDragBlocked(false);
+
   const [isFormOpen, setFormOpen] = useState(false);
   const [editingLink, setEditingLink] = useState<null | Link>(null);
 
@@ -80,6 +84,7 @@ const LinksPage = () => {
       <Modal
         isOpen={isFormOpen}
         onClose={closeForm}
+        blockDrag={isDragBlocked}
         className="Modal"
         overlayClassName="Overlay"
       >
@@ -103,6 +108,8 @@ const LinksPage = () => {
                 ref={register({
                   required: 'What is it?',
                 })}
+                onMouseEnter={blockDrag}
+                onMouseLeave={unblockDrag}
               />
               <FormError>{errors?.title?.message}</FormError>
             </label>
@@ -115,6 +122,9 @@ const LinksPage = () => {
                 ref={register({
                   required: 'Where is it?',
                 })}
+                onFocus={(event) => event.target.select()}
+                onMouseEnter={blockDrag}
+                onMouseLeave={unblockDrag}
               />
               <FormError>{errors?.url?.message}</FormError>
             </label>
