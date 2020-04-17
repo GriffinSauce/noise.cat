@@ -1,8 +1,11 @@
 import { FunctionComponent } from 'react';
 
-type Props = { inline?: boolean };
+type Props = { inline?: boolean; light?: boolean };
 
-const Loader: FunctionComponent<Props> = ({ inline = false }) => {
+const Loader: FunctionComponent<Props> = ({
+  inline = false,
+  light = false,
+}) => {
   return (
     <>
       <div className="loader" />
@@ -10,8 +13,10 @@ const Loader: FunctionComponent<Props> = ({ inline = false }) => {
         {`
           .loader {
             ${inline ? 'display: inline-block;' : ''}
-            border: 0.1em solid #f3f3f3;
-            border-top: 0.1em solid #3498db;
+            border: 0.1em solid ${light ? 'rgba(255,255,255,0.4)' : '#f3f3f3'};
+            border-top: 0.1em solid ${
+              light ? 'rgba(255,255,255,0.8)' : '#3498db'
+            };
             border-radius: 50%;
             width: 1em;
             height: 1em;

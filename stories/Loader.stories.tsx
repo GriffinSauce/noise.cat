@@ -7,4 +7,6 @@ export default {
 
 export const Default = () => <Loader />;
 
+export const Light = () => <Loader light />;
+
 export const Inline = () => <Loader inline />;

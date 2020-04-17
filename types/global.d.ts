@@ -16,12 +16,21 @@ declare type Band = {
   name: string;
   image: string;
   members: Array<string>;
+  links: Array<Link>;
 };
 
 declare type Invite = {
   _id: string;
   token: string;
   slug: string;
+};
+
+declare type Link = {
+  _id?: string;
+  created?: string;
+  creatorId?: string;
+  title: string;
+  url: string;
 };
 
 declare type Show = {

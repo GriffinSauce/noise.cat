@@ -1,10 +1,9 @@
-import { useState, useRef, FunctionComponent } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, FunctionComponent } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { FiCalendar, FiSettings } from 'react-icons/fi';
-import useOnClickOutside from '../utils/useOnClickOutside';
+import { FiCalendar, FiSettings, FiExternalLink } from 'react-icons/fi';
+import Modal from './Modal';
 
 const ActiveLink: FunctionComponent<{
   href: string;
@@ -25,9 +24,7 @@ const ActiveLink: FunctionComponent<{
 };
 
 const Footer: FunctionComponent = () => {
-  const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setOpen] = useState(false);
-  useOnClickOutside(ref, () => setOpen(false));
 
   const {
     query: { band: slug },
@@ -79,7 +76,7 @@ const Footer: FunctionComponent = () => {
   );
 
   return (
-    <nav className="fixed bottom-0 grid w-full grid-cols-3 bg-white border-t border-gray-200">
+    <nav className="fixed bottom-0 grid w-full grid-cols-4 bg-white border-t border-gray-200">
       <button
         className="p-2 text-center flex-center"
         onClick={() => setOpen(true)}
@@ -94,23 +91,15 @@ const Footer: FunctionComponent = () => {
       <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
         <FiCalendar />
       </ActiveLink>
+      <ActiveLink href="/bands/[band]/links" as={`/bands/${slug}/links`}>
+        <FiExternalLink />
+      </ActiveLink>
       <ActiveLink href="/bands/[band]/settings" as={`/bands/${slug}/settings`}>
         <FiSettings />
       </ActiveLink>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="absolute bottom-0 left-0 w-full"
-            key="band-picker"
-            initial={{ bottom: -150 }}
-            animate={{ bottom: 0 }}
-            exit={{ bottom: -150 }}
-            ref={ref}
-          >
-            <BandPicker />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
+        <BandPicker />
+      </Modal>
     </nav>
   );
 };

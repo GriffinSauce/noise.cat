@@ -50,6 +50,15 @@ h6,
   @apply text-xs font-semibold;
 }
 
+label,
+.label {
+  @apply font-display font-bold;
+}
+
+input {
+  @apply block p-2 bg-gray-200 rounded w-full;
+}
+
 .flex-center {
   @apply flex items-center justify-center;
 }
