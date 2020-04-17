@@ -73,6 +73,22 @@ const LinksPage = () => {
     mutate();
   });
 
+  const onDelete = async () => {
+    if (!editingLink) return;
+    setPostState('loading');
+    try {
+      await fetcher(`/api/bands/${slug}/links/${editingLink._id}`, {
+        method: 'DELETE',
+      });
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+    setPostState(null);
+    closeForm();
+    mutate();
+  };
+
   return (
     <Layout>
       <Container>
@@ -98,7 +114,7 @@ const LinksPage = () => {
           </button>
         </div>
         <form onSubmit={onSubmit} className="p-4 pt-0">
-          <div className="grid grid-cols-2 pb-10 gap-4">
+          <div className="grid grid-cols-2 pb-8 gap-4">
             <label htmlFor="link-title">
               Title
               <input
@@ -129,9 +145,29 @@ const LinksPage = () => {
               <FormError>{errors?.url?.message}</FormError>
             </label>
           </div>
-          <Button color="green" type="submit" state={postState}>
-            Add link
-          </Button>
+          {editingLink ? (
+            <div className="flex">
+              <div className="flex-shrink-0 pr-4">
+                <Button
+                  color="red"
+                  type="button"
+                  state={postState}
+                  onClick={onDelete}
+                >
+                  Remove
+                </Button>
+              </div>
+              <div className="flex-grow">
+                <Button color="green" type="submit" state={postState}>
+                  Save changes
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <Button color="green" type="submit" state={postState}>
+              Add link
+            </Button>
+          )}
         </form>
       </Modal>
     </Layout>

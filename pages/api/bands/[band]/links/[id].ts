@@ -31,7 +31,7 @@ handler.put(async (req: RequestWithDb, res: NextConnectResponse) => {
     });
 
   // TODO: check update results
-  await req.db.collection('band').updateMany(
+  await req.db.collection('band').updateOne(
     {
       slug,
       members: user.sub,
@@ -43,6 +43,29 @@ handler.put(async (req: RequestWithDb, res: NextConnectResponse) => {
       },
     },
     { arrayFilters: [{ 'link._id': new ObjectID(id) }] },
+  );
+
+  return res.status(204).send('');
+});
+
+handler.delete(async (req: RequestWithDb, res: NextConnectResponse) => {
+  const { user } = await auth0.getSessionFromReq(req);
+
+  const { band: slug, id } = req.query;
+
+  // TODO: check update results
+  await req.db.collection('band').updateOne(
+    {
+      slug,
+      members: user.sub,
+    },
+    {
+      $pull: {
+        links: {
+          _id: new ObjectID(id),
+        },
+      },
+    },
   );
 
   return res.status(204).send('');
