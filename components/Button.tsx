@@ -2,9 +2,11 @@ import * as React from 'react';
 import { MouseEvent, FunctionComponent } from 'react';
 import Loader from './Loader';
 
+type Color = 'green' | 'red' | 'gray' | 'disabled';
+
 type Props = {
   className?: string;
-  color?: 'green' | 'red' | 'gray';
+  color?: Color;
   inline?: boolean;
   disabled?: boolean;
   state?: null | 'loading';
@@ -24,12 +26,13 @@ const Button: FunctionComponent<Props> = ({
   group = false,
   type = 'button',
 }) => {
-  const colors = {
+  const colors: { [color in Color]: string } = {
     gray: 'bg-gray-100 text-green-500 hover:text-green-600',
     green: 'bg-green-400 text-white hover:bg-green-500',
     red: 'bg-red-400 text-white hover:bg-red-500',
     disabled: 'bg-gray-300 text-white',
   };
+  const lightColors: Array<Color> = ['gray', 'disabled'];
 
   const rounded = group ? 'first:rounded-l last:rounded-r' : 'rounded';
   /* eslint-disable react/button-has-type */
@@ -47,7 +50,7 @@ const Button: FunctionComponent<Props> = ({
         <>
           <div className="opacity-0">{children}</div>
           <div className="absolute">
-            <Loader />
+            <Loader light={!lightColors.includes(color)} />
           </div>
         </>
       ) : (
