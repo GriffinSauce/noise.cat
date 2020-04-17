@@ -4,7 +4,7 @@ import Loader from './Loader';
 
 type Props = {
   className?: string;
-  color?: 'green' | 'gray';
+  color?: 'green' | 'red' | 'gray';
   inline?: boolean;
   disabled?: boolean;
   state?: null | 'loading';
@@ -27,6 +27,7 @@ const Button: FunctionComponent<Props> = ({
   const colors = {
     gray: 'bg-gray-100 text-green-500 hover:text-green-600',
     green: 'bg-green-400 text-white hover:bg-green-500',
+    red: 'bg-red-400 text-white hover:bg-red-500',
     disabled: 'bg-gray-300 text-white',
   };
 
