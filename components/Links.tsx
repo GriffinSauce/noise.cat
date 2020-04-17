@@ -11,7 +11,7 @@ const Links: FunctionComponent<Props> = ({ links, editLink }) => {
     <>
       <ul className="grid mb-4">
         {links.map((link) => (
-          <li className="flex items-center h2">
+          <li key={link._id} className="flex items-center h2">
             <a
               href={link.url}
               className="flex items-center capitalize flex-grow py-3 leading-none hover:text-blue-600"
