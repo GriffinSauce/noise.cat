@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { FiCalendar, FiSettings, FiExternalLink } from 'react-icons/fi';
 import Modal from './Modal';
+import Container from './Container';
 
 const ActiveLink: FunctionComponent<{
   href: string;
@@ -40,7 +41,7 @@ const Footer: FunctionComponent = () => {
   if (error) return <div>Error</div>;
 
   const BandPicker = () => (
-    <ul className="bg-white modal-shadow">
+    <ul>
       {data.bands
         .sort(
           (a) => (a.slug === slug ? -1 : 1), // Sort current band to top
@@ -65,42 +66,42 @@ const Footer: FunctionComponent = () => {
             </Link>
           </li>
         ))}
-      <style jsx>
-        {`
-          .modal-shadow {
-            box-shadow: 0 10px 30px 0px rgba(0, 0, 0, 0.2);
-          }
-        `}
-      </style>
     </ul>
   );
 
   return (
-    <nav className="fixed bottom-0 grid w-full grid-cols-4 bg-white border-t border-gray-200">
-      <button
-        className="p-2 text-center flex-center"
-        onClick={() => setOpen(true)}
-        type="button"
-      >
-        <img
-          alt="band switcher"
-          className="w-8 h-8 rounded-full"
-          src={data.bands.find((band) => band.slug === slug)?.image}
-        />
-      </button>
-      <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
-        <FiCalendar />
-      </ActiveLink>
-      <ActiveLink href="/bands/[band]/links" as={`/bands/${slug}/links`}>
-        <FiExternalLink />
-      </ActiveLink>
-      <ActiveLink href="/bands/[band]/settings" as={`/bands/${slug}/settings`}>
-        <FiSettings />
-      </ActiveLink>
+    <div className="fixed w-full bottom-0 bg-white border-t border-gray-200">
+      <Container>
+        <nav className="grid grid-cols-4">
+          <button
+            className="p-2 text-center flex-center"
+            onClick={() => setOpen(true)}
+            type="button"
+          >
+            <img
+              alt="band switcher"
+              className="w-8 h-8 rounded-full"
+              src={data.bands.find((band) => band.slug === slug)?.image}
+            />
+          </button>
+          <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
+            <FiCalendar />
+          </ActiveLink>
+          <ActiveLink href="/bands/[band]/links" as={`/bands/${slug}/links`}>
+            <FiExternalLink />
+          </ActiveLink>
+          <ActiveLink
+            href="/bands/[band]/settings"
+            as={`/bands/${slug}/settings`}
+          >
+            <FiSettings />
+          </ActiveLink>
+        </nav>
+      </Container>
       <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
         <BandPicker />
       </Modal>
-    </nav>
+    </div>
   );
 };
 
