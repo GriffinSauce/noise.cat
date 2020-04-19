@@ -8,7 +8,7 @@ const Loader: FunctionComponent<Props> = ({
 }) => {
   return (
     <>
-      <div className="loader" />
+      <div className="loader rounded-full" />
       <style jsx>
         {`
           .loader {
@@ -17,7 +17,6 @@ const Loader: FunctionComponent<Props> = ({
             border-top: 0.1em solid ${
               light ? 'rgba(255,255,255,0.8)' : '#3498db'
             };
-            border-radius: 50%;
             width: 1em;
             height: 1em;
             animation: spin 1s linear infinite;

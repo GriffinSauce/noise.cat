@@ -1,6 +1,7 @@
-import { FunctionComponent, MouseEvent } from 'react';
+import { FunctionComponent } from 'react';
 import ReactModal from 'react-modal';
 import { motion, useAnimation } from 'framer-motion';
+import Container from './Container';
 
 ReactModal.setAppElement('#__next');
 
@@ -41,40 +42,42 @@ const Modal: FunctionComponent<
             });
           }}
         >
-          {children}
+          <Container>{children}</Container>
         </motion.div>
       </ReactModal>
-      <style jsx>{`
-        :global(.Modal_Content) {
-          background-color: #fff;
-          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-        }
-        :global(.ReactModal_Content) {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          transition: transform ${TRANSITION_TIME_MS}ms ease;
-          transform: translateY(100%);
-        }
-        :global(.ReactModal__Content--after-open) {
-          transform: translateY(0%);
-        }
-        :global(.ReactModal__Content--before-close) {
-          transform: translateY(100%);
-        }
-        :global(.ReactModal__Content:focus) {
-          outline: none; // TODO: is this ok A11Y-wise?
-        }
-        :global(.ReactModal_Overlay) {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: transparent;
-        }
-      `}</style>
+      <style jsx>
+        {`
+          :global(.Modal_Content) {
+            background-color: #fff;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+          }
+          :global(.ReactModal_Content) {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            transition: transform ${TRANSITION_TIME_MS}ms ease;
+            transform: translateY(100%);
+          }
+          :global(.ReactModal__Content--after-open) {
+            transform: translateY(0%);
+          }
+          :global(.ReactModal__Content--before-close) {
+            transform: translateY(100%);
+          }
+          :global(.ReactModal__Content:focus) {
+            outline: none; // TODO: is this ok A11Y-wise?
+          }
+          :global(.ReactModal_Overlay) {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: transparent;
+          }
+        `}
+      </style>
     </>
   );
 };
