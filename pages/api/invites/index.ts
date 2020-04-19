@@ -29,6 +29,8 @@ handler.post(async (req: RequestWithDb, res: NextConnectResponse) => {
     });
 
   const invite = {
+    created: new Date(),
+    creator: user.sub,
     expireAt: addDays(new Date(), 7), // Relies on 0 second TTL index
     slug,
     token: generateInviteToken(),
