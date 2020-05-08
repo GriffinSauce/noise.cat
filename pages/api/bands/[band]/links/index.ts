@@ -1,16 +1,14 @@
-import nextConnect from 'next-connect';
 import { ObjectId } from 'mongodb';
-import middleware, { RequestWithDb } from '../../../../../middleware/db';
+import withDb from '../../../../../middleware/withDb';
 import auth0 from '../../../../../utils/auth0';
 
-const handler = nextConnect();
-
-handler.use(middleware);
-
-handler.post(async (req: RequestWithDb, res: NextConnectResponse) => {
+const handler = withDb(async (req, res) => {
+  const {
+    method,
+    query: { band: slug },
+  } = req;
   const { user } = await auth0.getSessionFromReq(req);
 
-  const slug = req.query.band;
   const band = await req.db.collection('band').findOne({
     slug,
   });
@@ -23,40 +21,43 @@ handler.post(async (req: RequestWithDb, res: NextConnectResponse) => {
       error: `You're not a member of this band`,
     });
 
-  const { link } = req.body;
-  if (!link)
-    return res.status(400).json({
-      error: `Link missing`,
-    });
+  switch (method) {
+    case 'POST': {
+      const { link } = req.body;
 
-  if (!link.title)
-    return res.status(400).json({
-      error: `Title missing`,
-    });
+      // TODO: use something a little more robust here
+      let error;
+      if (!link) error = `Link missing`;
+      if (!link.title) error = `Title missing`;
+      if (!link.url) error = `Url missing`;
+      if (error)
+        return res.status(400).json({
+          error,
+        });
 
-  if (!link.url)
-    return res.status(400).json({
-      error: `Url missing`,
-    });
-
-  // TODO: check update result
-  await req.db.collection('band').updateOne(
-    {
-      slug,
-    },
-    {
-      $push: {
-        links: {
-          ...link,
-          _id: new ObjectId(),
-          created: new Date(),
-          creatorId: user.sub,
+      // TODO: check update result
+      await req.db.collection('band').updateOne(
+        {
+          slug,
         },
-      },
-    },
-  );
+        {
+          $push: {
+            links: {
+              ...link,
+              _id: new ObjectId(),
+              created: new Date(),
+              creatorId: user.sub,
+            },
+          },
+        },
+      );
 
-  return res.status(204).send('');
+      return res.status(204).send('');
+    }
+    default:
+      res.setHeader('Allow', ['POST']);
+      return res.status(405).end(`Method ${method} Not Allowed`);
+  }
 });
 
 export default auth0.requireAuthentication(handler);
