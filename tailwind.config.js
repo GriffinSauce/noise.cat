@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    content: ['./components/**/*.js', './pages/**/*.js'],
+    content: ['./components/**/*.tsx', './pages/**/*.tsx', './styles/**/*.css'],
   },
   theme: {
     extend: {
