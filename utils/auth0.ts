@@ -1,6 +1,7 @@
 import './dotenv';
 import { IncomingMessage } from 'http';
 import { initAuth0 } from '@auth0/nextjs-auth0';
+import { NextApiRequest } from 'next';
 
 const port = process.env.PORT || 3000;
 const protocol = process.env.NODE_ENV === 'production' ? 'https://' : 'http://';
@@ -23,7 +24,7 @@ const config = {
 const auth0 = initAuth0(config);
 
 // Typing helper ¯\_(ツ)_/¯
-const getSessionFromReq = async (req: NextConnectRequest) => {
+const getSessionFromReq = async (req: NextApiRequest) => {
   const session = await auth0.getSession((req as unknown) as IncomingMessage);
   return (session as unknown) as {
     user: User;
