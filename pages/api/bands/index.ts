@@ -1,22 +1,26 @@
-import nextConnect from 'next-connect';
-import middleware, { RequestWithDb } from '../../../middleware/db';
+import withDb from '../../../middleware/withDb';
 import auth0 from '../../../utils/auth0';
 
-const handler = nextConnect();
-
-handler.use(middleware);
-
-handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
+const handler = withDb(async (req, res) => {
+  const { method } = req;
   const { user } = await auth0.getSessionFromReq(req);
-  const bands = await req.db
-    .collection('band')
-    .find({
-      members: user.sub,
-    })
-    .toArray();
-  return res.json({
-    bands,
-  });
+
+  switch (method) {
+    case 'GET': {
+      const bands = await req.db
+        .collection('band')
+        .find({
+          members: user.sub,
+        })
+        .toArray();
+      return res.status(200).json({
+        bands,
+      });
+    }
+    default:
+      res.setHeader('Allow', ['GET']);
+      return res.status(405).end(`Method ${method} Not Allowed`);
+  }
 });
 
 export default auth0.requireAuthentication(handler);

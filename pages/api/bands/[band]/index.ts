@@ -1,14 +1,13 @@
-import nextConnect from 'next-connect';
-import middleware, { RequestWithDb } from '../../../../middleware/db';
+import withDb from '../../../../middleware/withDb';
 import auth0 from '../../../../utils/auth0';
 
-const handler = nextConnect();
-
-handler.use(middleware);
-
-handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
+const handler = withDb(async (req, res) => {
+  const {
+    method,
+    query: { band: slug },
+  } = req;
   const { user } = await auth0.getSessionFromReq(req);
-  const slug = req.query.band;
+
   const band = await req.db.collection('band').findOne({
     slug,
   });
@@ -20,9 +19,17 @@ handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
     return res.status(403).json({
       error: `You're not a member of this band`,
     });
-  return res.json({
-    band,
-  });
+
+  switch (method) {
+    case 'GET': {
+      return res.json({
+        band,
+      });
+    }
+    default:
+      res.setHeader('Allow', ['GET']);
+      return res.status(405).end(`Method ${method} Not Allowed`);
+  }
 });
 
 export default auth0.requireAuthentication(handler);

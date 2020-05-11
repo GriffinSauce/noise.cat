@@ -1,5 +1,4 @@
-import nextConnect from 'next-connect';
-import middleware, { RequestWithDb } from '../../../../middleware/db';
+import withDb from '../../../../middleware/withDb';
 import auth0 from '../../../../utils/auth0';
 import sheets from '../../../../utils/sources/sheets';
 import notion from '../../../../utils/sources/notion';
@@ -15,15 +14,14 @@ const getShows = async (slug: string) => {
   throw new Error('notFound');
 };
 
-const handler = nextConnect();
-
-handler.use(middleware);
-
-handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
+const handler = withDb(async (req, res) => {
+  const {
+    method,
+    query: { band: slug },
+  } = req;
   const { user } = await auth0.getSessionFromReq(req);
 
-  const slug = req.query.band;
-  const band = await req.db.collection('band').findOne({
+  const band = await req.db.collection('band').findOne<Band>({
     slug,
   });
   if (!band)
@@ -35,18 +33,25 @@ handler.get(async (req: RequestWithDb, res: NextConnectResponse) => {
       error: `You're not a member of this band`,
     });
 
-  try {
-    const shows = await getShows(slug);
-    return res.json({
-      shows,
-    });
-  } catch (err) {
-    if (err.message === 'notFound') {
-      return res.status(404).json({
-        error: `No band by slug "${slug}"`,
-      });
+  switch (method) {
+    case 'GET': {
+      try {
+        const shows = await getShows(slug as string);
+        return res.json({
+          shows,
+        });
+      } catch (err) {
+        if (err.message === 'notFound') {
+          return res.status(404).json({
+            error: `No band by slug "${slug}"`,
+          });
+        }
+        throw err;
+      }
     }
-    throw err;
+    default:
+      res.setHeader('Allow', ['GET']);
+      return res.status(405).end(`Method ${method} Not Allowed`);
   }
 });
 
