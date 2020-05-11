@@ -25,7 +25,8 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
-    "baseUrl": "."
+    "baseUrl": "src",
+    "rootDirs": ["src", "stories"]
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.js", "**/*.ts", "**/*.tsx"]

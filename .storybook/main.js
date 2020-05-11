@@ -1,18 +1,20 @@
 const path = require('path');
+const { compilerOptions } = require('../tsconfig.json');
 
 module.exports = {
   stories: ['../**/*.stories.tsx'],
-  addons: [
-    {
-      name: '@storybook/preset-typescript',
+  webpackFinal: async (config) => {
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      loader: require.resolve('babel-loader'),
       options: {
-        tsLoaderOptions: {
-          configFile: path.resolve(__dirname, './tsconfig.json'),
-        },
-        forkTsCheckerWebpackPluginOptions: {
-          colors: false, // disables built-in colors in logger messages
-        },
+        presets: [['react-app', { flow: false, typescript: true }]],
       },
-    },
-  ],
+    });
+    config.resolve.extensions.push('.ts', '.tsx');
+    config.resolve.modules.push(
+      path.resolve(__dirname, '..', compilerOptions.baseUrl),
+    );
+    return config;
+  },
 };
