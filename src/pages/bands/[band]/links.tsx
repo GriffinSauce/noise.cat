@@ -93,7 +93,7 @@ const LinksPage = () => {
     <Layout>
       <Container>
         <div className="p-4">
-          <Links links={data?.band?.links || []} editLink={editLink} />
+          <Links links={data?.band?.links} editLink={editLink} />
           <Button onClick={addLink}>Add link</Button>
         </div>
       </Container>

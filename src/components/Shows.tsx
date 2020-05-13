@@ -7,23 +7,25 @@ import { FunctionComponent } from 'react';
 
 const ShowsSkeleton: FunctionComponent = () => (
   <>
-    {[...Array(5)].map((v, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <li key={index} className="pb-6">
-        <h2 className="text-lg">
-          <Skeleton width={250} />
-        </h2>
-        <h3 className="text-sm">
-          <Skeleton width={100} />
-        </h3>
-        <div className="pt-1">
-          <Skeleton width={150} />
-        </div>
-        <div className="pt-1">
-          <Skeleton width={130} />
-        </div>
-      </li>
-    ))}
+    {Array(5)
+      .fill('')
+      .map((v, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <li key={index} className="pb-6">
+          <h2 className="text-lg">
+            <Skeleton width={250} />
+          </h2>
+          <h3 className="text-sm">
+            <Skeleton width={100} />
+          </h3>
+          <div className="pt-1">
+            <Skeleton width={150} />
+          </div>
+          <div className="pt-1">
+            <Skeleton width={130} />
+          </div>
+        </li>
+      ))}
   </>
 );
 
@@ -51,7 +53,7 @@ const Shows: FunctionComponent = () => {
                   </div>
                   <span>{show.date.replace(/-/g, ' ')}</span>
                 </h3>
-                <div className="flex items-center pt-1  min-w-0 text-gray-500">
+                <div className="flex items-center min-w-0 pt-1 text-gray-500">
                   <FiMapPin className="mr-1" />
                   <div className="truncate">{show.location}</div>
                 </div>

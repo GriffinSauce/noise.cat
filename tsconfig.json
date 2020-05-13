@@ -28,6 +28,6 @@
     "baseUrl": "src",
     "rootDirs": ["src", "stories"]
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", ".next"],
   "include": ["next-env.d.ts", "**/*.js", "**/*.ts", "**/*.tsx"]
 }
