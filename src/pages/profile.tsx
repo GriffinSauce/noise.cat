@@ -49,9 +49,21 @@ const Profile = () => {
                     ))}
                   </ul>
                 ) : (
-                  <p className="py-2 mb-6 text-gray-500 h3">
-                    No bands yet, ask for a link to join one
-                  </p>
+                  <div className="py-2 mb-6">
+                    <p className="text-gray-500 h3">
+                      Ask one of your bandmembers for an invite.
+                    </p>
+                    <p className="mt-2 text-sm italic font-semibold text-gray-700">
+                      New to Noisecat? <br />
+                      <a
+                        className="inline-block font-bold text-gray-900 border-b"
+                        href="mailto:jorisjgriffioen@gmail.com?subject=New band on Noise.cat "
+                      >
+                        Send a message
+                      </a>{' '}
+                      and I&apos;ll help you get set up!
+                    </p>
+                  </div>
                 )}
               </>
             ) : (
