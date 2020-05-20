@@ -4,7 +4,8 @@ import { initAuth0 } from '@auth0/nextjs-auth0';
 
 const port = process.env.PORT || 3000;
 const protocol = process.env.NODE_ENV === 'production' ? 'https://' : 'http://';
-const domain = process.env.NOW_URL || `localhost:${port}`;
+const deploymentDomain = process.env.NOW_URL || `localhost:${port}`;
+const domain = process.env.PRODUCTION ? 'noise.cat' : deploymentDomain; // The deployment URL is always the xyz-noisecat.now.sh url, not the actual prod URL
 const host = `${protocol}${domain}`;
 
 const config = {
