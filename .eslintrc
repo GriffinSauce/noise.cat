@@ -4,6 +4,11 @@
     "project": "./tsconfig.json",
     "tsconfigRootDir": "."
   },
+  "settings": {
+    "import/resolver": {
+      "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
+    }
+  },
   "env": {
     "browser": true,
     "jest/globals": true
@@ -37,6 +42,12 @@
         "ts": "never",
         "tsx": "never",
         "mjs": "never"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.test.tsx"]
       }
     ],
     "no-console": [
