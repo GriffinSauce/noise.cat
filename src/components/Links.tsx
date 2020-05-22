@@ -11,6 +11,8 @@ const Link = ({
 }) => (
   <li key={link._id} className="flex items-center h2">
     <a
+      target="_blank"
+      rel="noopener noreferrer"
       href={link.url}
       className="flex items-center flex-grow py-3 leading-none capitalize hover:text-blue-600"
     >
