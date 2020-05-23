@@ -8,8 +8,10 @@ import AudioPlayer from 'components/AudioPlayer';
 import SongContext from 'context/SongContext';
 
 type Song = {
+  id: string;
   title: string;
   demos: Array<{
+    id: string;
     created: string;
     url: string;
     description: string;
@@ -17,16 +19,19 @@ type Song = {
   note: string;
 };
 
-const mockSongs = [
+const mockSongs: Array<Song> = [
   {
+    id: '1',
     title: 'This won’t last (Monkeys)',
     demos: [
       {
+        id: '1',
         created: '2020-01-01T12:00:00',
         url: '/demo.mp3',
         description: 'Eerste conceptje',
       },
       {
+        id: '2',
         created: '2020-01-01T12:00:00',
         url: '/demo2.mp3',
         description: 'Vocals',
@@ -35,12 +40,14 @@ const mockSongs = [
     note: 'Iets bedenken voor de intro, verder vet',
   },
   {
+    id: '2',
     title: 'Survive',
     demos: [],
     note:
       'Refrein text werkt nog niet zo lekker en kijken of we couplet zang+ritme nog meer kunnen matchen. Iets bedenken voor de intro, verder vet.',
   },
   {
+    id: '3',
     title: 'Late night cake',
     demos: [],
     note:
@@ -64,7 +71,7 @@ const Song = ({ song }: { song: Song }) => {
           }}
         >
           {song.demos.map((demo) => (
-            <div>
+            <div key={demo.id}>
               <h3 className="mb-1 text-xs italic font-normal text-gray-700">
                 {format(parseISO(demo.created), 'd MMM yyyy - hh:mm')} -{' '}
                 {demo.description}
@@ -93,6 +100,7 @@ const SongsPage = () => {
         <div className="grid grid-cols-2 gap-3 p-4">
           {mockSongs.map((song) => (
             <button
+              key={song.id}
               className="h-full"
               type="button"
               onClick={() => viewSong(song)}
@@ -100,8 +108,8 @@ const SongsPage = () => {
               <div className="grid h-full gap-2 p-3 text-left border rounded-lg">
                 <h2 className="leading-none h3">{song.title}</h2>
                 <div className="flex flex-wrap items-start">
-                  {song.demos.map(() => (
-                    <div className="p-2 mb-2 mr-2 bg-gray-200 rounded">
+                  {song.demos.map(({ id }) => (
+                    <div key={id} className="p-2 mb-2 mr-2 bg-gray-200 rounded">
                       <FiMusic />
                     </div>
                   ))}
