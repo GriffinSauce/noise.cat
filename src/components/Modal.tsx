@@ -11,8 +11,9 @@ const Modal: FunctionComponent<
   Omit<ReactModal.Props, 'onRequestClose'> & {
     onClose: () => void;
     blockDrag?: boolean; // Eg. to block drag when selecting text in inputs
+    fullScreen?: boolean;
   }
-> = ({ children, onClose, blockDrag, ...props }) => {
+> = ({ children, onClose, blockDrag, fullScreen, ...props }) => {
   const controls = useAnimation();
   return (
     <>
@@ -47,12 +48,17 @@ const Modal: FunctionComponent<
       </ReactModal>
       <style jsx>
         {`
-          :global(.Modal_Content) {
-            background-color: #fff;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+          :global(.ReactModal_Overlay) {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: transparent;
           }
           :global(.ReactModal_Content) {
             position: absolute;
+            ${fullScreen ? `top: 0;` : ''}
             bottom: 0;
             left: 0;
             right: 0;
@@ -68,13 +74,10 @@ const Modal: FunctionComponent<
           :global(.ReactModal__Content:focus) {
             outline: none; // TODO: is this ok A11Y-wise?
           }
-          :global(.ReactModal_Overlay) {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: transparent;
+          :global(.Modal_Content) {
+            ${fullScreen ? `min-height: 100%;` : ''}
+            background-color: #fff;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
           }
         `}
       </style>

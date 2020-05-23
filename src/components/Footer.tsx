@@ -2,7 +2,12 @@ import { useState, FunctionComponent } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { FiCalendar, FiSettings, FiExternalLink } from 'react-icons/fi';
+import {
+  FiCalendar,
+  FiSettings,
+  FiExternalLink,
+  FiMusic,
+} from 'react-icons/fi';
 import Modal from 'components/Modal';
 import Container from 'components/Container';
 
@@ -70,9 +75,9 @@ const Footer: FunctionComponent = () => {
   );
 
   return (
-    <div className="fixed w-full bottom-0 bg-white border-t border-gray-200">
+    <div className="fixed bottom-0 w-full bg-white border-t border-gray-200">
       <Container>
-        <nav className="grid grid-cols-4">
+        <nav className="grid grid-cols-5">
           <button
             className="p-2 text-center flex-center"
             onClick={() => setOpen(true)}
@@ -86,6 +91,9 @@ const Footer: FunctionComponent = () => {
           </button>
           <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
             <FiCalendar />
+          </ActiveLink>
+          <ActiveLink href="/bands/[band]/songs" as={`/bands/${slug}/songs`}>
+            <FiMusic />
           </ActiveLink>
           <ActiveLink href="/bands/[band]/links" as={`/bands/${slug}/links`}>
             <FiExternalLink />

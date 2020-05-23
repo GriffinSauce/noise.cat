@@ -22,7 +22,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  @apply font-display font-bold;
+  @apply font-bold font-display;
 }
 
 h1,
@@ -52,15 +52,36 @@ h6,
 
 label,
 .label {
-  @apply font-display font-bold;
+  @apply font-bold font-display;
 }
 
 input {
-  @apply block p-2 bg-gray-200 rounded w-full;
+  @apply block w-full p-2 bg-gray-200 rounded;
 }
 
 .flex-center {
   @apply flex items-center justify-center;
+}
+
+.clamp-2 {
+  position: relative;
+  line-height: 1.5rem;
+  height: 3rem;
+  overflow: hidden;
+}
+.clamp-2:after {
+  content: '';
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+  height: 1.5rem;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1) 50%
+  );
 }
 
 @tailwind components;
