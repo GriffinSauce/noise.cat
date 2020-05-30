@@ -19,17 +19,19 @@ Currently just the home of [Left Alive](https://www.leftalive.nl/) and [Coral Sp
 
 **Development**
 
-`now env pull`
+```
+now env pull
+```
 
-`yarn dev` => open [localhost:3000](http://localhost:3000)
+```
+yarn dev
+```
 
-**Preview deployments and auth**
+Open [localhost:3000](http://localhost:3000)
 
-Branches and PRs are autodeployed to now.sh domains like https://noisecat-abc.now.sh/
+**Preview deployments**
 
-Note: The auth0 config has a hardcoded return url https://noise.cat/api/callback -> this means login on preview deployments will fail. As a hack change the domain from noise.cat to the preview domain and go on your merry way:
-
-https://noise.cat/api/callback -> https://noisecat-abc.now.sh/api/callback
+Branches and PRs are autodeployed with Vercel.
 
 **Storybook**
 
