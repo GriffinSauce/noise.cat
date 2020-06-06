@@ -1,4 +1,4 @@
-import axios from 'axios';
+import fetcher from 'utils/fetcher';
 
 const CS_API_URL = process.env.CS_API_URL; // eslint-disable-line prefer-destructuring
 
@@ -30,7 +30,7 @@ const mapColumns = (show: SheetShow) => ({
 
 const get = async () => {
   if (!CS_API_URL) throw new Error('env var CS_API_URL is missing');
-  const { data } = await axios(CS_API_URL);
+  const data = await fetcher<any>(CS_API_URL);
   return data.map(mapColumns);
 };
 

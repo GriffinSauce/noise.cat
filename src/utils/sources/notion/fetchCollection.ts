@@ -1,4 +1,4 @@
-import axios from 'axios';
+import fetcher from 'utils/fetcher'
 
 const NOTION_TOKEN = process.env.LA_NOTION_TOKEN as string;
 const BASEURL = 'https://www.notion.so/api/v3/';
@@ -18,8 +18,8 @@ const req = {
   },
 };
 
-function request({ endpoint, token }: { endpoint: string; token: string }) {
-  return axios(`${BASEURL}${endpoint}`, {
+function request({ endpoint, token }: { endpoint: string; token: string }):any {
+  return fetcher<any>(`${BASEURL}${endpoint}`, {
     method: 'POST',
     headers: {
       accept: '*/*',
@@ -27,12 +27,12 @@ function request({ endpoint, token }: { endpoint: string; token: string }) {
       'content-type': 'application/json',
       cookie: `token_v2=${token};`,
     },
-    data: req,
+    body: req,
   });
 }
 
 export default async () => {
-  const { data } = await request({
+  const data = await request({
     endpoint: 'queryCollection',
     token: NOTION_TOKEN,
   });
