@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { FiMusic, FiZap } from 'react-icons/fi';
+import { FiMusic, FiZap, FiX } from 'react-icons/fi';
 import { parseISO, format } from 'date-fns';
+import { motion, AnimatePresence } from 'framer-motion';
 import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Modal from 'components/Modal';
@@ -55,37 +56,49 @@ const mockSongs: Array<Song> = [
   },
 ];
 
-const Song = ({ song }: { song: Song }) => {
+// TODO: Split to component
+const Song = ({ song, onClose }: { song: Song; onClose: () => void }) => {
   const [playingFile, setPlayingFile] = useState<string | null>(null);
   return (
-    <div className="p-4">
-      <div className="grid gap-3">
-        <h1>{song.title}</h1>
-        <h2 className="flex items-center">
-          <FiMusic className="mr-2" /> Demos
-        </h2>
-        <SongContext.Provider
-          value={{
-            playingFile,
-            setPlayingFile,
-          }}
+    <>
+      <header className="flex items-center">
+        <h1 className="flex-grow p-4 leading-none">{song.title}</h1>
+        <button
+          type="button"
+          className="p-4 text-2xl text-gray-500"
+          onClick={onClose}
         >
-          {song.demos.map((demo) => (
-            <div key={demo.id}>
-              <h3 className="mb-1 text-xs italic font-normal text-gray-700">
-                {format(parseISO(demo.created), 'd MMM yyyy - hh:mm')} -{' '}
-                {demo.description}
-              </h3>
-              <AudioPlayer file={demo.url} />
-            </div>
-          ))}
-        </SongContext.Provider>
-        <h2 className="flex items-center">
-          <FiZap className="mr-2" /> Note
-        </h2>
-        <p className="text-gray-600">{song.note}</p>
+          <FiX />
+        </button>
+      </header>
+      <div className="p-4">
+        <div className="grid gap-3">
+          <h2 className="flex items-center">
+            <FiMusic className="mr-2" /> Demos
+          </h2>
+          <SongContext.Provider
+            value={{
+              playingFile,
+              setPlayingFile,
+            }}
+          >
+            {song.demos.map((demo) => (
+              <div key={demo.id}>
+                <h3 className="mb-1 text-xs italic font-normal text-gray-700">
+                  {format(parseISO(demo.created), 'd MMM yyyy - hh:mm')} -{' '}
+                  {demo.description}
+                </h3>
+                <AudioPlayer file={demo.url} />
+              </div>
+            ))}
+          </SongContext.Provider>
+          <h2 className="flex items-center">
+            <FiZap className="mr-2" /> Note
+          </h2>
+          <p className="text-gray-600">{song.note}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -123,8 +136,7 @@ const SongsPage = () => {
           ))}
         </div>
         <Modal fullScreen isOpen={!!viewingSong} onClose={onClose}>
-          {/* TODO: this switch kills the out-animation */}
-          {viewingSong ? <Song song={viewingSong} /> : null}
+          {viewingSong && <Song song={viewingSong} onClose={onClose} />}
         </Modal>
       </Container>
     </Layout>

@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import ReactModal from 'react-modal';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import Container from 'components/Container';
 
 ReactModal.setAppElement('#__next');
@@ -24,27 +24,33 @@ const Modal: FunctionComponent<
         className="ReactModal_Content"
         overlayClassName="ReactModal_Overlay"
       >
-        <motion.div
-          className="Modal_Content"
-          animate={controls}
-          drag={blockDrag ? false : 'y'}
-          dragConstraints={{ top: 0 }}
-          dragElastic={0}
-          onDragEnd={(event, info) => {
-            if (info.point.y > 30 || info.velocity.y > 200) {
-              onClose();
-              return;
-            }
+        {/* Keep the modal content around while it closes */}
+        <AnimatePresence>
+          {props.isOpen && (
+            <motion.div
+              className="Modal_Content"
+              transition={{ duration: TRANSITION_TIME_MS }}
+              animate={controls}
+              drag={blockDrag ? false : 'y'}
+              dragConstraints={{ top: 0 }}
+              dragElastic={0}
+              onDragEnd={(event, info) => {
+                if (info.point.y > 30 || info.velocity.y > 200) {
+                  onClose();
+                  return;
+                }
 
-            // Or reset
-            controls.start({
-              y: 0,
-              transition: { duration: 0.1 },
-            });
-          }}
-        >
-          <Container>{children}</Container>
-        </motion.div>
+                // Or reset
+                controls.start({
+                  y: 0,
+                  transition: { duration: 0.1 },
+                });
+              }}
+            >
+              <Container>{children}</Container>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </ReactModal>
       <style jsx>
         {`
