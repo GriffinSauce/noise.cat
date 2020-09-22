@@ -1,4 +1,4 @@
-export default (str: string): void => {
+const copyToClipboard = (str: string): void => {
   const el = document.createElement('textarea'); // Create a <textarea> element
   el.value = str; // Set its value to the string that you want copied
   el.setAttribute('readonly', ''); // Make it readonly to be tamper-proof
@@ -19,3 +19,5 @@ export default (str: string): void => {
     selection.addRange(selected); // Restore the original selection
   }
 };
+
+export default copyToClipboard

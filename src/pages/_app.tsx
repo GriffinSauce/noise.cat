@@ -5,15 +5,19 @@ import { SWRConfig } from 'swr';
 import fetcher from 'utils/fetcher';
 import '../styles.css';
 
-export default ({
-  Component,
-  pageProps,
-}: AppInitialProps & {
-  Component: NextComponentType;
-}) => {
+const App = (
+  {
+    Component,
+    pageProps,
+  }: AppInitialProps & {
+    Component: NextComponentType;
+  }
+) => {
   return (
     <SWRConfig value={{ fetcher }}>
       <Component {...pageProps} />
     </SWRConfig>
   );
 };
+
+export default App;
