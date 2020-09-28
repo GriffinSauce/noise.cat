@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import { FiMapPin, FiAlignLeft } from 'react-icons/fi';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { FunctionComponent } from 'react';
+import AirtableContent from 'components/AirtableContent';
 
 const ShowsSkeleton: FunctionComponent = () => (
   <>
@@ -59,7 +60,9 @@ const Shows: FunctionComponent = () => {
                 </div>
                 <div className="flex items-center pt-1 italic text-gray-500">
                   <FiAlignLeft className="mr-1" />
-                  <div>{show.note || 'Notes'}</div>
+                  <div>
+                    <AirtableContent content={show.note || 'Notes'} />
+                  </div>
                 </div>
               </li>
             ))

@@ -1,7 +1,7 @@
 import withDb from 'middleware/withDb';
 import auth0 from 'utils/auth0';
 import sheets from 'utils/sources/sheets';
-import notion from 'utils/sources/notion';
+import airtable from 'utils/sources/airtable';
 
 // Data fetching is hardcoded per-band for now
 const getShows = async (slug: string) => {
@@ -9,7 +9,7 @@ const getShows = async (slug: string) => {
     return sheets.get();
   }
   if (slug === 'left-alive') {
-    return notion.get();
+    return airtable.get();
   }
   throw new Error('notFound');
 };

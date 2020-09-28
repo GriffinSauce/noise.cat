@@ -9,10 +9,10 @@ Currently just the home of [Left Alive](https://www.leftalive.nl/) and [Coral Sp
 - [x] See all your planned shows
   - [x] From Google Sheets source
   - [x] From Notion source
-  - [ ] From Airtable source?
+  - [x] From Airtable source
 - [ ] See previous shows and options
 - [ ] Share your demo's, with versioning and notes
-- [ ] Keep a list of useful links (eg. stageplan, presskit)
+- [x] Keep a list of useful links (eg. stageplan, presskit)
 - [x] Member management
   - [x] Remove members from your band
   - [x] Invite members to your band (yay)
