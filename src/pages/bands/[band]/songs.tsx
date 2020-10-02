@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FiMusic, FiZap, FiX } from 'react-icons/fi';
 import { parseISO, format } from 'date-fns';
-import { motion, AnimatePresence } from 'framer-motion';
 import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Modal from 'components/Modal';

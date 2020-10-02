@@ -1,11 +1,24 @@
 import { FunctionComponent } from 'react';
 import ReactModal from 'react-modal';
+import css from 'styled-jsx/css'; // eslint-disable-line import/no-extraneous-dependencies
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import Container from 'components/Container';
 
-ReactModal.setAppElement('#__next');
-
 const TRANSITION_TIME_MS = 150;
+
+// Custom scoped styles that depend on order of declaration + transition time constant
+const { className, styles } = css.resolve`
+  div {
+    transition: transform ${TRANSITION_TIME_MS}ms ease;
+    transform: translateY(100%);
+  }
+  div.after-open {
+    transform: translateY(0%);
+  }
+  div.before-close {
+    transform: translateY(100%);
+  }
+`;
 
 const Modal: FunctionComponent<
   Omit<ReactModal.Props, 'onRequestClose'> & {
@@ -13,22 +26,31 @@ const Modal: FunctionComponent<
     blockDrag?: boolean; // Eg. to block drag when selecting text in inputs
     fullScreen?: boolean;
   }
-> = ({ children, onClose, blockDrag, fullScreen, ...props }) => {
+> = ({ children, isOpen, blockDrag, fullScreen, onClose, ...props }) => {
   const controls = useAnimation();
   return (
     <>
       <ReactModal
         {...props}
+        isOpen={isOpen}
         onRequestClose={onClose}
         closeTimeoutMS={TRANSITION_TIME_MS}
-        className="ReactModal_Content"
-        overlayClassName="ReactModal_Overlay"
+        overlayClassName="fixed inset-0 bg-transparent"
+        className={{
+          base: `${className} outline-none absolute ${
+            fullScreen ? 'inset-0' : 'inset-x-0 bottom-0'
+          }`,
+          afterOpen: 'after-open',
+          beforeClose: 'before-close',
+        }}
       >
         {/* Keep the modal content around while it closes */}
         <AnimatePresence>
-          {props.isOpen && (
+          {isOpen && (
             <motion.div
-              className="Modal_Content"
+              className={`shadow-drawer bg-white ${
+                fullScreen ? 'min-h-full' : ''
+              }`}
               transition={{ duration: TRANSITION_TIME_MS }}
               animate={controls}
               drag={blockDrag ? false : 'y'}
@@ -52,41 +74,7 @@ const Modal: FunctionComponent<
           )}
         </AnimatePresence>
       </ReactModal>
-      <style jsx>
-        {`
-          :global(.ReactModal_Overlay) {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: transparent;
-          }
-          :global(.ReactModal_Content) {
-            position: absolute;
-            ${fullScreen ? `top: 0;` : ''}
-            bottom: 0;
-            left: 0;
-            right: 0;
-            transition: transform ${TRANSITION_TIME_MS}ms ease;
-            transform: translateY(100%);
-          }
-          :global(.ReactModal__Content--after-open) {
-            transform: translateY(0%);
-          }
-          :global(.ReactModal__Content--before-close) {
-            transform: translateY(100%);
-          }
-          :global(.ReactModal__Content:focus) {
-            outline: none; // TODO: is this ok A11Y-wise?
-          }
-          :global(.Modal_Content) {
-            ${fullScreen ? `min-height: 100%;` : ''}
-            background-color: #fff;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-          }
-        `}
-      </style>
+      {styles}
     </>
   );
 };
