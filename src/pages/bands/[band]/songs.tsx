@@ -28,13 +28,13 @@ const mockSongs: Array<Song> = [
       {
         id: '1',
         created: '2020-01-01T12:00:00',
-        url: '/demo.mp3',
+        url: 'https://leftalive.nl/releases/Left_Alive_Promise.mp3',
         description: 'Eerste conceptje',
       },
       {
         id: '2',
         created: '2020-01-01T12:00:00',
-        url: '/demo2.mp3',
+        url: 'https://leftalive.nl/releases/Left_Alive_LIARS.mp3',
         description: 'Vocals',
       },
     ],
