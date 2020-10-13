@@ -5,7 +5,6 @@ import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Modal from 'components/Modal';
 import AudioPlayer from 'components/AudioPlayer';
-import SongContext from 'context/SongContext';
 
 type Song = {
   id: string;
@@ -27,13 +26,15 @@ const mockSongs: Array<Song> = [
       {
         id: '1',
         created: '2020-01-01T12:00:00',
-        url: 'https://leftalive.nl/releases/Left_Alive_Promise.mp3',
+        url:
+          'https://firebasestorage.googleapis.com/v0/b/pico-link.appspot.com/o/test%2Fplaylist.m3u8?alt=media&token=a191e3df-c0e3-416d-843f-082bc7f0565c',
         description: 'Eerste conceptje',
       },
       {
         id: '2',
         created: '2020-01-01T12:00:00',
-        url: 'https://leftalive.nl/releases/Left_Alive_LIARS.mp3',
+        url:
+          'https://firebasestorage.googleapis.com/v0/b/pico-link.appspot.com/o/test%2Fplaylist.m3u8?alt=media&token=a191e3df-c0e3-416d-843f-082bc7f0565c&test=1',
         description: 'Vocals',
       },
     ],
@@ -75,22 +76,15 @@ const Song = ({ song, onClose }: { song: Song; onClose: () => void }) => {
           <h2 className="flex items-center">
             <FiMusic className="mr-2" /> Demos
           </h2>
-          <SongContext.Provider
-            value={{
-              playingFile,
-              setPlayingFile,
-            }}
-          >
-            {song.demos.map((demo) => (
-              <div key={demo.id}>
-                <h3 className="mb-1 text-xs italic font-normal text-gray-700">
-                  {format(parseISO(demo.created), 'd MMM yyyy - hh:mm')} -{' '}
-                  {demo.description}
-                </h3>
-                <AudioPlayer file={demo.url} />
-              </div>
-            ))}
-          </SongContext.Provider>
+          {song.demos.map((demo) => (
+            <div key={demo.id}>
+              <h3 className="mb-1 text-xs italic font-normal text-gray-700">
+                {format(parseISO(demo.created), 'd MMM yyyy - hh:mm')} -{' '}
+                {demo.description}
+              </h3>
+              <AudioPlayer file={demo.url} />
+            </div>
+          ))}
           <h2 className="flex items-center">
             <FiZap className="mr-2" /> Note
           </h2>
