@@ -8,6 +8,9 @@ module.exports = {
         sans: ['Source Sans Pro', 'sans-serif'],
         display: ['Poppins', 'sans-serif'],
       },
+      boxShadow: {
+        drawer: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+      },
     },
   },
   variants: {
