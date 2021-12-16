@@ -16,7 +16,7 @@
     "storybook": "start-storybook"
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "^0.16.0",
+    "@auth0/nextjs-auth0": "^1.6.2",
     "@types/react-modal": "^3.10.6",
     "auth0": "^2.28.0",
     "date-fns": "^2.16.1",
