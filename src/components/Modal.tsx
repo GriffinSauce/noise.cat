@@ -29,8 +29,8 @@ const Modal: FunctionComponent<
           drag={blockDrag ? false : 'y'}
           dragConstraints={{ top: 0 }}
           dragElastic={0}
-          onDragEnd={(event, info) => {
-            if (info.point.y > 30 || info.velocity.y > 200) {
+          onDragEnd={(_, info) => {
+            if (info.offset.y > 60 || info.velocity.y > 200) {
               onClose();
               return;
             }
