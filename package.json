@@ -3,9 +3,6 @@
   "version": "0.2.0",
   "author": "Joris Griffioen",
   "license": "MIT",
-  "engines": {
-    "node": "12.x"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
