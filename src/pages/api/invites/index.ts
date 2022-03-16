@@ -31,7 +31,7 @@ const handler = withDb(async (req, res) => {
         return res.status(429).send('Too Many Requests');
       }
 
-      const user = await auth0.getSession(req, res)?.user;
+      const user = auth0.getSession(req, res)?.user;
       if (!user) {
         return res.status(403).json({
           error: `Unauthenticated`,
@@ -63,7 +63,7 @@ const handler = withDb(async (req, res) => {
       return res.status(204).send('');
     }
     case 'POST': {
-      const user = await auth0.getSession(req, res)?.user;
+      const user = auth0.getSession(req, res)?.user;
       if (!user) {
         return res.status(403).json({
           error: `Unauthenticated`,

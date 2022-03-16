@@ -27,7 +27,7 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug },
   } = req;
-  const user = await auth0.getSession(req, res)?.user;
+  const user = auth0.getSession(req, res)?.user;
   if (!user) {
     return res.status(403).json({
       error: `Unauthenticated`,

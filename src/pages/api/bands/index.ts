@@ -3,7 +3,7 @@ import auth0 from 'utils/auth0';
 
 const handler = withDb(async (req, res) => {
   const { method } = req;
-  const user = await auth0.getSession(req, res)?.user;
+  const user = auth0.getSession(req, res)?.user;
   if (!user) {
     return res.status(403).json({
       error: `Unauthenticated`,
