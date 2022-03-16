@@ -6,7 +6,7 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug },
   } = req;
-  const { user } = auth0.getSession(req, res);
+  const { user } = await auth0.getSession(req, res);
 
   const band = await req.db.collection('band').findOne({
     slug,

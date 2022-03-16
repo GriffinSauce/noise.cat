@@ -8,7 +8,7 @@ const host = `${protocol}${domain}`;
 
 const auth0 = initAuth0({
   baseURL: host,
-  issuerBaseURL: process.env.AUTH0_DOMAIN as string,
+  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}` as string,
   clientID: process.env.AUTH0_CLIENTID as string,
   clientSecret: process.env.AUTH0_SECRET as string,
   secret: process.env.AUTH0_COOKIE_SECRET as string,
