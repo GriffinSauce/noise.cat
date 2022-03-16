@@ -8,7 +8,6 @@ type Props = {
   footer?: boolean;
 };
 
-// TODO: Review font usage and trim
 const Layout: FunctionComponent<Props> = ({
   children,
   header = true,
@@ -16,14 +15,6 @@ const Layout: FunctionComponent<Props> = ({
 }) => {
   return (
     <>
-      <Head>
-        <title>noise.cat</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
       <div className="flex flex-col h-screen">
         {header ? <Header /> : null}
         <main className="flex-grow">{children}</main>
