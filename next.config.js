@@ -27,6 +27,7 @@ const offlineConfig = {
 
 module.exports = withOffline({
   ...offlineConfig,
+  swcMinify: true,
   async rewrites() {
     return [
       {
