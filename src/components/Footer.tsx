@@ -15,7 +15,7 @@ const ActiveLink: FunctionComponent<{
     <Link href={href} {...props}>
       <a
         className={`p-3 text-2xl flex-center ${
-          pathname === href ? 'text-green-400' : 'text-gray-900'
+          pathname === href ? 'text-emerald-400' : 'text-gray-900'
         }`}
       >
         {children}
@@ -51,7 +51,7 @@ const Footer: FunctionComponent = () => {
             <Link href={pathname} as={pathname.replace('[band]', band.slug)}>
               <button
                 className={`flex w-full items-center block p-3 text-lg font-semibold leading-none truncate font-display ${
-                  band.slug === slug ? 'text-green-400' : 'text-gray-900'
+                  band.slug === slug ? 'text-emerald-400' : 'text-gray-900'
                 }`}
                 onClick={() => setOpen(false)}
                 type="button"

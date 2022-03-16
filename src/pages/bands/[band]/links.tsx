@@ -119,9 +119,8 @@ const LinksPage = () => {
               Title
               <input
                 id="link-title"
-                name="title"
                 placeholder="Stagepl..."
-                ref={register({
+                {...register('title', {
                   required: 'What is it?',
                 })}
                 onMouseEnter={blockDrag}
@@ -133,9 +132,8 @@ const LinksPage = () => {
               Paste a url
               <input
                 id="link-url"
-                name="url"
                 placeholder="https://w..."
-                ref={register({
+                {...register('url', {
                   required: 'Where is it?',
                 })}
                 onFocus={(event) => event.target.select()}

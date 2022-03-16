@@ -1,6 +1,4 @@
 import { initAuth0 } from '@auth0/nextjs-auth0';
-import { NextApiRequest } from 'next';
-import { ISession } from '@auth0/nextjs-auth0/dist/session/session';
 
 const port = process.env.PORT || 3000;
 const protocol = process.env.NODE_ENV === 'production' ? 'https://' : 'http://';
@@ -8,29 +6,22 @@ const deploymentDomain = process.env.NOW_URL || `localhost:${port}`;
 const domain = process.env.PRODUCTION ? 'noise.cat' : deploymentDomain; // The deployment URL is always the xyz-noisecat.now.sh url, not the actual prod URL
 const host = `${protocol}${domain}`;
 
-const config = {
-  domain: process.env.AUTH0_DOMAIN as string,
-  clientId: process.env.AUTH0_CLIENTID as string,
+const auth0 = initAuth0({
+  baseURL: host,
+  issuerBaseURL: process.env.AUTH0_DOMAIN as string,
+  clientID: process.env.AUTH0_CLIENTID as string,
   clientSecret: process.env.AUTH0_SECRET as string,
-  scope: 'openid profile',
-  redirectUri: `${host}/api/callback`,
-  postLogoutRedirectUri: host,
-  session: {
-    cookieSecret: process.env.AUTH0_COOKIE_SECRET as string,
-    cookieLifetime: 60 * 60 * 24 * 365 * 5, // Five years, YOLO
+  secret: process.env.AUTH0_COOKIE_SECRET as string,
+  routes: {
+    callback: '/api/callback',
+    postLogoutRedirect: '/',
   },
-};
+  authorizationParams: {
+    scope: 'openid profile',
+  },
+  session: {
+    rollingDuration: 60 * 60 * 24 * 365 * 5, // Five years, YOLO
+  },
+});
 
-const auth0 = initAuth0(config);
-
-// Typing helper ¯\_(ツ)_/¯
-// https://github.com/auth0/nextjs-auth0/issues/103
-const getSessionFromReq = async (req: NextApiRequest): Promise<ISession> => {
-  const session = await auth0.getSession(req);
-  return (session as unknown) as ISession;
-};
-
-export default {
-  ...auth0,
-  getSessionFromReq,
-};
+export default auth0;

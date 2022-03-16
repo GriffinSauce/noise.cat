@@ -6,12 +6,14 @@ type Obj = {
   [key: string]: any; // eslint-disable-line
 };
 
-const selectFields = (...keys: Array<string>) => (obj: Obj) => {
-  return keys.reduce((acc: Obj, key) => {
-    acc[key] = obj[key];
-    return acc;
-  }, {});
-};
+const selectFields =
+  (...keys: Array<string>) =>
+  (obj: Obj) => {
+    return keys.reduce((acc: Obj, key) => {
+      acc[key] = obj[key];
+      return acc;
+    }, {});
+  };
 
 const management = new ManagementClient({
   domain: process.env.AUTH0_DOMAIN as string,
@@ -25,7 +27,7 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug },
   } = req;
-  const { user } = await auth0.getSessionFromReq(req);
+  const { user } = auth0.getSession(req, res);
 
   const band = await req.db.collection('band').findOne<Band>({
     slug,
@@ -89,4 +91,4 @@ const handler = withDb(async (req, res) => {
   }
 });
 
-export default auth0.requireAuthentication(handler);
+export default auth0.withApiAuthRequired(handler);

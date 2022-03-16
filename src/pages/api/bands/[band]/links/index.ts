@@ -7,7 +7,7 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug },
   } = req;
-  const { user } = await auth0.getSessionFromReq(req);
+  const { user } = auth0.getSession(req, res);
 
   const band = await req.db.collection('band').findOne({
     slug,
@@ -60,4 +60,4 @@ const handler = withDb(async (req, res) => {
   }
 });
 
-export default auth0.requireAuthentication(handler);
+export default auth0.withApiAuthRequired(handler);

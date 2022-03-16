@@ -27,8 +27,8 @@ const Button: FunctionComponent<Props> = ({
   type = 'button',
 }) => {
   const colors: { [color in Color]: string } = {
-    gray: 'bg-gray-100 text-green-500 hover:text-green-600',
-    green: 'bg-green-400 text-white hover:bg-green-500',
+    gray: 'bg-gray-100 text-emerald-500 hover:text-emerald-600',
+    green: 'bg-emerald-400 text-white hover:bg-emerald-500',
     red: 'bg-red-400 text-white hover:bg-red-500',
     disabled: 'bg-gray-300 text-white',
   };

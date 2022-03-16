@@ -2,7 +2,6 @@
 const withOffline = require('next-offline');
 
 const offlineConfig = {
-  target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache
   workboxOpts: {
     swDest: 'static/service-worker.js',

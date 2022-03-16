@@ -48,7 +48,7 @@ const Shows: FunctionComponent = () => {
             shows.map((show) => (
               <li key={show.title} className="pb-6">
                 <h2 className="text-lg truncate">{show.title}</h2>
-                <h3 className="flex items-center text-sm font-medium text-green-500">
+                <h3 className="flex items-center text-sm font-medium text-emerald-500">
                   <div className="mr-1 text-lg icon-fix">
                     <IoIosCheckmarkCircle />
                   </div>
