@@ -13,14 +13,17 @@ if (!process.env.MONGO_URI) {
 if (process.env.NODE_ENV === 'development') {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
+  // @ts-expect-error
   if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options);
+    client = new MongoClient(uri as string, options);
+    // @ts-expect-error
     global._mongoClientPromise = client.connect();
   }
+  // @ts-expect-error
   clientPromise = global._mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
+  client = new MongoClient(uri as string, options);
   clientPromise = client.connect();
 }
 

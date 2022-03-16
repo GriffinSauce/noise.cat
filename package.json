@@ -10,6 +10,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --ext .ts,.tsx",
+    "tsc": "tsc",
     "storybook": "start-storybook"
   },
   "dependencies": {

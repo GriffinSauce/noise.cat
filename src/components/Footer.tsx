@@ -50,7 +50,7 @@ const Footer: FunctionComponent = () => {
           <li key={band.slug}>
             <Link href={pathname} as={pathname.replace('[band]', band.slug)}>
               <button
-                className={`flex w-full items-center block p-3 text-lg font-semibold leading-none truncate font-display ${
+                className={`flex w-full items-center p-3 text-lg font-semibold leading-none truncate font-display ${
                   band.slug === slug ? 'text-emerald-400' : 'text-gray-900'
                 }`}
                 onClick={() => setOpen(false)}
@@ -70,7 +70,7 @@ const Footer: FunctionComponent = () => {
   );
 
   return (
-    <div className="fixed w-full bottom-0 bg-white border-t border-gray-200">
+    <div className="fixed bottom-0 w-full bg-white border-t border-gray-200">
       <Container>
         <nav className="grid grid-cols-4">
           <button

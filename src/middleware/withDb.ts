@@ -1,4 +1,5 @@
 import { MongoClient, Db } from 'mongodb';
+import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../utils/mongodb';
 
 export type RequestWithDb = NextApiRequest & {

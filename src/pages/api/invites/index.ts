@@ -31,7 +31,12 @@ const handler = withDb(async (req, res) => {
         return res.status(429).send('Too Many Requests');
       }
 
-      const { user } = auth0.getSession(req, res);
+      const user = await auth0.getSession(req, res)?.user;
+      if (!user) {
+        return res.status(403).json({
+          error: `Unauthenticated`,
+        });
+      }
       const { slug, token } = req.query;
       const invite = await req.db.collection('invite').findOne({
         deleted: { $exists: false },
@@ -58,7 +63,12 @@ const handler = withDb(async (req, res) => {
       return res.status(204).send('');
     }
     case 'POST': {
-      const { user } = auth0.getSession(req, res);
+      const user = await auth0.getSession(req, res)?.user;
+      if (!user) {
+        return res.status(403).json({
+          error: `Unauthenticated`,
+        });
+      }
       const { slug } = req.body;
       const band = await req.db.collection('band').findOne({
         slug,

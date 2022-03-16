@@ -30,7 +30,12 @@ const LinksPage = () => {
   const [isFormOpen, setFormOpen] = useState(false);
   const [editingLink, setEditingLink] = useState<null | Link>(null);
 
-  const { handleSubmit, register, errors, reset } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm();
   const [postState, setPostState] = useState<null | 'loading'>(null);
 
   const closeForm = () => {

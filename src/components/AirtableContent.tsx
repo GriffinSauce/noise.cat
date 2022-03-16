@@ -13,11 +13,7 @@ const AirtableContent = forwardRef<HTMLDivElement, Props>(
       .replace(/\n/gm, '\n\n'); // Airtable doesn't seem to render paragraph breaks right
     return (
       <div ref={ref} className="break">
-        <ReactMarkdown
-          className={className}
-          source={formatted}
-          escapeHtml={false}
-        />
+        <ReactMarkdown className={className}>{formatted}</ReactMarkdown>
         <style jsx>
           {`
             .break {

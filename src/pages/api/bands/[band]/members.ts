@@ -27,7 +27,12 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug },
   } = req;
-  const { user } = await auth0.getSession(req, res);
+  const user = await auth0.getSession(req, res)?.user;
+  if (!user) {
+    return res.status(403).json({
+      error: `Unauthenticated`,
+    });
+  }
 
   const band = await req.db.collection('band').findOne<Band>({
     slug,

@@ -26,7 +26,8 @@ const Join = () => {
       try {
         await fetcher<void>(`/api/invites?${qs.stringify({ slug, token })}`);
       } catch (err) {
-        setError(err.message);
+        if (err instanceof Error) setError(err.message);
+        setError('Error fetching invite');
         return;
       }
       router.push(`/bands/[band]`, `/bands/${slug}`);

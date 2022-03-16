@@ -19,7 +19,12 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug },
   } = req;
-  const { user } = await auth0.getSession(req, res);
+  const user = await auth0.getSession(req, res)?.user;
+  if (!user) {
+    return res.status(403).json({
+      error: `Unauthenticated`,
+    });
+  }
 
   const band = await req.db.collection('band').findOne<Band>({
     slug,
@@ -41,7 +46,7 @@ const handler = withDb(async (req, res) => {
           shows,
         });
       } catch (err) {
-        if (err.message === 'notFound') {
+        if (err instanceof Error && err.message === 'notFound') {
           return res.status(404).json({
             error: `No band by slug "${slug}"`,
           });
