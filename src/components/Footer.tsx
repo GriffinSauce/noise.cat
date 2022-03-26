@@ -70,38 +70,41 @@ const Footer: FunctionComponent = () => {
   );
 
   return (
-    <div className="fixed bottom-0 w-full bg-white border-t border-gray-200">
-      <Container>
-        <nav className="grid grid-cols-4">
-          <button
-            className="p-2 text-center flex-center"
-            onClick={() => setOpen(true)}
-            type="button"
-          >
-            <img
-              alt="band switcher"
-              className="w-8 h-8 rounded-full"
-              src={data.bands.find((band) => band.slug === slug)?.image}
-            />
-          </button>
-          <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
-            <FiCalendar />
-          </ActiveLink>
-          <ActiveLink href="/bands/[band]/links" as={`/bands/${slug}/links`}>
-            <FiExternalLink />
-          </ActiveLink>
-          <ActiveLink
-            href="/bands/[band]/settings"
-            as={`/bands/${slug}/settings`}
-          >
-            <FiSettings />
-          </ActiveLink>
-        </nav>
-      </Container>
-      <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
-        <BandPicker />
-      </Modal>
-    </div>
+    <>
+      <div className="w-full h-8 my-2 shrink-0"></div>
+      <div className="fixed bottom-0 w-full bg-white border-t border-gray-200">
+        <Container>
+          <nav className="grid grid-cols-4">
+            <button
+              className="p-2 text-center flex-center"
+              onClick={() => setOpen(true)}
+              type="button"
+            >
+              <img
+                alt="band switcher"
+                className="w-8 h-8 rounded-full"
+                src={data.bands.find((band) => band.slug === slug)?.image}
+              />
+            </button>
+            <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
+              <FiCalendar />
+            </ActiveLink>
+            <ActiveLink href="/bands/[band]/links" as={`/bands/${slug}/links`}>
+              <FiExternalLink />
+            </ActiveLink>
+            <ActiveLink
+              href="/bands/[band]/settings"
+              as={`/bands/${slug}/settings`}
+            >
+              <FiSettings />
+            </ActiveLink>
+          </nav>
+        </Container>
+        <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
+          <BandPicker />
+        </Modal>
+      </div>
+    </>
   );
 };
 

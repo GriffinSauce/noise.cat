@@ -8,10 +8,11 @@ const Band = () => {
     <Layout>
       <Container>
         <div className="p-4">
+          <h1 className="mb-3">Shows</h1>
           <div className="flex mb-4 bg-gray-100 rounded">
-            <Button color="green">Bevestigd</Button>
+            <Button color="green">Confirmed</Button>
             <Button group>Maybe</Button>
-            <Button group>Alles</Button>
+            <Button group>Everything</Button>
           </div>
           <Shows />
         </div>

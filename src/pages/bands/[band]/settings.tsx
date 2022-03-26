@@ -41,6 +41,7 @@ const Settings = () => {
     <Layout>
       <Container>
         <div className="p-4">
+          <h1 className="mb-3">Band</h1>
           <h3 className="label">Name</h3>
           <h2>{data?.band?.name || <Skeleton width={200} />}</h2>
 
