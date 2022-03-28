@@ -14,6 +14,7 @@ const getShows = async (slug: string) => {
   throw new Error('notFound');
 };
 
+// @ts-expect-error
 const handler = withDb(async (req, res) => {
   const {
     method,

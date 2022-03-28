@@ -8,6 +8,7 @@ const generateInviteToken = () => {
   return nanoid(48);
 };
 
+// @ts-expect-error
 const handler = withDb(async (req, res) => {
   const { method } = req;
 

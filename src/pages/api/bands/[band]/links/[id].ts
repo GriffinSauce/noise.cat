@@ -2,6 +2,7 @@ import { ObjectID } from 'mongodb';
 import withDb from 'middleware/withDb';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
+// @ts-expect-error
 const handler = withDb(async (req, res) => {
   const {
     method,

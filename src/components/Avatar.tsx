@@ -3,8 +3,8 @@ import Skeleton from 'react-loading-skeleton';
 import { FiUser } from 'react-icons/fi';
 
 type Props = {
-  alt?: string;
-  src?: string;
+  alt: string | null | undefined;
+  src: string | null | undefined;
   size?: string;
   loading?: boolean;
 };
@@ -25,7 +25,7 @@ const Avatar: FunctionComponent<Props> = ({
   return (
     <>
       {src ? (
-        <img className="block rounded-full" alt={alt} src={src} />
+        <img className="block rounded-full" alt={alt || ''} src={src} />
       ) : (
         <figure
           className="flex bg-gray-200 rounded-full flex-center"

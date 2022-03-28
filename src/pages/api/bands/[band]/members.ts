@@ -27,6 +27,7 @@ const management = new ManagementClient({
   scope: 'read:users update:users',
 });
 
+// @ts-expect-error
 const handler = withDb(async (req, res) => {
   const {
     method,
