@@ -1,0 +1,66 @@
+// https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Band {
+  id      Int      @id @default(autoincrement())
+  name    String
+  slug    String
+  image   String?
+  members User[]
+  links   Link[]
+  shows   Show[]
+  invites Invite[]
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique // From auth0
+  invites    Invite[]
+  links      Link[]
+  bands      Band[]
+  shows      Show[]
+}
+
+model Invite {
+  id        Int      @id @default(autoincrement())
+  bandId    Int
+  band      Band     @relation(fields: [bandId], references: [id], onDelete: Cascade)
+  expireAt  DateTime
+  token     String
+  created   DateTime
+  creatorId Int
+  creator   User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+}
+
+model Link {
+  id        Int      @id @default(autoincrement())
+  bandId    Int
+  band      Band     @relation(fields: [bandId], references: [id], onDelete: Cascade)
+  title     String
+  url       String
+  created   DateTime
+  creatorId Int
+  creator   User     @relation(fields: [creatorId], references: [id])
+}
+
+model Show {
+  id        Int      @id @default(autoincrement())
+  bandId    Int
+  band      Band     @relation(fields: [bandId], references: [id], onDelete: Cascade)
+  name      String
+  date      DateTime
+  location  String
+  notes     String
+  creatorId Int
+  creator   User     @relation(fields: [creatorId], references: [id])
+}

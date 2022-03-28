@@ -20,7 +20,15 @@ Currently just the home of [Left Alive](https://www.leftalive.nl/) and [Coral Sp
 **Development**
 
 ```
-now env pull
+brew install planetscale/tap/pscale
+```
+
+```
+vercel env pull
+```
+
+```
+yarn install
 ```
 
 ```
