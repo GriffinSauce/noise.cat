@@ -7,8 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "db-connect": "pscale connect noisecat-prod main --port 3309",
-    "db-shell": "pscale shell noisecat-prod main",
+    "db-connect": "pscale connect noisecat-prod dev --port 3309",
+    "db-shell": "pscale shell noisecat-prod dev",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --ext .ts,.tsx",
@@ -64,7 +64,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "jest": "^27.5.1",
     "postcss-preset-env": "^7.4.2",
-    "prettier": "^2.6.0",
+    "prettier": "^2.6.1",
     "tailwindcss": "^3.0.23",
     "typescript": "^4.6.2"
   }

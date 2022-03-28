@@ -1,9 +1,8 @@
-import withDb from 'middleware/withDb';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
+import { NextApiHandler, NextApiResponse } from 'next';
 import { prisma } from 'utils/prisma';
 
-// @ts-expect-error
-const handler = withDb(async (req, res) => {
+const handler: NextApiHandler = async (req, res) => {
   const { method } = req;
   const user = getSession(req, res)?.user;
   if (!user) {
@@ -14,12 +13,11 @@ const handler = withDb(async (req, res) => {
 
   switch (method) {
     case 'GET': {
-      const bands = await req.db
-        .collection('band')
-        .find({
-          members: user.sub,
-        })
-        .toArray();
+      const bands =
+        (await prisma.user
+          .findUnique({ where: { externalId: user.sub } })
+          .bands()) || [];
+
       return res.status(200).json({
         bands,
       });
@@ -50,8 +48,9 @@ const handler = withDb(async (req, res) => {
     }
     default:
       res.setHeader('Allow', ['GET']);
-      return res.status(405).end(`Method ${method} Not Allowed`);
+      res.status(405).end(`Method ${method} Not Allowed`);
+      return;
   }
-});
+};
 
 export default withApiAuthRequired(handler);
