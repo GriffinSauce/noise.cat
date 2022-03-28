@@ -1,6 +1,6 @@
 import { ManagementClient } from 'auth0';
 import withDb from 'middleware/withDb';
-import auth0 from 'utils/auth0';
+import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
 type Obj = {
   [key: string]: any; // eslint-disable-line
@@ -15,10 +15,15 @@ const selectFields =
     }, {});
   };
 
+const authDomain = (process.env.AUTH0_ISSUER_BASE_URL as string).replace(
+  'https://',
+  '',
+);
+
 const management = new ManagementClient({
-  domain: process.env.AUTH0_DOMAIN as string,
-  clientId: process.env.AUTH0_CLIENTID as string,
-  clientSecret: process.env.AUTH0_SECRET as string,
+  domain: authDomain,
+  clientId: process.env.AUTH0_CLIENT_ID as string,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET as string,
   scope: 'read:users update:users',
 });
 
@@ -27,7 +32,7 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug },
   } = req;
-  const user = auth0.getSession(req, res)?.user;
+  const user = getSession(req, res)?.user;
   if (!user) {
     return res.status(403).json({
       error: `Unauthenticated`,
@@ -96,4 +101,4 @@ const handler = withDb(async (req, res) => {
   }
 });
 
-export default auth0.withApiAuthRequired(handler);
+export default withApiAuthRequired(handler);

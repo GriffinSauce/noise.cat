@@ -2,21 +2,26 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import useSWR from 'swr';
-import useAuthentication from 'utils/useAuthentication';
+import { useUser } from '@auth0/nextjs-auth0';
 import Layout from 'components/Layout';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
 
 const Home = () => {
-  const { isAuthenticated } = useAuthentication();
+  // TODO: handle error and loading
+  const { user, error, isLoading } = useUser();
+
   const router = useRouter();
+
   const { data } = useSWR<{
     bands: Array<Band>;
   }>(`/api/bands`);
+
   useEffect(() => {
     if (!data?.bands?.length) return;
     router.push(`/bands/[band]`, `/bands/${data?.bands[0].slug}`);
   }, [data]);
+
   return (
     <Layout header={false} footer={false}>
       <section className="text-center">
@@ -27,15 +32,7 @@ const Home = () => {
         />
         <h1 className="mb-2 text-4xl">Noise.cat</h1>
         <p className="mb-20 text-gray-400 h2">Your band home</p>
-        {isAuthenticated === false ? (
-          <Link href="/api/login">
-            <a>
-              <Button inline color="green">
-                Sign in
-              </Button>
-            </a>
-          </Link>
-        ) : (
+        {user ? (
           <>
             {data && !data.bands.length ? (
               <Link href="/profile">
@@ -49,6 +46,14 @@ const Home = () => {
               <Loader inline />
             )}
           </>
+        ) : (
+          <Link href="/api/auth/login">
+            <a>
+              <Button inline color="green">
+                Sign in
+              </Button>
+            </a>
+          </Link>
         )}
       </section>
     </Layout>

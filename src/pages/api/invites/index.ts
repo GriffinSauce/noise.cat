@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { addDays } from 'date-fns';
 import { RateLimiterMongo } from 'rate-limiter-flexible';
 import withDb from 'middleware/withDb';
-import auth0 from 'utils/auth0';
+import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
 const generateInviteToken = () => {
   return nanoid(48);
@@ -31,7 +31,7 @@ const handler = withDb(async (req, res) => {
         return res.status(429).send('Too Many Requests');
       }
 
-      const user = auth0.getSession(req, res)?.user;
+      const user = getSession(req, res)?.user;
       if (!user) {
         return res.status(403).json({
           error: `Unauthenticated`,
@@ -63,7 +63,7 @@ const handler = withDb(async (req, res) => {
       return res.status(204).send('');
     }
     case 'POST': {
-      const user = auth0.getSession(req, res)?.user;
+      const user = getSession(req, res)?.user;
       if (!user) {
         return res.status(403).json({
           error: `Unauthenticated`,
@@ -100,4 +100,4 @@ const handler = withDb(async (req, res) => {
   }
 });
 
-export default auth0.withApiAuthRequired(handler);
+export default withApiAuthRequired(handler);

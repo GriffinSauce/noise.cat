@@ -3,7 +3,7 @@ import { useState, FunctionComponent } from 'react';
 import useSWR from 'swr';
 import Skeleton from 'react-loading-skeleton';
 import fetcher from 'utils/fetcher';
-import useAuthentication from 'utils/useAuthentication';
+import { useUser } from '@auth0/nextjs-auth0';
 import Avatar from 'components/Avatar';
 import Button from 'components/Button';
 
@@ -19,13 +19,16 @@ type User = {
 };
 
 const Members: FunctionComponent<Props> = () => {
-  const { user } = useAuthentication();
+  const { user } = useUser();
+
   const {
     query: { band: slug },
   } = useRouter();
+
   const { data, mutate } = useSWR<{ members: Array<User>; ids: Array<string> }>(
     slug ? `/api/bands/${slug}/members` : null,
   );
+
   const [removeState, setRemoveState] = useState<null | 'loading'>(null);
 
   const removeMember = async (memberId: string) => {

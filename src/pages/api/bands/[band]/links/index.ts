@@ -1,13 +1,13 @@
 import { ObjectId } from 'mongodb';
 import withDb from 'middleware/withDb';
-import auth0 from 'utils/auth0';
+import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
 const handler = withDb(async (req, res) => {
   const {
     method,
     query: { band: slug },
   } = req;
-  const user = auth0.getSession(req, res)?.user;
+  const user = getSession(req, res)?.user;
   if (!user) {
     return res.status(403).json({
       error: `Unauthenticated`,
@@ -65,4 +65,4 @@ const handler = withDb(async (req, res) => {
   }
 });
 
-export default auth0.withApiAuthRequired(handler);
+export default withApiAuthRequired(handler);

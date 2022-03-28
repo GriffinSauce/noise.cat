@@ -1,5 +1,5 @@
 import withDb from 'middleware/withDb';
-import auth0 from 'utils/auth0';
+import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 import sheets from 'utils/sources/sheets';
 import airtable from 'utils/sources/airtable';
 
@@ -19,7 +19,7 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug },
   } = req;
-  const user = auth0.getSession(req, res)?.user;
+  const user = getSession(req, res)?.user;
   if (!user) {
     return res.status(403).json({
       error: `Unauthenticated`,
@@ -60,4 +60,4 @@ const handler = withDb(async (req, res) => {
   }
 });
 
-export default auth0.withApiAuthRequired(handler);
+export default withApiAuthRequired(handler);

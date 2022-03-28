@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import qs from 'qs';
 import { useState, useEffect } from 'react';
-import useAuthentication from 'utils/useAuthentication';
+import { useUser } from '@auth0/nextjs-auth0';
 import fetcher from 'utils/fetcher';
 import Layout from 'components/Layout';
 import Container from 'components/Container';
@@ -18,7 +18,7 @@ const Join = () => {
 
   const redirectTo = asPath;
 
-  const { isAuthenticated } = useAuthentication();
+  const { user } = useUser();
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
@@ -33,8 +33,8 @@ const Join = () => {
       router.push(`/bands/[band]`, `/bands/${slug}`);
     };
 
-    if (isAuthenticated) join();
-  }, [isAuthenticated]);
+    if (user) join();
+  }, [user]);
 
   return (
     <Layout header={false} footer={false}>
@@ -47,7 +47,7 @@ const Join = () => {
           />
           <h1 className="mb-2 text-4xl">Noise.cat</h1>
           <p className="mb-20 text-gray-400 h2">Join {band}</p>
-          {isAuthenticated === false ? (
+          {user ? (
             <Link
               href={`/api/login?redirectTo=${encodeURIComponent(redirectTo)}`}
             >

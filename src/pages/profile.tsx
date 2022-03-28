@@ -1,22 +1,19 @@
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 import useSWR from 'swr';
-import useAuthentication from 'utils/useAuthentication';
+import { useUser } from '@auth0/nextjs-auth0';
 import Layout from 'components/Layout';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
 import Container from 'components/Container';
 
 const Profile = () => {
-  const { isAuthenticated, user } = useAuthentication();
-  const { data } = useSWR<{ bands: Array<Band> }>(
-    isAuthenticated ? `/api/bands` : null,
-  );
+  const { user, isLoading, error } = useUser();
+  const { data } = useSWR<{ bands: Array<Band> }>(user ? `/api/bands` : null);
 
-  if (isAuthenticated !== null && !isAuthenticated) {
-    // Should redirect to login
-    if (process.browser) {
-      window.location.replace('/');
+  if ((!user && !isLoading) || error) {
+    if (typeof window !== undefined) {
+      window.location.replace('/api/auth/login');
       return null;
     }
     return null;
