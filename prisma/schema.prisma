@@ -24,8 +24,11 @@ model Band {
 
 model User {
   id         Int      @id @default(autoincrement())
-  externalId String   @unique // From auth0
+  externalId String   @unique // From auth provider
+  synced     DateTime // Last synced with auth provider
   name       String
+  givenName  String
+  familyName String
   email      String
   picture    String?
   invites    Invite[]
