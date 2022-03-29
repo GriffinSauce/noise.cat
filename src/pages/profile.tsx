@@ -69,7 +69,7 @@ const Profile = () => {
               </div>
             )}
           </section>
-          <a href="/api/logout">
+          <a href="/api/auth/logout">
             <Button>Log out</Button>
           </a>
         </div>

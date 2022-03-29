@@ -49,7 +49,9 @@ const Join = () => {
           <p className="mb-20 text-gray-400 h2">Join {band}</p>
           {user ? (
             <Link
-              href={`/api/login?redirectTo=${encodeURIComponent(redirectTo)}`}
+              href={`/api/auth/login?returnTo=${encodeURIComponent(
+                redirectTo,
+              )}`}
             >
               <a>
                 <Button inline color="green">

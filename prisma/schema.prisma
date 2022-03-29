@@ -25,6 +25,9 @@ model Band {
 model User {
   id         Int      @id @default(autoincrement())
   externalId String   @unique // From auth0
+  name       String
+  email      String
+  picture    String?
   invites    Invite[]
   links      Link[]
   bands      Band[]

@@ -1,3 +1,29 @@
-import { handleAuth } from '@auth0/nextjs-auth0';
+import { handleAuth, handleCallback, AfterCallback } from '@auth0/nextjs-auth0';
+import { prisma } from 'utils/prisma';
 
-export default handleAuth();
+const afterCallback: AfterCallback = async (_req, _res, session, _state) => {
+  const userData = {
+    externalId: session.user.sub as string,
+    name: session.user.name as string,
+    email: session.user.email as string,
+    ...(session.user.picture
+      ? {
+          picture: session.user.picture as string,
+        }
+      : {}),
+  };
+  await prisma.user.upsert({
+    where: {
+      externalId: session.user.sub as string,
+    },
+    create: userData,
+    update: userData,
+  });
+  return session;
+};
+
+export default handleAuth({
+  async callback(req, res) {
+    await handleCallback(req, res, { afterCallback });
+  },
+});
