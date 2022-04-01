@@ -6,6 +6,7 @@ import Layout from 'components/Layout';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
 import Container from 'components/Container';
+import ButtonLink from 'components/ButtonLink';
 
 const Profile = () => {
   const { user, isLoading, error } = useUser();
@@ -47,19 +48,12 @@ const Profile = () => {
                   </ul>
                 ) : (
                   <div className="py-2 mb-6">
-                    <p className="text-gray-500 h3">
-                      Ask one of your bandmembers for an invite.
+                    <p className="text-gray-500">
+                      Ask one of your bandmembers for an invite or
                     </p>
-                    <p className="mt-2 text-sm italic font-semibold text-gray-700">
-                      New to Noisecat? <br />
-                      <a
-                        className="inline-block font-bold text-gray-900 border-b"
-                        href="mailto:jorisjgriffioen@gmail.com?subject=New band on Noise.cat "
-                      >
-                        Send a message
-                      </a>{' '}
-                      and I&apos;ll help you get set up!
-                    </p>
+                    <Link href="/bands/new">
+                      <ButtonLink color="green">Set up your band</ButtonLink>
+                    </Link>
                   </div>
                 )}
               </>

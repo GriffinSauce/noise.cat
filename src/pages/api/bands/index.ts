@@ -1,6 +1,12 @@
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 import { NextApiHandler, NextApiResponse } from 'next';
 import { prisma } from 'utils/prisma';
+import { kebabCase, isString } from 'lodash';
+import { Band } from '@prisma/client';
+
+export interface PostResponse {
+  band: Band;
+}
 
 const handler: NextApiHandler = async (req, res) => {
   const { method } = req;
@@ -23,7 +29,13 @@ const handler: NextApiHandler = async (req, res) => {
       });
     }
     case 'POST': {
-      const { name, slug } = req.body;
+      const {
+        band: { name, image },
+      } = req.body;
+
+      if (!name) return res.status(400).send({ error: 'Name is required' });
+      if (!isString(name))
+        return res.status(400).send({ error: 'Name must be a string' });
 
       // Create via user.update so we can find the user by externalId but connect by db id
       const updatedUser = await prisma.user.update({
@@ -33,8 +45,8 @@ const handler: NextApiHandler = async (req, res) => {
         data: {
           bands: {
             create: {
-              name: name as string, // TODO: validate
-              slug: slug as string, // TODO: validate
+              name,
+              slug: kebabCase(name),
             },
           },
         },
