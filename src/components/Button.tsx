@@ -2,7 +2,7 @@ import * as React from 'react';
 import { MouseEvent, FunctionComponent } from 'react';
 import Loader from 'components/Loader';
 
-type Color = 'green' | 'red' | 'gray' | 'disabled';
+export type Color = 'green' | 'red' | 'gray' | 'disabled';
 
 type Props = {
   className?: string;
@@ -15,33 +15,52 @@ type Props = {
   type?: 'button' | 'submit';
 };
 
-const Button: FunctionComponent<Props> = ({
+const colors: { [color in Color]: string } = {
+  gray: 'bg-gray-100 text-emerald-500 hover:text-emerald-600',
+  green: 'bg-emerald-400 text-white hover:bg-emerald-500',
+  red: 'bg-red-400 text-white hover:bg-red-500',
+  disabled: 'bg-gray-300 text-white',
+};
+
+const lightColors: Array<Color> = ['gray', 'disabled'];
+
+const defaultColor = 'gray';
+
+export const getButtonStyle = ({
   className = '',
-  color = 'gray',
+  color = defaultColor,
   inline = false,
   disabled = false,
-  state = null,
-  onClick,
-  children,
   group = false,
-  type = 'button',
-}) => {
-  const colors: { [color in Color]: string } = {
-    gray: 'bg-gray-100 text-emerald-500 hover:text-emerald-600',
-    green: 'bg-emerald-400 text-white hover:bg-emerald-500',
-    red: 'bg-red-400 text-white hover:bg-red-500',
-    disabled: 'bg-gray-300 text-white',
-  };
-  const lightColors: Array<Color> = ['gray', 'disabled'];
+}: Pick<Props, 'className' | 'color' | 'inline' | 'disabled' | 'group'>) => {
+  const composedClassName = [
+    `font-display font-semibold py-3 px-3 items-center justify-center`,
+    colors[disabled ? 'disabled' : color],
+    group ? 'first:rounded-l last:rounded-r' : 'rounded',
+    inline ? 'inline-flex' : 'flex w-full',
+    className,
+  ].join(' ');
 
-  const rounded = group ? 'first:rounded-l last:rounded-r' : 'rounded';
+  const isLight = lightColors.includes(color);
+
+  return { color, isLight, className: composedClassName };
+};
+
+const Button: FunctionComponent<Props> = (props) => {
+  const {
+    disabled = false,
+    state = null,
+    onClick,
+    children,
+    type = 'button',
+  } = props;
+  const { className, isLight } = getButtonStyle(props);
+
   /* eslint-disable react/button-has-type */
   const isDisabled = state === 'loading' || disabled;
   return (
     <button
-      className={`font-display font-semibold py-3 px-3 items-center justify-center ${rounded} ${
-        colors[disabled ? 'disabled' : color]
-      } ${inline ? 'inline-flex' : 'flex w-full'} ${className}`}
+      className={className}
       {...(isDisabled ? {} : { onClick })}
       disabled={isDisabled}
       type={type}
@@ -50,7 +69,7 @@ const Button: FunctionComponent<Props> = ({
         <>
           <div className="opacity-0">{children}</div>
           <div className="absolute">
-            <Loader light={!lightColors.includes(color)} />
+            <Loader light={!isLight} />
           </div>
         </>
       ) : (
