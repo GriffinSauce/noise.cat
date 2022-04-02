@@ -5,6 +5,15 @@ import Link from 'next/link';
 import { FiCalendar, FiSettings, FiExternalLink } from 'react-icons/fi';
 import Modal from 'components/Modal';
 import Container from 'components/Container';
+import { Band } from '@prisma/client';
+
+const getBandAvatar = (band: Band | undefined) => {
+  if (!band) return '';
+  return (
+    band.image ||
+    `https://avatars.dicebear.com/api/initials/${band.slug}.svg?size=90`
+  );
+};
 
 const ActiveLink: FunctionComponent<{
   href: string;
@@ -35,10 +44,12 @@ const Footer: FunctionComponent = () => {
   const { data, error } = useSWR<{ bands: Array<Band> }>(
     slug ? `/api/bands` : null,
   );
-  if (!data) return null;
-  if (!data.bands) return null;
-  if (!data.bands.length) return null;
+
+  if (!data?.bands?.length) return null;
+
   if (error) return <div>Error</div>;
+
+  const selectedBand = data.bands.find((band) => band.slug === slug);
 
   const BandPicker = () => (
     <ul>
@@ -59,7 +70,7 @@ const Footer: FunctionComponent = () => {
                 <img
                   alt={band.name}
                   className="w-8 h-8 mr-2 rounded-full"
-                  src={band.image}
+                  src={getBandAvatar(band)}
                 />
                 <span>{band.name}</span>
               </button>
@@ -83,7 +94,7 @@ const Footer: FunctionComponent = () => {
               <img
                 alt="band switcher"
                 className="w-8 h-8 rounded-full"
-                src={data.bands.find((band) => band.slug === slug)?.image}
+                src={getBandAvatar(selectedBand)}
               />
             </button>
             <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
