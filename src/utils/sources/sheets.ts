@@ -34,6 +34,8 @@ const get = async () => {
     throw new Error('env var CS_GOOGLE_CLIENT_EMAIL is missing');
   if (!process.env.CS_GOOGLE_PRIVATE_KEY)
     throw new Error('env var CS_GOOGLE_PRIVATE_KEY is missing');
+  if (!process.env.CS_SHEET_ID)
+    throw new Error('env var CS_SHEET_ID is missing');
 
   const jwt = new JWT({
     email: process.env.CS_GOOGLE_CLIENT_EMAIL,
