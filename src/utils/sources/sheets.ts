@@ -1,6 +1,7 @@
-import fetcher from 'utils/fetcher';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
+import { JWT } from 'google-auth-library';
 
-const CS_API_URL = process.env.CS_API_URL; // eslint-disable-line prefer-destructuring
+const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
 // Huehue
 type SheetShow = {
@@ -12,13 +13,13 @@ type SheetShow = {
   Gage: string;
 };
 
-const mapColumns = (show: SheetShow) => ({
-  date: show['Show datum'],
-  title: show['Show naam'],
-  location: show['Show locatie'],
-  note: show['Show info'],
-  contact: show['Contact info'],
-  pay: show.Gage,
+const mapColumns = (show: Partial<SheetShow>): Show => ({
+  date: show['Show datum'] || '',
+  title: show['Show naam'] || '',
+  location: show['Show locatie'] || '',
+  note: show['Show info'] || '',
+  contact: show['Contact info'] || '',
+  pay: show.Gage || '',
   status: 'Bevestigd',
 
   // Unused
@@ -29,9 +30,24 @@ const mapColumns = (show: SheetShow) => ({
 });
 
 const get = async () => {
-  if (!CS_API_URL) throw new Error('env var CS_API_URL is missing');
-  const data = await fetcher<any>(CS_API_URL);
-  return data.map(mapColumns);
+  if (!process.env.CS_GOOGLE_CLIENT_EMAIL)
+    throw new Error('env var CS_GOOGLE_CLIENT_EMAIL is missing');
+  if (!process.env.CS_GOOGLE_PRIVATE_KEY)
+    throw new Error('env var CS_GOOGLE_PRIVATE_KEY is missing');
+
+  const jwt = new JWT({
+    email: process.env.CS_GOOGLE_CLIENT_EMAIL,
+    key: process.env.CS_GOOGLE_PRIVATE_KEY,
+    scopes: SCOPES,
+  });
+  const doc = new GoogleSpreadsheet(process.env.CS_SHEET_ID, jwt);
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Bevestigd']; // or use `doc.sheetsById[id]` or `doc.sheetsByTitle[title]`
+  await sheet.loadHeaderRow(3);
+
+  const rows = await sheet.getRows<SheetShow>();
+
+  return rows.map((row) => mapColumns(row.toObject()));
 };
 
 export default { get };
