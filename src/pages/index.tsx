@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import useSWR from 'swr';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Layout from 'components/Layout';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
@@ -20,7 +20,7 @@ const Home = () => {
   useEffect(() => {
     if (!data?.bands?.length) return;
     router.push(`/bands/[band]`, `/bands/${data?.bands[0].slug}`);
-  }, [data]);
+  }, [data, router]);
 
   return (
     <Layout header={false} footer={false}>
@@ -36,11 +36,9 @@ const Home = () => {
           <>
             {data && !data.bands.length ? (
               <Link href="/profile">
-                <a>
-                  <Button inline color="green">
-                    View profile
-                  </Button>
-                </a>
+                <Button inline color="green">
+                  View profile
+                </Button>
               </Link>
             ) : (
               <Loader inline />
@@ -48,11 +46,9 @@ const Home = () => {
           </>
         ) : (
           <Link href="/api/auth/login">
-            <a>
-              <Button inline color="green">
-                Sign in
-              </Button>
-            </a>
+            <Button inline color="green">
+              Sign in
+            </Button>
           </Link>
         )}
       </section>

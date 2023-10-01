@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Button from 'components/Button';
 
-export default {
+const meta = {
   title: 'Button',
 };
+export default meta;
 
 export const Default = () => <Button>Hello Button</Button>;
 

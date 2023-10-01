@@ -1,63 +1,35 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "tsconfigRootDir": "."
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
-    }
-  },
   "env": {
-    "browser": true,
     "jest/globals": true
   },
-  "plugins": ["@typescript-eslint", "react-hooks", "jest", "prettier"],
+  "plugins": [
+    "@typescript-eslint",
+    "jest"
+  ],
   "extends": [
-    "airbnb",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
+    "next",
+    "prettier"
   ],
   "rules": {
-    /**
-     * @bug https://github.com/benmosher/eslint-plugin-import/issues/1282
-     * "import/named" temporary disable.
-     */
-    "import/named": "off",
-    /**
-     * @bug?
-     * "import/export" temporary disable.
-     */
-    "import/export": "off",
-    "import/prefer-default-export": "off", // Allow single Named-export
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never",
-        "mjs": "never"
-      }
-    ],
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.test.tsx"]
+        "devDependencies": [
+          "**/*.test.tsx",
+          "next.config.mjs"
+        ]
       }
     ],
     "no-console": [
       2,
       {
-        "allow": ["warn", "error", "info"]
+        "allow": [
+          "warn",
+          "error",
+          "info"
+        ]
       }
     ],
-    "react/jsx-props-no-spreading": "off",
-    "react/jsx-one-expression-per-line": "off", // Conflicts with prettier
     "no-unused-expressions": [
       "warn",
       {
@@ -68,45 +40,12 @@
     "no-underscore-dangle": [
       "error",
       {
-        "allow": ["_id"]
+        "allow": [
+          "_id"
+        ]
       }
     ],
     "@typescript-eslint/prefer-interface": "off", // also want to use "type"
     "@typescript-eslint/explicit-function-return-type": "off", // annoying to force return type
-    "react/jsx-filename-extension": [
-      "warn",
-      {
-        "extensions": [".jsx", ".tsx"]
-      }
-    ], // also want to use with ".tsx"
-    "react/prop-types": "off", // Is this incompatible with TS props type?
-    /**
-     * @description rules of eslint-plugin-react-hooks
-     */
-    "react-hooks/rules-of-hooks": "error",
-    /**
-     * NextJS <Link> API conflicts with a11y expectations
-     * https://github.com/zeit/next.js/issues/5533
-     * https://github.com/evcohen/eslint-plugin-jsx-a11y/issues/402
-     **/
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["invalidHref", "preferButton"]
-      }
-    ],
-    "prettier/prettier": [
-      "error",
-      {
-        "trailingComma": "all",
-        "tabWidth": 2,
-        "singleQuote": true
-      }
-    ]
   },
-  "globals": {
-    "React": "writable"
-  }
 }

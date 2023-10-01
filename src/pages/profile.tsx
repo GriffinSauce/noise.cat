@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 import useSWR from 'swr';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Layout from 'components/Layout';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
@@ -39,8 +39,12 @@ const Profile = () => {
                   <ul className="mb-6">
                     {data.bands.map((band) => (
                       <li key={band.slug}>
-                        <Link href="/bands/[band]" as={`/bands/${band.slug}`}>
-                          <a className="block py-2 h3">{band.name}</a>
+                        <Link
+                          href="/bands/[band]"
+                          as={`/bands/${band.slug}`}
+                          className="block py-2 h3"
+                        >
+                          {band.name}
                         </Link>
                       </li>
                     ))}
@@ -69,9 +73,9 @@ const Profile = () => {
               </div>
             )}
           </section>
-          <a href="/api/logout">
+          <Link href="/api/auth/logout">
             <Button>Log out</Button>
-          </a>
+          </Link>
         </div>
       </Container>
     </Layout>

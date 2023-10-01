@@ -65,7 +65,7 @@ const maptoSchema = ({
     return memo;
   }, {});
 
-export default (rawData: any) => {
+const toObject = (rawData: any) => {
   const rawSchema = rawData.recordMap.collection[collectionId].value.schema;
   const schema = Object.keys(rawSchema).reduce((memo: any, key: string) => {
     // eslint-disable-next-line no-param-reassign
@@ -88,3 +88,5 @@ export default (rawData: any) => {
     })
     .filter((block: null | object) => !!block); // Remove unmappable blocks
 };
+
+export default toObject;

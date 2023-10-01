@@ -7,7 +7,7 @@ export const isEmptyContent = (content: string): boolean =>
 type Props = { content: string; className?: string };
 
 const AirtableContent = forwardRef<HTMLDivElement, Props>(
-  ({ content, className }: Props, ref) => {
+  function AirtableContentWithRef({ content, className = '' }: Props, ref) {
     const formatted = content
       .replace('http:///', '/') // Airtable doesn't keep relative links
       .replace(/\n/gm, '\n\n'); // Airtable doesn't seem to render paragraph breaks right
@@ -25,9 +25,5 @@ const AirtableContent = forwardRef<HTMLDivElement, Props>(
     );
   },
 );
-
-AirtableContent.defaultProps = {
-  className: '',
-};
 
 export default AirtableContent;

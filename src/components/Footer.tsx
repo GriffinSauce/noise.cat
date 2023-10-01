@@ -9,17 +9,18 @@ import Container from 'components/Container';
 const ActiveLink: FunctionComponent<{
   href: string;
   as?: string;
+  children?: React.ReactNode;
 }> = ({ children, href, ...props }) => {
   const { pathname } = useRouter();
   return (
-    <Link href={href} {...props}>
-      <a
-        className={`p-3 text-2xl flex-center ${
-          pathname === href ? 'text-emerald-400' : 'text-gray-900'
-        }`}
-      >
-        {children}
-      </a>
+    <Link
+      href={href}
+      {...props}
+      className={`p-3 text-2xl flex-center ${
+        pathname === href ? 'text-emerald-400' : 'text-gray-900'
+      }`}
+    >
+      {children}
     </Link>
   );
 };
@@ -48,7 +49,11 @@ const Footer: FunctionComponent = () => {
         )
         .map((band) => (
           <li key={band.slug}>
-            <Link href={pathname} as={pathname.replace('[band]', band.slug)}>
+            <Link
+              href={pathname}
+              as={pathname.replace('[band]', band.slug)}
+              legacyBehavior
+            >
               <button
                 className={`flex w-full items-center p-3 text-lg font-semibold leading-none truncate font-display ${
                   band.slug === slug ? 'text-emerald-400' : 'text-gray-900'

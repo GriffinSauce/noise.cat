@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Loader from 'components/Loader';
 
-export default {
+const meta = {
   title: 'Loader',
 };
+export default meta;
 
 export const Default = () => <Loader />;
 

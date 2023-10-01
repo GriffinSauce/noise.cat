@@ -12,7 +12,7 @@ const ShowsSkeleton: FunctionComponent = () => (
       .fill('')
       .map((v, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <li key={index} className="pb-6">
+        <li key={index} className="pb-6 -z-10">
           <h2 className="text-lg">
             <Skeleton width={250} />
           </h2>

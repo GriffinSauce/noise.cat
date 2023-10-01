@@ -23,4 +23,6 @@ const get = async () => {
   return parsedData.map(mapColumns);
 };
 
-export default { get };
+const notionApi = { get };
+
+export default notionApi;

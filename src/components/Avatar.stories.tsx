@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Avatar from 'components/Avatar';
 
-export default {
+const meta = {
   title: 'Avatar',
 };
+export default meta;
 
 export const Placeholder = () => <Avatar src={undefined} alt={undefined} />;
 export const Loading = () => <Avatar src={undefined} alt={undefined} loading />;

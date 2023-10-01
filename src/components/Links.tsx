@@ -38,11 +38,13 @@ const Links: FunctionComponent<Props> = ({ links, editLink }) => {
     <>
       <ul className="grid mb-4">
         {links
-          ? links.map((link) => <Link link={link} editLink={editLink} />)
+          ? links.map((link) => (
+              <Link key={link._id} link={link} editLink={editLink} />
+            ))
           : Array(3)
               .fill('')
-              .map(() => (
-                <li className="py-3 leading-none">
+              .map((_, i) => (
+                <li key={i} className="py-3 leading-none">
                   <Skeleton />
                 </li>
               ))}

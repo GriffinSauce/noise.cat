@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import withDb from 'middleware/withDb';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
@@ -8,7 +8,8 @@ const handler = withDb(async (req, res) => {
     method,
     query: { band: slug, id },
   } = req;
-  const user = getSession(req, res)?.user;
+  const session = await getSession(req, res);
+  const user = session?.user;
   if (!user) {
     return res.status(403).json({
       error: `Unauthenticated`,
@@ -47,7 +48,7 @@ const handler = withDb(async (req, res) => {
             'links.$[link].url': url,
           },
         },
-        { arrayFilters: [{ 'link._id': new ObjectID(id as string) }] },
+        { arrayFilters: [{ 'link._id': new ObjectId(id as string) }] },
       );
 
       return res.status(204).send('');
@@ -62,7 +63,7 @@ const handler = withDb(async (req, res) => {
         {
           $pull: {
             links: {
-              _id: new ObjectID(id as string),
+              _id: new ObjectId(id as string),
             },
           },
         },

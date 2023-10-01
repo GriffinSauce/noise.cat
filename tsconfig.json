@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
@@ -11,39 +10,25 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "incremental": true,
     "esModuleInterop": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "sourceMap": true,
-    "removeComments": false,
-    "outDir": "build",
-    "noImplicitAny": true,
-    "alwaysStrict": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": false,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true,
-    "declaration": true,
     "baseUrl": "src",
     "rootDirs": [
       "src",
       "stories"
     ],
-    "incremental": true
+    "module": "esnext"
   },
-  "exclude": [
-    "node_modules",
-    ".next"
-  ],
   "include": [
     "next-env.d.ts",
-    "**/*.js",
     "**/*.ts",
     "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

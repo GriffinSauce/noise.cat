@@ -1,4 +1,4 @@
-import fetcher from 'utils/fetcher'
+import fetcher from 'utils/fetcher';
 
 const NOTION_TOKEN = process.env.LA_NOTION_TOKEN as string;
 const BASEURL = 'https://www.notion.so/api/v3/';
@@ -18,7 +18,13 @@ const req = {
   },
 };
 
-function request({ endpoint, token }: { endpoint: string; token: string }):any {
+function request({
+  endpoint,
+  token,
+}: {
+  endpoint: string;
+  token: string;
+}): any {
   return fetcher<any>(`${BASEURL}${endpoint}`, {
     method: 'POST',
     headers: {
@@ -31,10 +37,12 @@ function request({ endpoint, token }: { endpoint: string; token: string }):any {
   });
 }
 
-export default async () => {
+const fetchCollection = async () => {
   const data = await request({
     endpoint: 'queryCollection',
     token: NOTION_TOKEN,
   });
   return data;
 };
+
+export default fetchCollection;

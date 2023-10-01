@@ -10,7 +10,7 @@ import Button from 'components/Button';
 import Modal from 'components/Modal';
 import Links from 'components/Links';
 
-const FormError = ({ children }: { children: string }) => (
+const FormError = ({ children }: { children: React.ReactNode }) => (
   <span className="absolute text-xs font-semibold">{children}</span>
 );
 
@@ -132,7 +132,7 @@ const LinksPage = () => {
                 onMouseEnter={blockDrag}
                 onMouseLeave={unblockDrag}
               />
-              <FormError>{errors?.title?.message}</FormError>
+              <FormError>{errors?.title?.message?.toString()}</FormError>
             </label>
             <label htmlFor="link-url">
               Paste a url
@@ -146,7 +146,7 @@ const LinksPage = () => {
                 onMouseEnter={blockDrag}
                 onMouseLeave={unblockDrag}
               />
-              <FormError>{errors?.url?.message}</FormError>
+              <FormError>{errors?.url?.message?.toString()}</FormError>
             </label>
           </div>
           {editingLink ? (

@@ -4,6 +4,7 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 
 type Props = {
+  children?: React.ReactNode;
   header?: boolean;
   footer?: boolean;
 };

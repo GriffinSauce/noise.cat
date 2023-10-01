@@ -63,5 +63,9 @@ input {
   @apply flex items-center justify-center;
 }
 
+.react-loading-skeleton {
+  z-index: 0;
+}
+
 @tailwind components;
 @tailwind utilities;

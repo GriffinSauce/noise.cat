@@ -58,4 +58,6 @@ const getShows = async (): Promise<Show[]> => {
   return airtableShows.map(mapColumns);
 };
 
-export default { get: getShows };
+const notionApi = { get: getShows };
+
+export default notionApi;

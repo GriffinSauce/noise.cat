@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import qs from 'qs';
 import { useState, useEffect } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import fetcher from 'utils/fetcher';
 import Layout from 'components/Layout';
 import Container from 'components/Container';
@@ -34,7 +34,7 @@ const Join = () => {
     };
 
     if (user) join();
-  }, [user]);
+  }, [router, slug, token, user]);
 
   return (
     <Layout header={false} footer={false}>
@@ -51,11 +51,9 @@ const Join = () => {
             <Link
               href={`/api/login?redirectTo=${encodeURIComponent(redirectTo)}`}
             >
-              <a>
-                <Button inline color="green">
-                  Sign in
-                </Button>
-              </a>
+              <Button inline color="green">
+                Sign in
+              </Button>
             </Link>
           ) : (
             <>

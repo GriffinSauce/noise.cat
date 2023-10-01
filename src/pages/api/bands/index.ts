@@ -4,7 +4,9 @@ import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 // @ts-expect-error
 const handler = withDb(async (req, res) => {
   const { method } = req;
-  const user = getSession(req, res)?.user;
+  const session = await getSession(req, res);
+  const user = session?.user;
+
   if (!user) {
     return res.status(403).json({
       error: `Unauthenticated`,

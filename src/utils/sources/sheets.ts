@@ -52,4 +52,6 @@ const get = async () => {
   return rows.map((row) => mapColumns(row.toObject()));
 };
 
-export default { get };
+const sheetsApi = { get };
+
+export default sheetsApi;
