@@ -1,6 +1,7 @@
+'use client';
 import { useState } from 'react';
 import useSWR from 'swr';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import { FiX } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
 import fetcher from 'utils/fetcher';
@@ -15,9 +16,7 @@ const FormError = ({ children }: { children: React.ReactNode }) => (
 );
 
 const LinksPage = () => {
-  const {
-    query: { band: slug },
-  } = useRouter();
+  const slug = useParams<{ band: string }>()?.band;
 
   const { data, mutate } = useSWR<{
     band: Band;

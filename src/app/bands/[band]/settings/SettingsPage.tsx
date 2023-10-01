@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router';
+'use client';
+import { useParams } from 'next/navigation';
 import useSWR from 'swr';
 import { useState } from 'react';
 import qs from 'qs';
@@ -11,9 +12,7 @@ import Members from 'components/Members';
 import Button from 'components/Button';
 
 const Settings = () => {
-  const {
-    query: { band: slug },
-  } = useRouter();
+  const slug = useParams<{ band: string }>()?.band;
   const { data } = useSWR<{ band: Band }>(slug ? `/api/bands/${slug}` : null);
   const [inviteState, setInviteState] = useState<null | 'loading'>(null);
 

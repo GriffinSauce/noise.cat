@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import { motion, useAnimation } from 'framer-motion';
 import Container from 'components/Container';
 
-ReactModal.setAppElement('#__next');
+// ReactModal.setAppElement('modal-container');
 
 const TRANSITION_TIME_MS = 150;
 

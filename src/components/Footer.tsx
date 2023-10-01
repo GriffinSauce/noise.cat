@@ -1,6 +1,6 @@
 import { useState, FunctionComponent } from 'react';
 import useSWR from 'swr';
-import { useRouter } from 'next/router';
+import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { FiCalendar, FiSettings, FiExternalLink } from 'react-icons/fi';
 import Modal from 'components/Modal';
@@ -9,10 +9,9 @@ import Image from 'next/image';
 
 const ActiveLink: FunctionComponent<{
   href: string;
-  as?: string;
   children?: React.ReactNode;
 }> = ({ children, href, ...props }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   return (
     <Link
       href={href}
@@ -28,11 +27,8 @@ const ActiveLink: FunctionComponent<{
 
 const Footer: FunctionComponent = () => {
   const [isOpen, setOpen] = useState(false);
-
-  const {
-    query: { band: slug },
-    pathname,
-  } = useRouter();
+  const slug = useParams<{ band: string }>()?.band;
+  const pathname = usePathname();
 
   const { data, error } = useSWR<{ bands: Array<Band> }>(
     slug ? `/api/bands` : null,
@@ -51,8 +47,7 @@ const Footer: FunctionComponent = () => {
         .map((band) => (
           <li key={band.slug}>
             <Link
-              href={pathname}
-              as={pathname.replace('[band]', band.slug)}
+              href={pathname && slug ? pathname.replace(slug, band.slug) : ''}
               legacyBehavior
             >
               <button
@@ -103,16 +98,13 @@ const Footer: FunctionComponent = () => {
                 <div className="w-8 h-8 rounded-full bg-gray-300" />
               )}
             </button>
-            <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
+            <ActiveLink href={`/bands/${slug}`}>
               <FiCalendar />
             </ActiveLink>
-            <ActiveLink href="/bands/[band]/links" as={`/bands/${slug}/links`}>
+            <ActiveLink href={`/bands/${slug}/links`}>
               <FiExternalLink />
             </ActiveLink>
-            <ActiveLink
-              href="/bands/[band]/settings"
-              as={`/bands/${slug}/settings`}
-            >
+            <ActiveLink href={`/bands/${slug}/settings`}>
               <FiSettings />
             </ActiveLink>
           </nav>

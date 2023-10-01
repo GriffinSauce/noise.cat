@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router';
+'use client';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import useSWR from 'swr';
@@ -6,7 +7,6 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import Layout from 'components/Layout';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
-import Image from 'next/image';
 import { Logo } from 'components/Logo';
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!data?.bands?.length) return;
-    router.push(`/bands/[band]`, `/bands/${data?.bands[0].slug}`);
+    router.push(`/bands/${data?.bands[0].slug}`);
   }, [data, router]);
 
   return (

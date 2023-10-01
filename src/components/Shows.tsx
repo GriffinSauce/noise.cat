@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import Skeleton from 'react-loading-skeleton';
 import { FiMapPin, FiAlignLeft } from 'react-icons/fi';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { FunctionComponent } from 'react';
 import AirtableContent from 'components/AirtableContent';
+import { useParams } from 'next/navigation';
 
 const ShowsSkeleton: FunctionComponent = () => (
   <>
@@ -31,9 +31,7 @@ const ShowsSkeleton: FunctionComponent = () => (
 );
 
 const Shows: FunctionComponent = () => {
-  const {
-    query: { band: slug },
-  } = useRouter();
+  const slug = useParams<{ band: string }>()?.band;
   const { data, error } = useSWR<{ shows: Array<Show> }>(
     slug ? `/api/bands/${slug}/shows` : null,
   );

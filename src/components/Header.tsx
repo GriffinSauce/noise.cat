@@ -13,8 +13,7 @@ const Header: FunctionComponent = () => {
       <Container>
         <nav className="flex items-center justify-between">
           <Link
-            href={data?.bands?.length ? '/bands/[band]' : '/'}
-            as={data?.bands?.length ? `/bands/${data?.bands[0].slug}` : '/'}
+            href={data?.bands?.length ? `/bands/${data?.bands[0].slug}` : '/'}
             className="flex items-center p-3 text-2xl font-bold leading-none font-display"
           >
             <Logo className="h-6 mr-3" />

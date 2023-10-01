@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 import useSWR from 'swr';
@@ -40,8 +41,7 @@ const Profile = () => {
                     {data.bands.map((band) => (
                       <li key={band.slug}>
                         <Link
-                          href="/bands/[band]"
-                          as={`/bands/${band.slug}`}
+                          href={`/bands/${band.slug}`}
                           className="block py-2 h3"
                         >
                           {band.name}

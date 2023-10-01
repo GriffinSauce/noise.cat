@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+'use client';
 import Link from 'next/link';
 import qs from 'qs';
 import { useState, useEffect } from 'react';
@@ -8,17 +8,17 @@ import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
-import Image from 'next/image';
 import { Logo } from 'components/Logo';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 const Join = () => {
   const router = useRouter();
-  const {
-    query: { band, slug, token },
-    asPath,
-  } = router;
+  const urlParams = useSearchParams();
+  const band = urlParams?.get('band');
+  const slug = urlParams?.get('slug');
+  const token = urlParams?.get('token');
 
-  const redirectTo = asPath;
+  const redirectTo = usePathname();
 
   const { user } = useUser();
   const [error, setError] = useState<null | string>(null);
@@ -32,7 +32,7 @@ const Join = () => {
         setError('Error fetching invite');
         return;
       }
-      router.push(`/bands/[band]`, `/bands/${slug}`);
+      router.push(`/bands/${slug}`);
     };
 
     if (user) join();
@@ -45,7 +45,7 @@ const Join = () => {
           <Logo className="inline-block w-20 mt-20 mb-10" />
           <h1 className="mb-2 text-4xl">Noise.cat</h1>
           <p className="mb-20 text-gray-400 h2">Join {band}</p>
-          {user ? (
+          {user && redirectTo ? (
             <Link
               href={`/api/login?redirectTo=${encodeURIComponent(redirectTo)}`}
             >
