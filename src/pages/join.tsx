@@ -8,6 +8,8 @@ import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
+import Image from 'next/image';
+import { Logo } from 'components/Logo';
 
 const Join = () => {
   const router = useRouter();
@@ -40,11 +42,7 @@ const Join = () => {
     <Layout header={false} footer={false}>
       <Container>
         <section className="p-4 text-center">
-          <img
-            className="inline-block w-20 mt-20 mb-10"
-            src="/noisecat.svg"
-            alt="logo"
-          />
+          <Logo className="inline-block w-20 mt-20 mb-10" />
           <h1 className="mb-2 text-4xl">Noise.cat</h1>
           <p className="mb-20 text-gray-400 h2">Join {band}</p>
           {user ? (

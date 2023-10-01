@@ -11,7 +11,7 @@ type Props = {
   disabled?: boolean;
   state?: null | 'loading';
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-  children?: React.ReactNode
+  children?: React.ReactNode;
   group?: boolean;
   type?: 'button' | 'submit';
 };

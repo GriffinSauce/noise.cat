@@ -25,6 +25,7 @@ const Avatar: FunctionComponent<Props> = ({
   return (
     <>
       {src ? (
+        // eslint-disable-next-line @next/next/no-img-element
         <img className="block rounded-full" alt={alt || ''} src={src} />
       ) : (
         <figure

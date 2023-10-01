@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FiCalendar, FiSettings, FiExternalLink } from 'react-icons/fi';
 import Modal from 'components/Modal';
 import Container from 'components/Container';
+import Image from 'next/image';
 
 const ActiveLink: FunctionComponent<{
   href: string;
@@ -61,10 +62,12 @@ const Footer: FunctionComponent = () => {
                 onClick={() => setOpen(false)}
                 type="button"
               >
-                <img
+                <Image
                   alt={band.name}
                   className="w-8 h-8 mr-2 rounded-full"
                   src={band.image}
+                  width={30}
+                  height={30}
                 />
                 <span>{band.name}</span>
               </button>
@@ -73,6 +76,9 @@ const Footer: FunctionComponent = () => {
         ))}
     </ul>
   );
+
+  const selectedBandImage = data.bands.find((band) => band.slug === slug)
+    ?.image;
 
   return (
     <>
@@ -85,11 +91,17 @@ const Footer: FunctionComponent = () => {
               onClick={() => setOpen(true)}
               type="button"
             >
-              <img
-                alt="band switcher"
-                className="w-8 h-8 rounded-full"
-                src={data.bands.find((band) => band.slug === slug)?.image}
-              />
+              {selectedBandImage ? (
+                <Image
+                  alt="band switcher"
+                  className="w-8 h-8 rounded-full"
+                  src={selectedBandImage}
+                  width={30}
+                  height={30}
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-gray-300" />
+              )}
             </button>
             <ActiveLink href="/bands/[band]" as={`/bands/${slug}`}>
               <FiCalendar />

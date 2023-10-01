@@ -14,9 +14,8 @@ const Loader: FunctionComponent<Props> = ({
           .loader {
             ${inline ? 'display: inline-block;' : ''}
             border: 0.1em solid ${light ? 'rgba(255,255,255,0.4)' : '#f3f3f3'};
-            border-top: 0.1em solid ${
-              light ? 'rgba(255,255,255,0.8)' : '#3498db'
-            };
+            border-top: 0.1em solid
+              ${light ? 'rgba(255,255,255,0.8)' : '#3498db'};
             width: 1em;
             height: 1em;
             animation: spin 1s linear infinite;

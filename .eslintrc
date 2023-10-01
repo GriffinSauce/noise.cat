@@ -2,32 +2,19 @@
   "env": {
     "jest/globals": true
   },
-  "plugins": [
-    "@typescript-eslint",
-    "jest"
-  ],
-  "extends": [
-    "next",
-    "prettier"
-  ],
+  "plugins": ["@typescript-eslint", "jest"],
+  "extends": ["next", "prettier"],
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": [
-          "**/*.test.tsx",
-          "next.config.mjs"
-        ]
+        "devDependencies": ["**/*.test.tsx", "next.config.mjs"]
       }
     ],
     "no-console": [
       2,
       {
-        "allow": [
-          "warn",
-          "error",
-          "info"
-        ]
+        "allow": ["warn", "error", "info"]
       }
     ],
     "no-unused-expressions": [
@@ -40,12 +27,10 @@
     "no-underscore-dangle": [
       "error",
       {
-        "allow": [
-          "_id"
-        ]
+        "allow": ["_id"]
       }
     ],
     "@typescript-eslint/prefer-interface": "off", // also want to use "type"
-    "@typescript-eslint/explicit-function-return-type": "off", // annoying to force return type
-  },
+    "@typescript-eslint/explicit-function-return-type": "off" // annoying to force return type
+  }
 }

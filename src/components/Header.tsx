@@ -3,6 +3,8 @@ import useSWR from 'swr';
 import Link from 'next/link';
 import { FiUser } from 'react-icons/fi';
 import Container from 'components/Container';
+import Image from 'next/image';
+import { Logo } from 'components/Logo';
 
 const Header: FunctionComponent = () => {
   const { data } = useSWR(`/api/bands`);
@@ -13,16 +15,13 @@ const Header: FunctionComponent = () => {
           <Link
             href={data?.bands?.length ? '/bands/[band]' : '/'}
             as={data?.bands?.length ? `/bands/${data?.bands[0].slug}` : '/'}
-            className="flex items-center p-3 text-2xl font-bold leading-none font-display">
-
-            <img className="h-6 mr-3" src="/noisecat.svg" alt="logo" />
+            className="flex items-center p-3 text-2xl font-bold leading-none font-display"
+          >
+            <Logo className="h-6 mr-3" />
             <span>Noise.cat</span>
-
           </Link>
           <Link href="/profile" className="p-3 text-2xl">
-
             <FiUser />
-
           </Link>
         </nav>
       </Container>
