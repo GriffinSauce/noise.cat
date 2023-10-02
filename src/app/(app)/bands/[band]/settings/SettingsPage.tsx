@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { useState } from 'react';
 import qs from 'qs';
 import Skeleton from 'react-loading-skeleton';
-import copyToClipboard from 'utils/copyToClipboard';
+import copyToClipboard from 'lib/copyToClipboard';
 import fetcher from 'utils/fetcher';
 import Container from 'components/Container';
 import Members from 'components/Members';
