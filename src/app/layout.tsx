@@ -43,8 +43,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       </head>
       <body>
         <Providers>{children}</Providers>
-        {/* TODO: rename to "modal-container" */}
-        <div id="modal-container" />
       </body>
     </html>
   );

@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 import { FiX } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
 import fetcher from 'utils/fetcher';
-import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Button from 'components/Button';
 import Modal from 'components/Modal';
@@ -94,7 +93,7 @@ const LinksPage = () => {
   };
 
   return (
-    <Layout>
+    <>
       <Container>
         <div className="p-4">
           <h1 className="mb-3">Links</h1>
@@ -173,7 +172,7 @@ const LinksPage = () => {
           )}
         </form>
       </Modal>
-    </Layout>
+    </>
   );
 };
 

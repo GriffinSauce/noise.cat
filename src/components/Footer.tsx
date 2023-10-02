@@ -1,3 +1,4 @@
+'use client';
 import { useState, FunctionComponent } from 'react';
 import useSWR from 'swr';
 import { useParams, usePathname } from 'next/navigation';

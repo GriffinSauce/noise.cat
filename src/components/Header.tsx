@@ -1,9 +1,9 @@
+'use client';
 import { FunctionComponent } from 'react';
 import useSWR from 'swr';
 import Link from 'next/link';
 import { FiUser } from 'react-icons/fi';
 import Container from 'components/Container';
-import Image from 'next/image';
 import { Logo } from 'components/Logo';
 
 const Header: FunctionComponent = () => {

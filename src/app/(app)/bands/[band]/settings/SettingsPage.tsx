@@ -6,7 +6,6 @@ import qs from 'qs';
 import Skeleton from 'react-loading-skeleton';
 import copyToClipboard from 'utils/copyToClipboard';
 import fetcher from 'utils/fetcher';
-import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Members from 'components/Members';
 import Button from 'components/Button';
@@ -37,22 +36,20 @@ const Settings = () => {
   };
 
   return (
-    <Layout>
-      <Container>
-        <div className="p-4">
-          <h1 className="mb-3">Band</h1>
-          <h3 className="label">Name</h3>
-          <h2>{data?.band?.name || <Skeleton width={200} />}</h2>
+    <Container>
+      <div className="p-4">
+        <h1 className="mb-3">Band</h1>
+        <h3 className="label">Name</h3>
+        <h2>{data?.band?.name || <Skeleton width={200} />}</h2>
 
-          <h3 className="block mt-4 label">Members</h3>
-          <Members />
-          <h3 className="block mt-4 label">Invite new members</h3>
-          <Button inline state={inviteState} onClick={copyInviteLink}>
-            Copy invite link
-          </Button>
-        </div>
-      </Container>
-    </Layout>
+        <h3 className="block mt-4 label">Members</h3>
+        <Members />
+        <h3 className="block mt-4 label">Invite new members</h3>
+        <Button inline state={inviteState} onClick={copyInviteLink}>
+          Copy invite link
+        </Button>
+      </div>
+    </Container>
   );
 };
 
