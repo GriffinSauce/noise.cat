@@ -1,7 +1,7 @@
 import { useState, FunctionComponent } from 'react';
 import useSWR from 'swr';
 import Skeleton from 'react-loading-skeleton';
-import fetcher from 'utils/fetcher';
+import fetcher from 'lib/fetcher';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Avatar from 'components/Avatar';
 import Button from 'components/Button';

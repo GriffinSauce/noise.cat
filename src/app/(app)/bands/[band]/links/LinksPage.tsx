@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { useParams } from 'next/navigation';
 import { FiX } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
-import fetcher from 'utils/fetcher';
+import fetcher from 'lib/fetcher';
 import Container from 'components/Container';
 import Button from 'components/Button';
 import Modal from 'components/Modal';

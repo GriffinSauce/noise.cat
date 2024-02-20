@@ -3,6 +3,7 @@ import { addDays } from 'date-fns';
 import { RateLimiterMongo } from 'rate-limiter-flexible';
 import withDb from 'middleware/withDb';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
+import clientPromise from 'lib/mongodb';
 
 const generateInviteToken = () => {
   return nanoid(48);
@@ -14,10 +15,12 @@ const handler = withDb(async (req, res) => {
 
   switch (method) {
     case 'GET': {
+      const dbClient = await clientPromise;
+
       // Rate limit this route, max 10 calls per day per IP
       const userIP = req.headers['x-forwarded-for'];
       const rateLimiterMongo = new RateLimiterMongo({
-        storeClient: req.dbClient,
+        storeClient: dbClient,
         dbName: process.env.MONGO_DB,
         tableName: 'invitesRateLimit',
         points: 10, // Number of points

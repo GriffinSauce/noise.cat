@@ -5,7 +5,7 @@ import { useState } from 'react';
 import qs from 'qs';
 import Skeleton from 'react-loading-skeleton';
 import copyToClipboard from 'lib/copyToClipboard';
-import fetcher from 'utils/fetcher';
+import fetcher from 'lib/fetcher';
 import Container from 'components/Container';
 import Members from 'components/Members';
 import Button from 'components/Button';

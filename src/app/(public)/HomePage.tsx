@@ -8,20 +8,20 @@ import Button from 'components/Button';
 import Loader from 'components/Loader';
 import { Logo } from 'components/Logo';
 
-const Home = () => {
+interface Props {
+  bands: Array<Band>;
+}
+
+const Home = ({ bands }: Props) => {
   // TODO: handle error and loading
   const { user, error, isLoading } = useUser();
 
   const router = useRouter();
 
-  const { data } = useSWR<{
-    bands: Array<Band>;
-  }>(`/api/bands`);
-
   useEffect(() => {
-    if (!data?.bands?.length) return;
-    router.push(`/bands/${data?.bands[0].slug}`);
-  }, [data, router]);
+    if (!bands?.length) return;
+    router.push(`/bands/${bands[0].slug}`);
+  }, [bands, router]);
 
   return (
     <section className="text-center">
@@ -30,7 +30,7 @@ const Home = () => {
       <p className="mb-20 text-gray-400 h2">Your band home</p>
       {user ? (
         <>
-          {data && !data.bands.length ? (
+          {bands.length ? (
             <Link href="/profile">
               <Button inline color="green">
                 View profile

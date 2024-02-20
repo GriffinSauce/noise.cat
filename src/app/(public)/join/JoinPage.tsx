@@ -3,7 +3,7 @@ import Link from 'next/link';
 import qs from 'qs';
 import { useState, useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import fetcher from 'utils/fetcher';
+import fetcher from 'lib/fetcher';
 import Container from 'components/Container';
 import Button from 'components/Button';
 import Loader from 'components/Loader';

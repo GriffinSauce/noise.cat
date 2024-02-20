@@ -1,7 +1,7 @@
 'use client';
 import { SWRConfig } from 'swr';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-import fetcher from 'utils/fetcher';
+import fetcher from 'lib/fetcher';
 
 const Providers = ({ children }: { children: React.ReactNode }) => (
   <UserProvider>

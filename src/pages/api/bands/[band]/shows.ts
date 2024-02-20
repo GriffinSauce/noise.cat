@@ -1,7 +1,7 @@
 import withDb from 'middleware/withDb';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
-import sheets from 'utils/sources/sheets';
-import airtable from 'utils/sources/airtable';
+import sheets from 'lib/sources/sheets';
+import airtable from 'lib/sources/airtable';
 
 // Data fetching is hardcoded per-band for now
 const getShows = async (slug: string) => {
